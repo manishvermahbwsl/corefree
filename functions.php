@@ -1160,6 +1160,15 @@ function cyberchimps_upgrade_bar() {
 			</div>
 		</div>
 	</div>
+<h4 class="notice notice-info is-dismissible" style="margin-top:15px;">
+<p>
+<?php 
+	$utm_link="https://cyberchimps.com/free-download-50-stock-images-use-please/?utm_source=" . $current_theme_name;
+ 	$utm_text="Get 50 Free High-Resolution Stock Images by CyberChimps";
+	printf('<a href="' . $utm_link . '" target="_blank">' . $utm_text . '</a> ');
+?>	 
+</p>
+</h4>
 <?php
 }
 
