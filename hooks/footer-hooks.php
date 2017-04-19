@@ -29,7 +29,7 @@ function cyberchimps_footer_credit() {
 					<div class="span6">
 						<div id="credit">
 							<?php if( cyberchimps_get_option( 'footer_cyberchimps_link', 1 ) == '1' ): ?>
-								<a href="http://cyberchimps.com/" target="_blank" title="CyberChimps' Free WordPress Themes">
+								<a href="http://cyberchimps.com/" target="_blank" title="CyberChimps Themes">
 									<?php if( 'free' == cyberchimps_theme_check() ) { ?>
 										<h4 class="cc-credit-text">CyberChimps WordPress Themes</h4></a>
 									<?php }
