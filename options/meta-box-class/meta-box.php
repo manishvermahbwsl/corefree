@@ -55,6 +55,7 @@ if( is_admin() ) {
 				'page_section'       => __( 'Page', 'cyberchimps_core' ),
 				'portfolio_lite'     => __( 'Portfolio Lite', 'cyberchimps_core' ),
 				'slider_lite'        => __( 'Slider Lite', 'cyberchimps_core' ),
+				'featured_lite'      => __( 'Featured lite', 'cyberchimps_core' ),
 				'twitterbar_section' => __( 'Twitter Bar', 'cyberchimps_core' )
 			) ),
 			'std'     => array( 'page_section' )
