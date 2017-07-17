@@ -1413,7 +1413,7 @@ function cyberchimps_wpforms_lite_callback( $value ) {
 
 	if( isset( $installed_plugins[$plugin] ) ) {
 		if( is_plugin_active( $plugin ) ) {
-			$output .= $icon . '<a href="' . admin_url( 'admin.php?page=wpforms.php' ) . '">' . __( 'WPForms Settings', 'cyberchimps_core' ) . '</a>';
+			$output .= $icon . '<a href="' . admin_url( 'admin.php?page=wpforms-overview' ) . '">' . __( 'WPForms Settings', 'cyberchimps_core' ) . '</a>';
 		}
 		else {
 			$output .= $icon_neg . '<a href="' . admin_url( 'plugins.php' ) . '">' . __( 'Please activate the "WPForms Lite" plugin', 'cyberchimps_core' ) . '</a>';
