@@ -1381,7 +1381,7 @@ add_filter( 'cyberchimps_field_list', 'cyberchimps_addon_fields', 20, 1 );
 // The SlideDeck text
 function cyberchimps_slidedeck_lite_callback( $value ) {
 	$output   = '';
-	$plugin   = 'slidedeck3/slidedeck2-lite.php';
+	$plugin   = 'slidedeck/slidedeck.php';
 	$icon     = '<img class="plugins-icon" src="' . get_template_directory_uri() . '/cyberchimps/options/lib/images/addons/slidedeck.png" />';
 	$icon_neg = '<img class="plugins-icon" src="' . get_template_directory_uri() . '/cyberchimps/options/lib/images/addons/slidedeck-neg.png" />';
 
@@ -1389,7 +1389,7 @@ function cyberchimps_slidedeck_lite_callback( $value ) {
 
 	if( isset( $installed_plugins[$plugin] ) ) {
 		if( is_plugin_active( $plugin ) ) {
-			$output .= $icon . '<a href="' . admin_url( 'admin.php?page=slidedeck2-lite.php' ) . '">' . __( 'SlideDeck Settings', 'cyberchimps_core' ) . '</a>';
+			$output .= $icon . '<a href="' . admin_url( 'admin.php?page=slidedeck.php' ) . '">' . __( 'SlideDeck Settings', 'cyberchimps_core' ) . '</a>';
 		}
 		else {
 			$output .= $icon_neg . '<a href="' . admin_url( 'plugins.php' ) . '">' . __( 'Please activate the "SlideDeck Lite" plugin', 'cyberchimps_core' ) . '</a>';
@@ -1429,7 +1429,7 @@ function cyberchimps_wpforms_lite_callback( $value ) {
 // return a nonced installation link for the plugin.
 function cyberchimps_slidedeck_install_link() {
 	include_once ABSPATH . 'wp-admin/includes/plugin-install.php';
-	$slug = 'slidedeck3';
+	$slug = 'slidedeck';
 
 	return wp_nonce_url( self_admin_url( 'update.php?action=install-plugin&plugin=' . $slug ), 'install-plugin_' . $slug );
 }
