@@ -77,7 +77,7 @@ function cyberchimps_core_scripts() {
 
 	// Load core JS
 	wp_enqueue_script( 'core-js', $js_path . 'core.min.js', array( 'jquery' ) );
-	
+
 	// Placeholder fix for IE8/9
 	if(preg_match('/(?i)msie [8-9]/',$_SERVER['HTTP_USER_AGENT']))
 	{
@@ -504,7 +504,7 @@ if( !function_exists( 'cyberchimps_posted_by' ) ) {
 
 		// If post byline author toggle is on then print HTML for author link.
 		if( $show_author ) {
-			echo apply_filters( 'cyberchimps_posted_by', $posted_by );			
+			echo apply_filters( 'cyberchimps_posted_by', $posted_by );
 		}
 	}
 }
@@ -1162,11 +1162,11 @@ function cyberchimps_upgrade_bar() {
 	</div>
 <h4 class="notice notice-info is-dismissible" style="margin-top:15px;">
 <p>
-<?php 
+<?php
 	$utm_link="https://cyberchimps.com/free-download-50-stock-images-use-please/?utm_source=" . $current_theme_name;
  	$utm_text="FREE - Download CyberChimps' Pack of 50 High-Resolution Stock Images Now";
 	printf('<a href="' . $utm_link . '" target="_blank" style="font-size:18px;">' . $utm_text . '</a> ');
-?>	 
+?>
 </p>
 </h4>
 <?php
@@ -1344,6 +1344,11 @@ function cyberchimps_addon_sections( $sections_list ) {
 		'heading' => 'cyberchimps_addons_heading'
 	);
 
+	$sections_list[] = array(
+		'id'      => 'cyberchimps_wpforms_lite_options',
+		'label'   => __( 'WPForms Lite', 'cyberchimps_core' ),
+		'heading' => 'cyberchimps_addons_heading'
+	);
 	return $sections_list;
 }
 
@@ -1359,6 +1364,14 @@ function cyberchimps_addon_fields( $fields_list ) {
 		'section'  => 'cyberchimps_slidedeck_lite_options',
 		'heading'  => 'cyberchimps_addons_heading'
 	);
+	$fields_list[] = array(
+		'name'     => __( 'WPForms Lite', 'cyberchimps_core' ),
+		'id'       => 'wpforms_lite',
+		'type'     => 'info',
+		'callback' => 'cyberchimps_wpforms_lite_callback',
+		'section'  => 'cyberchimps_wpforms_lite_options',
+		'heading'  => 'cyberchimps_addons_heading'
+	);
 
 	return $fields_list;
 }
@@ -1368,7 +1381,7 @@ add_filter( 'cyberchimps_field_list', 'cyberchimps_addon_fields', 20, 1 );
 // The SlideDeck text
 function cyberchimps_slidedeck_lite_callback( $value ) {
 	$output   = '';
-	$plugin   = 'slidedeck3/slidedeck2-lite.php';
+	$plugin   = 'slidedeck/slidedeck.php';
 	$icon     = '<img class="plugins-icon" src="' . get_template_directory_uri() . '/cyberchimps/options/lib/images/addons/slidedeck.png" />';
 	$icon_neg = '<img class="plugins-icon" src="' . get_template_directory_uri() . '/cyberchimps/options/lib/images/addons/slidedeck-neg.png" />';
 
@@ -1376,7 +1389,7 @@ function cyberchimps_slidedeck_lite_callback( $value ) {
 
 	if( isset( $installed_plugins[$plugin] ) ) {
 		if( is_plugin_active( $plugin ) ) {
-			$output .= $icon . '<a href="' . admin_url( 'admin.php?page=slidedeck2-lite.php' ) . '">' . __( 'SlideDeck Settings', 'cyberchimps_core' ) . '</a>';
+			$output .= $icon . '<a href="' . admin_url( 'admin.php?page=slidedeck.php' ) . '">' . __( 'SlideDeck Settings', 'cyberchimps_core' ) . '</a>';
 		}
 		else {
 			$output .= $icon_neg . '<a href="' . admin_url( 'plugins.php' ) . '">' . __( 'Please activate the "SlideDeck Lite" plugin', 'cyberchimps_core' ) . '</a>';
@@ -1389,10 +1402,42 @@ function cyberchimps_slidedeck_lite_callback( $value ) {
 	echo $output;
 }
 
+// The WPForms text
+function cyberchimps_wpforms_lite_callback( $value ) {
+	$output   = '';
+	$plugin   = 'wpforms-lite/wpforms.php';
+	$icon     = '<img class="plugins-icon" src="' . get_template_directory_uri() . '/cyberchimps/options/lib/images/addons/wpforms.png" />';
+	$icon_neg = '<img class="plugins-icon" src="' . get_template_directory_uri() . '/cyberchimps/options/lib/images/addons/wpforms-neg.png" />';
+
+	$installed_plugins = get_plugins();
+
+	if( isset( $installed_plugins[$plugin] ) ) {
+		if( is_plugin_active( $plugin ) ) {
+			$output .= $icon . '<a href="' . admin_url( 'admin.php?page=wpforms-overview' ) . '">' . __( 'WPForms Settings', 'cyberchimps_core' ) . '</a>';
+		}
+		else {
+			$output .= $icon_neg . '<a href="' . admin_url( 'plugins.php' ) . '">' . __( 'Please activate the "WPForms Lite" plugin', 'cyberchimps_core' ) . '</a>';
+		}
+	}
+	else {
+		$output .= $icon_neg . '<a href="' . cyberchimps_wpforms_install_link() . '">' . __( 'Install the "WPForms Lite" plugin', 'cyberchimps_core' ) . '</a>';
+	}
+
+	echo $output;
+}
+
 // return a nonced installation link for the plugin.
 function cyberchimps_slidedeck_install_link() {
 	include_once ABSPATH . 'wp-admin/includes/plugin-install.php';
-	$slug = 'slidedeck3';
+	$slug = 'slidedeck';
+
+	return wp_nonce_url( self_admin_url( 'update.php?action=install-plugin&plugin=' . $slug ), 'install-plugin_' . $slug );
+}
+
+// return a nonced installation link for the plugin.
+function cyberchimps_wpforms_install_link() {
+	include_once ABSPATH . 'wp-admin/includes/plugin-install.php';
+	$slug = 'wpforms-lite';
 
 	return wp_nonce_url( self_admin_url( 'update.php?action=install-plugin&plugin=' . $slug ), 'install-plugin_' . $slug );
 }
@@ -1419,10 +1464,11 @@ if ( 'mp6' === get_user_option( 'admin_color' ) || version_compare( $GLOBALS['wp
 
 // FOR IE compatiblilty mode.
 add_action( 'send_headers', 'cyberchimps_add_header_xua' );
-function cyberchimps_add_header_xua() 
+function cyberchimps_add_header_xua()
 {
-	if (!headers_sent()) 	
+	if (!headers_sent())
 	{
 		header( 'X-UA-Compatible: IE=edge,chrome=1' );
 	}
 }
+
