@@ -643,10 +643,15 @@ tr {
 #breadcrumbs_img,
 #boxes_lite_img,
 #portfolio_lite_img,
-#slider_lite_img
+#slider_lite_img,
+#testimonial_img
 {
 	float:right;
 	display:inline-block;
 	height: 1.6em;
 	width: 1.6em;
+}
+#testimonial_img
+{
+	background: url("../../lib/images/icons/testimonial.png") no-repeat;
 }
