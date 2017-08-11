@@ -125,6 +125,11 @@ function cyberchimps_add_core_sections( $sections_list ) {
 		'label'   => __( 'Social Icons', 'cyberchimps_core' ),
 		'heading' => 'cyberchimps_header_heading'
 	);
+        $sections_list[] = array(
+		'id'      => 'cyberchimps_header_contact_element',
+		'label'   => __( 'Contact Element', 'cyberchimps_core' ),
+		'heading' => 'cyberchimps_header_heading'
+	);
 
 	/***************************** BLOG **************************************************/
 
@@ -841,6 +846,14 @@ function cyberchimps_add_core_fields( $fields_list ) {
 			'heading' => 'cyberchimps_header_heading'
 		);
 	}
+        $fields_list[] = array(
+			'id'      => 'contact_details',
+			'name'    => __( 'Details', 'cyberchimps_core' ),
+			'type'    => 'textarea',
+			
+			'section' => 'cyberchimps_header_contact_element',
+			'heading' => 'cyberchimps_header_heading'
+		);
 	/********** HEADER OPTIONS ENDS ************/
 
 	/********** SOCIAL STARTS ************/
