@@ -164,6 +164,11 @@ function cyberchimps_add_core_sections( $sections_list ) {
 			'label'   => __( 'Testimonial Options', 'cyberchimps_core' ),
 			'heading' => 'cyberchimps_blog_heading'
 		);
+                 $sections_list[] = array(
+			'id'      => 'cyberchimps_contactus_section',
+			'label'   => __( 'Contact Us Options', 'cyberchimps_core' ),
+			'heading' => 'cyberchimps_blog_heading'
+		);
 
 	endif;
 
@@ -2421,6 +2426,58 @@ function cyberchimps_add_core_fields( $fields_list ) {
 		);
 
 		/********* TESTIMONIAL OPTIONS ENDS *************/
+                /********* CONTACT US OPTIONS STARTS ************** / */
+            $fields_list[] = array(
+			'name'    => __( 'Contact Section Title', 'cyberchimps_core' ),
+			'id'      => 'custom_contact_title',
+			'std'     => __( 'Get In Touch', 'cyberchimps_core' ),
+			'type'    => 'text',
+			'section' => 'cyberchimps_contactus_section',
+			'heading' => 'cyberchimps_blog_heading'
+		);
+             $fields_list[] = array(
+			'name'    => __( 'Contact Address', 'cyberchimps_core' ),
+			'id'      => 'custom_contact_address',
+			'std'     => __( '978, Pleasant Avenue, Lorem Ipsum, Fl-300111', 'cyberchimps_core' ),
+			'type'    => 'text',
+			'section' => 'cyberchimps_contactus_section',
+			'heading' => 'cyberchimps_blog_heading'
+		); 
+              $fields_list[] = array(
+			'name'    => __( 'Contact Number', 'cyberchimps_core' ),
+			'id'      => 'custom_contact_number',
+			'std'     => __( '+1-23-9876543', 'cyberchimps_core' ),
+			'type'    => 'text',
+			'section' => 'cyberchimps_contactus_section',
+			'heading' => 'cyberchimps_blog_heading'
+		);
+               $fields_list[] = array(
+			'name'    => __( 'Contact Email', 'cyberchimps_core' ),
+			'id'      => 'custom_contact_email',
+			'std'     => __( 'contact@cyberchimps.com', 'cyberchimps_core' ),
+			'type'    => 'text',
+			'section' => 'cyberchimps_contactus_section',
+			'heading' => 'cyberchimps_blog_heading'
+		);
+                $fields_list[] = array(
+			'name'    => __( 'Additional data', 'cyberchimps_core' ),
+			'id'      => 'contactus_element_text',
+			'std'     => '',
+                        'desc'    => __('Recommended: Contact Form','cyberchimps_core'),
+			'type'    => 'text',
+			'section' => 'cyberchimps_contactus_section',
+			'heading' => 'cyberchimps_blog_heading'
+		);
+                $fields_list[] = array(
+			'name'    => __( 'Background Image', 'cyberchimps_core' ),
+			'id'      => 'contactus_background_image',
+			'std'     => apply_filters( 'cyberchimps_contact_bg_img', $directory_uri . '/cyberchimps/lib/images/contact_bg.jpg' ),
+                        'desc'    => __('Best suited image size is 1280px * 375px', 'cyberchimps_core'),
+			'type'    => 'upload',
+			'section' => 'cyberchimps_contactus_section',
+			'heading' => 'cyberchimps_blog_heading'
+		);
+            /********* CONTACT US OPTIONS ENDS ************** /
 	/*************************** TEMPLATES ***************************************************/
 
 	/* SINGLE POSTS */
