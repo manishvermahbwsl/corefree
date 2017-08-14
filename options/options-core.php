@@ -2481,15 +2481,7 @@ function cyberchimps_add_core_fields( $fields_list ) {
 			'section' => 'cyberchimps_contactus_section',
 			'heading' => 'cyberchimps_blog_heading'
 		);
-                $fields_list[] = array(
-			'name'    => __( 'Background Image', 'cyberchimps_core' ),
-			'id'      => 'contactus_background_image',
-			'std'     => apply_filters( 'cyberchimps_contact_bg_img', $directory_uri . '/cyberchimps/lib/images/contact_bg.jpg' ),
-                        'desc'    => __('Best suited image size is 1280px * 375px', 'cyberchimps_core'),
-			'type'    => 'upload',
-			'section' => 'cyberchimps_contactus_section',
-			'heading' => 'cyberchimps_blog_heading'
-		);
+                
             /********* CONTACT US OPTIONS ENDS ************** /
 	/*************************** TEMPLATES ***************************************************/
 
