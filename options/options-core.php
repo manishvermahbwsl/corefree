@@ -170,7 +170,7 @@ function cyberchimps_add_core_sections( $sections_list ) {
 			'heading' => 'cyberchimps_blog_heading'
 		);
                  $sections_list[] = array(
-			'id'      => 'cyberchimps_contactus_section',
+			'id'      => 'cyberchimps_map_contact_section',
 			'label'   => __( 'Contact Us Options', 'cyberchimps_core' ),
 			'heading' => 'cyberchimps_blog_heading'
 		);
@@ -2454,7 +2454,7 @@ function cyberchimps_add_core_fields( $fields_list ) {
 			'id'      => 'custom_contact_title',
 			'std'     => __( 'Get In Touch', 'cyberchimps_core' ),
 			'type'    => 'text',
-			'section' => 'cyberchimps_contactus_section',
+			'section' => 'cyberchimps_map_contact_section',
 			'heading' => 'cyberchimps_blog_heading'
 		);
              $fields_list[] = array(
@@ -2462,7 +2462,7 @@ function cyberchimps_add_core_fields( $fields_list ) {
 			'id'      => 'custom_contact_address',
 			'std'     => __( '978, Pleasant Avenue, Lorem Ipsum, Fl-300111', 'cyberchimps_core' ),
 			'type'    => 'text',
-			'section' => 'cyberchimps_contactus_section',
+			'section' => 'cyberchimps_map_contact_section',
 			'heading' => 'cyberchimps_blog_heading'
 		); 
               $fields_list[] = array(
@@ -2470,7 +2470,7 @@ function cyberchimps_add_core_fields( $fields_list ) {
 			'id'      => 'custom_contact_number',
 			'std'     => __( '+1-23-9876543', 'cyberchimps_core' ),
 			'type'    => 'text',
-			'section' => 'cyberchimps_contactus_section',
+			'section' => 'cyberchimps_map_contact_section',
 			'heading' => 'cyberchimps_blog_heading'
 		);
                $fields_list[] = array(
@@ -2478,7 +2478,7 @@ function cyberchimps_add_core_fields( $fields_list ) {
 			'id'      => 'custom_contact_email',
 			'std'     => __( 'contact@cyberchimps.com', 'cyberchimps_core' ),
 			'type'    => 'text',
-			'section' => 'cyberchimps_contactus_section',
+			'section' => 'cyberchimps_map_contact_section',
 			'heading' => 'cyberchimps_blog_heading'
 		);
                 $fields_list[] = array(
@@ -2487,7 +2487,7 @@ function cyberchimps_add_core_fields( $fields_list ) {
 			'std'     => '',
                         'desc'    => __('Recommended: Contact Form','cyberchimps_core'),
 			'type'    => 'text',
-			'section' => 'cyberchimps_contactus_section',
+			'section' => 'cyberchimps_map_contact_section',
 			'heading' => 'cyberchimps_blog_heading'
 		);
                 
