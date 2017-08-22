@@ -423,3 +423,16 @@ a.symbol:hover {
     top: 0;
   }
 }
+/*==================Testimonial element ====================*/
+#testimonial_section .container
+{
+	max-width:100%;
+}
+#testimonial_img
+{
+	background: url("../images/icons/testimonial.png") no-repeat;
+        float:right;
+	display:inline-block;
+	height: 1.6em;
+	width: 1.55em;
+}

@@ -125,6 +125,11 @@ function cyberchimps_add_core_sections( $sections_list ) {
 		'label'   => __( 'Social Icons', 'cyberchimps_core' ),
 		'heading' => 'cyberchimps_header_heading'
 	);
+        $sections_list[] = array(
+		'id'      => 'cyberchimps_header_contact_element',
+		'label'   => __( 'Contact Element', 'cyberchimps_core' ),
+		'heading' => 'cyberchimps_header_heading'
+	);
 
 	/***************************** BLOG **************************************************/
 
@@ -157,6 +162,16 @@ function cyberchimps_add_core_sections( $sections_list ) {
 		$sections_list[] = array(
 			'id'      => 'cyberchimps_blog_boxes_lite_section',
 			'label'   => __( 'Boxes Lite', 'cyberchimps_core' ),
+			'heading' => 'cyberchimps_blog_heading'
+		);
+                $sections_list[] = array(
+			'id'      => 'cyberchimps_testimonial_section',
+			'label'   => __( 'Testimonial Options', 'cyberchimps_core' ),
+			'heading' => 'cyberchimps_blog_heading'
+		);
+                 $sections_list[] = array(
+			'id'      => 'cyberchimps_map_contact_section',
+			'label'   => __( 'Contact Us Options', 'cyberchimps_core' ),
 			'heading' => 'cyberchimps_blog_heading'
 		);
 
@@ -349,6 +364,14 @@ function cyberchimps_add_core_fields( $fields_list ) {
 	if ( !is_wp_error( $portfolio_categories ) ) {
 		foreach ( $slide_categories as $slide_cat ) {
 			$options_slide_cats[$slide_cat->term_id] = $slide_cat->name;
+		}
+	}
+         // Pull all testimonial categories
+	$options_testimonial_cats = array();
+	$testimonial_categories   = get_terms( 'testimonial_categories', array( 'hide_empty' => 0 ) );
+	if ( !is_wp_error( $testimonial_categories ) ) {
+		foreach ( $testimonial_categories as $testimonial_cat ) {
+			$options_testimonial_cats[$testimonial_cat->term_id] = $testimonial_cat->name;
 		}
 	}
 
@@ -823,6 +846,14 @@ function cyberchimps_add_core_fields( $fields_list ) {
 			'heading' => 'cyberchimps_header_heading'
 		);
 	}
+        $fields_list[] = array(
+			'id'      => 'contact_details',
+			'name'    => __( 'Contact Number', 'cyberchimps_core' ),
+			'type'    => 'textarea',
+			
+			'section' => 'cyberchimps_header_contact_element',
+			'heading' => 'cyberchimps_header_heading'
+		);
 	/********** HEADER OPTIONS ENDS ************/
 
 	/********** SOCIAL STARTS ************/
@@ -2376,7 +2407,188 @@ function cyberchimps_add_core_fields( $fields_list ) {
 	 * /* Social options for profile ends */
 
 	/********* PROFILE OPTIONS ENDS ************/
+/********* TESTIMONIAL OPTIONS STARTS ***********/
 
+	$fields_list[] = array(
+			'name'    => __( 'Testimonial Section Title', 'cyberchimps_core' ),
+			'desc'    => '',
+			'id'      => 'ir_testimonial_title',
+			'type'    => 'text',
+			'std'     => 'Testimonial',
+			'section' => 'cyberchimps_testimonial_section',
+			'heading' => 'cyberchimps_blog_heading'
+		);	
+        
+		$fields_list[] = array(
+			'name'    => __( 'Background Image', 'cyberchimps_core' ),
+			'desc'    => __('Best suited image size is 1280px * 375px', 'cyberchimps_core'),
+			'id'      => 'testimonial_background',
+			'type'    => 'upload',
+			'std'     => apply_filters( 'cyberchimps_testimonial_img', $directory_uri . '/cyberchimps/lib/images/testimonial.jpg' ),
+			'section' => 'cyberchimps_testimonial_section',
+			'heading' => 'cyberchimps_blog_heading'
+		);
+                /* Options for testimonial 1 starts */
+                // Image uploader
+		$fields_list[] = array(
+			'name'    => __( 'First Testimonial Image', 'cyberchimps_core' ),
+			'desc'    => __( 'Best suited image size is 200px * 200px', 'cyberchimps_core' ),
+			'id'      => 'cyberchimps_blog_testimonial_image_one',
+			'type'    => 'upload',
+			'std'     => $directory_uri . apply_filters( 'cyberchimps_testimonial_img1', '/elements/lib/images/testimonial/client01.jpg' ),
+			'section' => 'cyberchimps_testimonial_section',
+			'heading' => 'cyberchimps_blog_heading'
+		);
+                // First Client Name
+		$fields_list[] = array(
+			'name'    => __( 'First Testimonial Author Name', 'cyberchimps_core' ),
+			'id'      => 'cyberchimps_blog_client_one',
+			'std'     => 'Nancy Martin',
+			'type'    => 'text',
+			'section' => 'cyberchimps_testimonial_section',
+			'heading' => 'cyberchimps_blog_heading'
+		);
+                // First Client about
+		$fields_list[] = array(
+			'name'    => __( 'First Testimonial about the Author', 'cyberchimps_core' ),
+			'id'      => 'cyberchimps_blog_client_abt_one',
+			'std'     => 'Developer',
+			'type'    => 'text',
+			'section' => 'cyberchimps_testimonial_section',
+			'heading' => 'cyberchimps_blog_heading'
+		);
+                // First Testimonial Text
+		$fields_list[] = array(
+			'name'    => __( 'First Testimonial Text', 'cyberchimps_core' ),
+			'id'      => 'cyberchimps_testimonial_one_text',
+			'type'    => 'textarea',
+			'std'     => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc nec nisl ut est ultricies pellentesque id eu massa. Pellentesque fermentum posuere odio non accumsan. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Mauris scelerisque auctor ligula sed aliquet.',
+			'section' => 'cyberchimps_testimonial_section',
+			'heading' => 'cyberchimps_blog_heading'
+		);
+                
+                /* Options for testimonial 2 starts */
+                // Image uploader
+		$fields_list[] = array(
+			'name'    => __( 'Second Testimonial Image', 'cyberchimps_core' ),
+			'desc'    => __( 'Best suited image size is 200px * 200px', 'cyberchimps_core' ),
+			'id'      => 'cyberchimps_blog_testimonial_image_two',
+			'type'    => 'upload',
+			'std'     => $directory_uri . apply_filters( 'cyberchimps_testimonial_img2', '/elements/lib/images/testimonial/client02.jpg' ),
+			'section' => 'cyberchimps_testimonial_section',
+			'heading' => 'cyberchimps_blog_heading'
+		);
+                // Second Client Name
+		$fields_list[] = array(
+			'name'    => __( 'Second Testimonial Author Name', 'cyberchimps_core' ),
+			'id'      => 'cyberchimps_blog_client_two',
+			'std'     => 'Nancy Martin',
+			'type'    => 'text',
+			'section' => 'cyberchimps_testimonial_section',
+			'heading' => 'cyberchimps_blog_heading'
+		);
+                 // First Client about
+		$fields_list[] = array(
+			'name'    => __( 'Second Testimonial about the Author', 'cyberchimps_core' ),
+			'id'      => 'cyberchimps_blog_client_abt_two',
+			'std'     => 'Designer',
+			'type'    => 'text',
+			'section' => 'cyberchimps_testimonial_section',
+			'heading' => 'cyberchimps_blog_heading'
+		);
+                // Second Testimonial Text
+		$fields_list[] = array(
+			'name'    => __( 'Second Testimonial Text', 'cyberchimps_core' ),
+			'id'      => 'cyberchimps_testimonial_two_text',
+			'type'    => 'textarea',
+			'std'     => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc nec nisl ut est ultricies pellentesque id eu massa. Pellentesque fermentum posuere odio non accumsan. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Mauris scelerisque auctor ligula sed aliquet.',
+			'section' => 'cyberchimps_testimonial_section',
+			'heading' => 'cyberchimps_blog_heading'
+		);
+                /* Options for testimonial 3 starts */
+                // Image uploader
+		$fields_list[] = array(
+			'name'    => __( 'Third Testimonial Image', 'cyberchimps_core' ),
+			'desc'    => __( 'Best suited image size is 200px * 200px', 'cyberchimps_core' ),
+			'id'      => 'cyberchimps_blog_testimonial_image_three',
+			'type'    => 'upload',
+			'std'     => $directory_uri . apply_filters( 'cyberchimps_testimonial_img3', '/elements/lib/images/testimonial/client01.jpg' ),
+			'section' => 'cyberchimps_testimonial_section',
+			'heading' => 'cyberchimps_blog_heading'
+		);
+                 // Third Client Name
+		$fields_list[] = array(
+			'name'    => __( 'Third Testimonial Author Name', 'cyberchimps_core' ),
+			'id'      => 'cyberchimps_blog_client_three',
+			'std'     => 'Nancy Martin',
+			'type'    => 'text',
+			'section' => 'cyberchimps_testimonial_section',
+			'heading' => 'cyberchimps_blog_heading'
+		);
+                 // Third Client about
+		$fields_list[] = array(
+			'name'    => __( 'Third Testimonial about the Author', 'cyberchimps_core' ),
+			'id'      => 'cyberchimps_blog_client_abt_three',
+			'std'     => 'Developer',
+			'type'    => 'text',
+			'section' => 'cyberchimps_testimonial_section',
+			'heading' => 'cyberchimps_blog_heading'
+		);
+                // First Testimonial Text
+		$fields_list[] = array(
+			'name'    => __( 'Third Testimonial Text', 'cyberchimps_core' ),
+			'id'      => 'cyberchimps_testimonial_three_text',
+			'type'    => 'textarea',
+			'std'     => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc nec nisl ut est ultricies pellentesque id eu massa. Pellentesque fermentum posuere odio non accumsan. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Mauris scelerisque auctor ligula sed aliquet.',
+			'section' => 'cyberchimps_testimonial_section',
+			'heading' => 'cyberchimps_blog_heading'
+		);
+
+		/********* TESTIMONIAL OPTIONS ENDS *************/
+                /********* CONTACT US OPTIONS STARTS ************** / */
+            $fields_list[] = array(
+			'name'    => __( 'Contact Section Title', 'cyberchimps_core' ),
+			'id'      => 'custom_contact_title',
+			'std'     => __( 'Get In Touch', 'cyberchimps_core' ),
+			'type'    => 'text',
+			'section' => 'cyberchimps_map_contact_section',
+			'heading' => 'cyberchimps_blog_heading'
+		);
+             $fields_list[] = array(
+			'name'    => __( 'Contact Address', 'cyberchimps_core' ),
+			'id'      => 'custom_contact_address',
+			'std'     => __( '978, Pleasant Avenue, Lorem Ipsum, Fl-300111', 'cyberchimps_core' ),
+			'type'    => 'text',
+			'section' => 'cyberchimps_map_contact_section',
+			'heading' => 'cyberchimps_blog_heading'
+		); 
+              $fields_list[] = array(
+			'name'    => __( 'Contact Number', 'cyberchimps_core' ),
+			'id'      => 'custom_contact_number',
+			'std'     => __( '+1-23-9876543', 'cyberchimps_core' ),
+			'type'    => 'text',
+			'section' => 'cyberchimps_map_contact_section',
+			'heading' => 'cyberchimps_blog_heading'
+		);
+               $fields_list[] = array(
+			'name'    => __( 'Contact Email', 'cyberchimps_core' ),
+			'id'      => 'custom_contact_email',
+			'std'     => __( 'contact@cyberchimps.com', 'cyberchimps_core' ),
+			'type'    => 'text',
+			'section' => 'cyberchimps_map_contact_section',
+			'heading' => 'cyberchimps_blog_heading'
+		);
+                $fields_list[] = array(
+			'name'    => __( 'Additional data', 'cyberchimps_core' ),
+			'id'      => 'contactus_element_text',
+			'std'     => '',
+                        'desc'    => __('Recommended: Contact Form','cyberchimps_core'),
+			'type'    => 'text',
+			'section' => 'cyberchimps_map_contact_section',
+			'heading' => 'cyberchimps_blog_heading'
+		);
+                
+            /********* CONTACT US OPTIONS ENDS ************** /
 	/*************************** TEMPLATES ***************************************************/
 
 	/* SINGLE POSTS */
