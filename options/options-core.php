@@ -848,7 +848,7 @@ function cyberchimps_add_core_fields( $fields_list ) {
 	}
         $fields_list[] = array(
 			'id'      => 'contact_details',
-			'name'    => __( 'Details', 'cyberchimps_core' ),
+			'name'    => __( 'Contact Number', 'cyberchimps_core' ),
 			'type'    => 'textarea',
 			
 			'section' => 'cyberchimps_header_contact_element',
@@ -2432,7 +2432,7 @@ function cyberchimps_add_core_fields( $fields_list ) {
                 // Image uploader
 		$fields_list[] = array(
 			'name'    => __( 'First Testimonial Image', 'cyberchimps_core' ),
-			'desc'    => __( 'Enter URL or upload file', 'cyberchimps_core' ),
+			'desc'    => __( 'Best suited image size is 200px * 200px', 'cyberchimps_core' ),
 			'id'      => 'cyberchimps_blog_testimonial_image_one',
 			'type'    => 'upload',
 			'std'     => $directory_uri . apply_filters( 'cyberchimps_testimonial_img1', '/elements/lib/images/testimonial/client01.jpg' ),
@@ -2471,7 +2471,7 @@ function cyberchimps_add_core_fields( $fields_list ) {
                 // Image uploader
 		$fields_list[] = array(
 			'name'    => __( 'Second Testimonial Image', 'cyberchimps_core' ),
-			'desc'    => __( 'Enter URL or upload file', 'cyberchimps_core' ),
+			'desc'    => __( 'Best suited image size is 200px * 200px', 'cyberchimps_core' ),
 			'id'      => 'cyberchimps_blog_testimonial_image_two',
 			'type'    => 'upload',
 			'std'     => $directory_uri . apply_filters( 'cyberchimps_testimonial_img2', '/elements/lib/images/testimonial/client02.jpg' ),
@@ -2509,7 +2509,7 @@ function cyberchimps_add_core_fields( $fields_list ) {
                 // Image uploader
 		$fields_list[] = array(
 			'name'    => __( 'Third Testimonial Image', 'cyberchimps_core' ),
-			'desc'    => __( 'Enter URL or upload file', 'cyberchimps_core' ),
+			'desc'    => __( 'Best suited image size is 200px * 200px', 'cyberchimps_core' ),
 			'id'      => 'cyberchimps_blog_testimonial_image_three',
 			'type'    => 'upload',
 			'std'     => $directory_uri . apply_filters( 'cyberchimps_testimonial_img3', '/elements/lib/images/testimonial/client01.jpg' ),
