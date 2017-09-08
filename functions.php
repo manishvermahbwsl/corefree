@@ -1500,7 +1500,7 @@ if(!function_exists('cyberchimps_posts_author_bio'))
                                         $auther_link_title = esc_attr( sprintf( __( 'View all posts by %s', 'cyberchimps_core' ), get_the_author() ) );
 
                                         echo '<div class="author vcard author_bio_name">
-								<a class="url fn n" href="' . $auther_posts_url . '" title="' . $auther_link_title . '" rel="author">' . esc_html( get_the_author() ) . '</a>
+								<a class="url" href="' . $auther_posts_url . '" title="' . $auther_link_title . '" rel="author">' . esc_html( get_the_author() ) . '</a>
 							</div>';
                                         echo $user_description;
                                         ?>
