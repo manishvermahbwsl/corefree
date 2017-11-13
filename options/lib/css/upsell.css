@@ -100,7 +100,10 @@ ul, ol {
 	-o-transition-delay: 500ms;
 	transition-delay: 500ms;
 }
-
+#upsell_themes > div:nth-of-type(3n+1) /*1)*/
+{
+clear:both;
+}
 .image-container:hover .theme-description {
 	top: 0;
 	display: block;

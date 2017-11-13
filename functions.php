@@ -1141,7 +1141,7 @@ function cyberchimps_upgrade_bar() {
 			); ?>
 		</p>
 
-		<div class="social-container">
+	<!--	<div class="social-container">
 			<div class="social">
 				<a href="https://twitter.com/cyberchimps" class="twitter-follow-button" data-show-count="false" data-size="small">Follow @cyberchimps</a>
 				<script>!function (d, s, id) {
@@ -1159,7 +1159,7 @@ function cyberchimps_upgrade_bar() {
 					src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fcyberchimps.com%2F&amp;send=false&amp;layout=button_count&amp;width=200&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21"
 					scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:200px; height:21px;" allowTransparency="true"></iframe>
 			</div>
-		</div>
+		</div>-->
 	</div>
 <h4 class="notice notice-info is-dismissible" style="margin-top:15px;">
 <p>

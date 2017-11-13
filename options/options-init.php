@@ -162,34 +162,15 @@ function cyberchimps_options_page() {
 					</div>
 					<!-- cc-mobil-menu -->
 
-					<div class="cc-social-container-subheader hidden-phone">
-						<div class="cc-social twitter">
-							<a href="https://twitter.com/cyberchimps" class="twitter-follow-button" data-show-count="false" data-size="small">Follow @cyberchimps</a>
-							<script>!function (d, s, id) {
-									var js, fjs = d.getElementsByTagName(s)[0];
-									if (!d.getElementById(id)) {
-										js = d.createElement(s);
-										js.id = id;
-										js.src = "//platform.twitter.com/widgets.js";
-										fjs.parentNode.insertBefore(js, fjs);
-									}
-								}(document, "script", "twitter-wjs");</script>
-						</div>
-						<!-- cc-scoial -->
-						<div class="cc-social facebook">
-							<iframe
-								src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fcyberchimps.com%2F&amp;send=false&amp;layout=button_count&amp;width=200&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21"
-								scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:200px; height:21px;" allowTransparency="true"></iframe>
-						</div>
-						<!-- cc-scoial -->
-					</div>
-					<!-- cc-social-container -->
-				</div>
+									</div>
 				<!-- cc-collapse -->
 
 
 				<div class="cc-submenu-links">
-					<input type="submit" id="cyberchimps_options_submit" class="btn btn-primary" name="update" value="<?php esc_attr_e( 'Save Options', 'cyberchimps_core' ); ?>"/>
+					<a class="btn" href="https://cyberchimps.com/plus/" title="Need Customization" target="_blank"><?php _e( 'Need Customization', 'cyberchimps_core' ); ?></a> 						
+					<a class="btn btn-primary" href="<?php echo apply_filters( 'cyberchimps_rating_link', 'http://cyberchimps.com/forum'); ?>" title="<?php esc_attr_e( 'Leave a star rating', 'cyberchimps_core' ); ?>" target="_blank">
+				<?php _e( 'Leave a star rating', 'cyberchimps_core' ); ?></a>
+					<input type="submit" id="cyberchimps_options_submit" class="btn" name="update" value="<?php esc_attr_e( 'Save Options', 'cyberchimps_core' ); ?>"/>
 					<button class="reset-button btn" name="reset" onclick="return confirm( '<?php print esc_js( __( 'Click OK to reset. Any theme settings will be lost!',
 					                                                                                                'cyberchimps_core' ) ); ?>' );">
 						<?php esc_attr_e( 'Restore Defaults', 'cyberchimps_core' ); ?>
