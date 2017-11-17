@@ -238,7 +238,7 @@ function cyberchimps_customize( $wp_customize ) {
     );
     $option_categories = array();
     $category_lists = get_categories( $args );
-    $option_categories[''] = esc_html( __( 'Choose Category', 'responsive' ) );
+    $option_categories[''] = esc_html( __( 'Choose Category', 'cyberchimps_core' ) );
     foreach ( $category_lists as $category ) {
     	$option_categories[ $category->term_id ] = $category->name;
     }
