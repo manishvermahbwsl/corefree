@@ -171,7 +171,7 @@ function cyberchimps_options_page() {
 						<a class="btn" href="<?php echo apply_filters( 'cyberchimps_demodata', 'http://cyberchimps.com'); ?>" title="<?php esc_attr_e( 'Theme Demo Data', 'cyberchimps_core' ); ?>" target="_blank">
 				<?php _e( 'Theme Demo Data', 'cyberchimps_core' ); ?></a>					
 					<?php }?>
-					<a class="btn" href="https://cyberchimps.com/plus/" title="Need Customization" target="_blank"><?php _e( 'Need Customization', 'cyberchimps_core' ); ?></a> 						
+					<a class="btn" href="https://cyberchimps.com/contact/" title="Need Customization" target="_blank"><?php _e( 'Need Customization?', 'cyberchimps_core' ); ?></a> 						
 					<a class="btn btn-primary" href="<?php echo apply_filters( 'cyberchimps_rating_link', 'http://wordpress.org/'); ?>" title="<?php esc_attr_e( 'Leave a star rating', 'cyberchimps_core' ); ?>" target="_blank">
 				<?php _e( 'Leave a star rating', 'cyberchimps_core' ); ?></a>
 					<input type="submit" id="cyberchimps_options_submit" class="btn" name="update" value="<?php esc_attr_e( 'Save Options', 'cyberchimps_core' ); ?>"/>
@@ -179,6 +179,8 @@ function cyberchimps_options_page() {
 					                                                                                                'cyberchimps_core' ) ); ?>' );">
 						<?php esc_attr_e( 'Restore Defaults', 'cyberchimps_core' ); ?>
 					</button>
+					<a class="btn" href="<?php echo esc_url( 'https://cyberchimps.com/store/iribbon-pro#whygopro' ); ?>" title="<?php esc_attr_e( 'Why Go Pro?', 'cyberchimps_core' ); ?>" target="_blank">
+				<?php _e( 'Why Go Pro?', 'cyberchimps_core' ); ?></a>
 				</div>
 				<!-- cc-submenu-links -->
 				<div class="clear"></div>
@@ -279,16 +281,16 @@ function cyberchimps_options_page() {
 	<!-- start footer -->
 	<div class="row-fluid">
 		<div class="cc-footer">
-			<div class="span3">
+			<!--  <div class="span3">
 				<div class="cc-logo">
 					<a href="http://cyberchimps.com" title="<?php esc_attr_e( 'CyberChimps WordPress Themes', 'cyberchimps_core' ); ?>"><img
 							src="<?php echo get_template_directory_uri(); ?>/cyberchimps/options/lib/images/options/chimp.png"
 							alt="<?php esc_attr_e( 'CyberChimps WordPress Themes', 'cyberchimps_core' ); ?>"/><span>CyberChimps</span></a>
 				</div>
 				<!-- cc-logo -->
-			</div>
+			<!--  </div>-->
 			<!-- span3 -->
-			<div class="span9">
+			<div class="span12">
 				<!--<div class="cc-social-contavadn/e-shopperpro2 (pull request #9)
 
 Template changes for WooCommerceiner">
@@ -318,7 +320,7 @@ Template changes for WooCommerceiner">
 						<a class="btn" href="<?php echo apply_filters( 'cyberchimps_demodata', 'http://cyberchimps.com'); ?>" title="<?php esc_attr_e( 'Theme Demo Data', 'cyberchimps_core' ); ?>" target="_blank">
 				<?php _e( 'Theme Demo Data', 'cyberchimps_core' ); ?></a>					
 					<?php }?>
-					<a class="btn" href="https://cyberchimps.com/plus/" title="Need Customization" target="_blank"><?php _e( 'Need Customization', 'cyberchimps_core' ); ?></a> 						
+					<a class="btn" href="https://cyberchimps.com/contact/" title="Need Customization" target="_blank"><?php _e( 'Need Customization?', 'cyberchimps_core' ); ?></a> 						
 					<a class="btn btn-primary" href="<?php echo apply_filters( 'cyberchimps_rating_link', 'http://cyberchimps.com/forum'); ?>" title="<?php esc_attr_e( 'Leave a star rating', 'cyberchimps_core' ); ?>" target="_blank">
 <?php _e( 'Leave a star rating', 'cyberchimps_core' ); ?></a>
 
@@ -327,6 +329,8 @@ Template changes for WooCommerceiner">
 					                                                                                                'cyberchimps_core' ) ); ?>' );">
 						<?php esc_attr_e( 'Restore Defaults', 'cyberchimps_core' ); ?>
 					</button>
+					<a class="btn" href="<?php echo esc_url( 'https://cyberchimps.com/store/iribbon-pro#whygopro' ); ?>" title="<?php esc_attr_e( 'Why Go Pro?', 'cyberchimps_core' ); ?>" target="_blank">
+<?php _e( 'Why Go Pro?', 'cyberchimps_core' ); ?></a>
 				</div>
 				<!-- footer-links -->
 			</div>
