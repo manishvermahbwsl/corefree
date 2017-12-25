@@ -179,8 +179,10 @@ function cyberchimps_options_page() {
 					                                                                                                'cyberchimps_core' ) ); ?>' );">
 						<?php esc_attr_e( 'Restore Defaults', 'cyberchimps_core' ); ?>
 					</button>
-					<a class="btn" href="<?php echo esc_url( 'https://cyberchimps.com/store/iribbon-pro#whygopro' ); ?>" title="<?php esc_attr_e( 'Why Go Pro?', 'cyberchimps_core' ); ?>" target="_blank">
-				<?php _e( 'Why Go Pro?', 'cyberchimps_core' ); ?></a>
+					<?php if (has_filter("cyberchimps_gopro")) {  ?> 
+						<a class="btn" href="<?php echo apply_filters( 'cyberchimps_gopro', 'http://cyberchimps.com'); ?>" title="<?php esc_attr_e( 'Why Go Pro?', 'cyberchimps_core' ); ?>" target="_blank">
+						<?php _e( 'Why Go Pro?', 'cyberchimps_core' ); ?></a>
+				<?php }?>
 				</div>
 				<!-- cc-submenu-links -->
 				<div class="clear"></div>
@@ -329,8 +331,10 @@ Template changes for WooCommerceiner">
 					                                                                                                'cyberchimps_core' ) ); ?>' );">
 						<?php esc_attr_e( 'Restore Defaults', 'cyberchimps_core' ); ?>
 					</button>
-					<a class="btn" href="<?php echo esc_url( 'https://cyberchimps.com/store/iribbon-pro#whygopro' ); ?>" title="<?php esc_attr_e( 'Why Go Pro?', 'cyberchimps_core' ); ?>" target="_blank">
+					<?php if (has_filter("cyberchimps_gopro")) {  ?> 
+					<a class="btn" href="<?php echo apply_filters( 'cyberchimps_gopro', 'http://cyberchimps.com'); ?>" title="<?php esc_attr_e( 'Why Go Pro?', 'cyberchimps_core' ); ?>" target="_blank">
 <?php _e( 'Why Go Pro?', 'cyberchimps_core' ); ?></a>
+				<?php }?>
 				</div>
 				<!-- footer-links -->
 			</div>
