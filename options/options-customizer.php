@@ -838,7 +838,7 @@ function cyberchimps_customize( $wp_customize ) {
         'type' => 'checkbox'
     ) );
 	
-    $wp_customize->add_setting( 'cyberchimps_exclude_post_cat]', array( 'sanitize_callback' => 'cyberchimps_sanitize_multiple_checkboxes') );
+    $wp_customize->add_setting( 'cyberchimps_exclude_post_cat', array( 'sanitize_callback' => 'cyberchimps_sanitize_multiple_checkboxes') );
     $wp_customize->add_control(
     		new cyberchimps_Customize_Control_Checkbox_Multiple(
     				$wp_customize,
