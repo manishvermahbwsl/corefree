@@ -54,7 +54,7 @@ jQuery(document).ready(function ($) {
 		product_element: "cyberchimps_product_section",
 		recent_posts: "cyberchimps_recent_posts_section",
 		html_box: "cyberchimps_html_box_section",
-		boxes: "cyberchimps_boxes_section",
+		boxes_lite: "cyberchimps_blog_boxes_lite_section",
 		separator: "cyberchimps_separator_section",
 		blank_space: "cyberchimps_blank_space_section",
 		google_maps: "cyberchimps_google_maps_section",
