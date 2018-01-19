@@ -657,7 +657,7 @@ border: 1px solid #c8c8c8;
 }
 
 .cc-main-content .input-append .btn {
-	margin-left: -5px;
+	//margin-left: -5px;
 }
 
 .cc-main-content .colorSelector {
@@ -1447,6 +1447,8 @@ background: #2da5da;
 	color: #333;
 	margin-bottom: 5px;
 	margin-left: 5px;
+	border: 0;
+    line-height: 23px !important;
 }
 .cc-header .cc-title h3 {
     text-transform: uppercase;
@@ -1504,4 +1506,12 @@ font-size: 12px;
 }
 .cc-submit {
 background-color: #163c4a;
+}
+.field-container .slide{
+	color: #ffffff !important;
+	background: #5ea8f3;
+}
+#add_new_slide .btn-primary{
+	color: #ffffff !important;
+	background: #5ea8f3;
 }

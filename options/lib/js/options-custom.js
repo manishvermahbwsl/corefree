@@ -485,7 +485,7 @@ jQuery(document).ready(function ($) {
 	if ($('#cyberchimps_blog_slider_lite_section .field-container-wrapper .field-container:last').prev().is(':hidden')) {
 
 		// Add button to add new slider.
-		$('#cyberchimps_blog_slider_lite_section .field-container-wrapper').append('<div class="field-container"><button id="add_new_slide" class="btn btn-primary"><i class="icon-plus icon-white"></i></button></div>');
+		$('#cyberchimps_blog_slider_lite_section .field-container-wrapper').append('<div class="field-container"><button id="add_new_slide" class="btn slide btn-primary">Add Slide</button></div>');
 
 		// Print remaining number of slider that can be added.
 		$('#cyberchimps_blog_slider_lite_section .field-container:last').append('<div class="slider-countdown">' + slider_countdown() + ' more sliders remaining</div>');
