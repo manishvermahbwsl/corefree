@@ -20,9 +20,6 @@ function cyberchimps_blog_section_order_action() {
 
 	$defaults = array();
 	$default  = apply_filters( 'cyberchimps_elements_draganddrop_defaults', array(
-		'slider_lite'    => __( 'Slider Lite', 'cyberchimps_core' ),
-		'boxes_lite'     => __( 'Boxes', 'cyberchimps_core' ),
-		'featured_lite'    => __( 'Featured lite', 'cyberchimps_core' ),
 		'blog_post_page' => __( 'Post Page', 'cyberchimps_core' )
 	) );
 	foreach( $default as $key => $val ) {

@@ -28,7 +28,7 @@ function cyberchimps_customize( $wp_customize ) {
      * Creates a form input type with the option to add description and placeholders
      */
 	require_once( trailingslashit( get_template_directory() ) . 'cyberchimps/options/control-checkbox-multiple.php' );
-	
+
     class Cyberchimps_Form extends WP_Customize_Control {
 
         public function render_content() {
@@ -202,7 +202,7 @@ function cyberchimps_customize( $wp_customize ) {
 					});
 
 				});
-            </script> 
+            </script>
 
             <span class="customize-control-title"><?php echo esc_html( $this->label ); ?></span>
             <?php
@@ -223,7 +223,7 @@ function cyberchimps_customize( $wp_customize ) {
                 <?php
             endforeach;
         }
-    }   
+    }
     /*     * ******** Class for skin color selection option ends ************ */
     $imagepath = get_template_directory_uri() . '/cyberchimps/lib/images/';
     $args = array(
@@ -240,7 +240,7 @@ function cyberchimps_customize( $wp_customize ) {
     foreach ( $category_lists as $category ) {
     	$option_categories[ $category->term_id ] = $category->name;
     }
-    
+
     $option_all_post_cat = array();
     foreach( $category_lists as $category ){
     	$option_all_post_cat[$category->term_id] = $category->name;
@@ -392,7 +392,7 @@ function cyberchimps_customize( $wp_customize ) {
         'panel' => 'header_id',
     ) );
 
-    //Select social Icon Style    
+    //Select social Icon Style
     $social_choices = apply_filters( 'cyberchimps_social_icon_options', array(
         'default' => $imagepath . 'social/thumbs/icons-default.png',
         'legacy' => $imagepath . 'social/thumbs/icons-classic.png',
@@ -585,7 +585,7 @@ function cyberchimps_customize( $wp_customize ) {
         'section' => 'cyberchimps_social_media',
         'settings' => 'cyberchimps_options[googlemaps_url]'
     ) ) );
-    
+
     // Add Email Setting
     $wp_customize->add_setting( 'cyberchimps_options[social_email]', array(
         'sanitize_callback' => 'cyberchimps_sanitize_checkbox',
@@ -627,7 +627,7 @@ function cyberchimps_customize( $wp_customize ) {
         'section' => 'cyberchimps_social_media',
         'settings' => 'cyberchimps_options[rss_url]'
     ) ) );
-    
+
 // Add Instagram Setting
     $wp_customize->add_setting( 'cyberchimps_options[social_instagram]', array(
         'sanitize_callback' => 'cyberchimps_sanitize_checkbox',
@@ -835,7 +835,7 @@ function cyberchimps_customize( $wp_customize ) {
         'settings' => 'cyberchimps_options[post_byline_tags]',
         'type' => 'checkbox'
     ) );
-	
+
     $wp_customize->add_setting( 'cyberchimps_exclude_post_cat', array( 'sanitize_callback' => 'cyberchimps_sanitize_multiple_checkboxes') );
     $wp_customize->add_control(
     		new cyberchimps_Customize_Control_Checkbox_Multiple(
@@ -866,7 +866,6 @@ function cyberchimps_customize( $wp_customize ) {
         ) );
         //Slider image 1
         $wp_customize->add_setting( 'cyberchimps_options[image_one_slide]', array(
-            'default' => get_template_directory_uri() . apply_filters( 'cyberchimps_slider_lite_img1', '/images/branding/slide1.jpg' ),
             'type' => 'option',
             'sanitize_callback' => 'cyberchimps_sanitize_upload'
         ) );
@@ -877,7 +876,7 @@ function cyberchimps_customize( $wp_customize ) {
             'type' => 'image',
         ) ) );
 
-        //Slider image 1 url    
+        //Slider image 1 url
         $wp_customize->add_setting( 'cyberchimps_options[image_one_slide_url]', array(
             'type' => 'option',
             'sanitize_callback' => 'cyberchimps_text_sanitization'
@@ -891,7 +890,6 @@ function cyberchimps_customize( $wp_customize ) {
 
         //Slider image 2
         $wp_customize->add_setting( 'cyberchimps_options[image_two_slide]', array(
-            'default' => get_template_directory_uri() . apply_filters( 'cyberchimps_slider_lite_img2', '/elements/lib/images/slider/slide1.jpg' ),
             'type' => 'option',
             'sanitize_callback' => 'cyberchimps_sanitize_upload'
         ) );
@@ -902,7 +900,7 @@ function cyberchimps_customize( $wp_customize ) {
             'type' => 'image',
         ) ) );
 
-        //Slider image 2 url    
+        //Slider image 2 url
         $wp_customize->add_setting( 'cyberchimps_options[image_two_slide_url]', array(
             'type' => 'option',
             'sanitize_callback' => 'cyberchimps_text_sanitization'
@@ -916,7 +914,6 @@ function cyberchimps_customize( $wp_customize ) {
 
         //Slider image 3
         $wp_customize->add_setting( 'cyberchimps_options[image_three_slide]', array(
-            'default' => get_template_directory_uri() . apply_filters( 'cyberchimps_slider_lite_img3', '/elements/lib/images/slider/slide1.jpg' ),
             'type' => 'option',
             'sanitize_callback' => 'cyberchimps_sanitize_upload'
         ) );
@@ -927,7 +924,7 @@ function cyberchimps_customize( $wp_customize ) {
             'type' => 'image',
         ) ) );
 
-        //Slider image 3 url    
+        //Slider image 3 url
         $wp_customize->add_setting( 'cyberchimps_options[image_three_slide_url]', array(
             'type' => 'option',
             'sanitize_callback' => 'cyberchimps_text_sanitization'
@@ -954,7 +951,6 @@ function cyberchimps_customize( $wp_customize ) {
 
         //Portfolio image 1
         $wp_customize->add_setting( 'cyberchimps_options[cyberchimps_blog_portfolio_lite_image_one]', array(
-            'default' => get_template_directory_uri() . apply_filters( 'cyberchimps_portfolio_lite_img1', '/cyberchimps/lib/images/portfolio.jpg' ),
             'type' => 'option',
             'sanitize_callback' => 'cyberchimps_sanitize_upload'
         ) );
@@ -998,14 +994,12 @@ function cyberchimps_customize( $wp_customize ) {
         $wp_customize->add_control( 'cyberchimps_blog_portfolio_link_url_one', array(
             'label' => __( 'First Porfolio URL', 'cyberchimps_core' ),
             'section' => 'cyberchimps_blogportfolio_section',
-            'default' => apply_filters( 'cyberchimps_portfolio_lite_url1', esc_url_raw( 'http://cyberchimps.com' ) ),
             'settings' => 'cyberchimps_options[cyberchimps_blog_portfolio_link_url_one]',
             'type' => 'text'
         ) );
 
         //Portfolio image 2
         $wp_customize->add_setting( 'cyberchimps_options[cyberchimps_blog_portfolio_lite_image_two]', array(
-            'default' => get_template_directory_uri() . apply_filters( 'cyberchimps_portfolio_lite_img2', '/cyberchimps/lib/images/portfolio.jpg' ),
             'type' => 'option',
             'sanitize_callback' => 'cyberchimps_sanitize_upload'
         ) );
@@ -1049,14 +1043,12 @@ function cyberchimps_customize( $wp_customize ) {
         $wp_customize->add_control( 'cyberchimps_blog_portfolio_link_url_two', array(
             'label' => __( 'Second Porfolio URL', 'cyberchimps_core' ),
             'section' => 'cyberchimps_blogportfolio_section',
-            'default' => apply_filters( 'cyberchimps_portfolio_lite_url2', esc_url_raw( 'http://cyberchimps.com' ) ),
             'settings' => 'cyberchimps_options[cyberchimps_blog_portfolio_link_url_two]',
             'type' => 'text'
         ) );
 
         //Portfolio image 3
         $wp_customize->add_setting( 'cyberchimps_options[cyberchimps_blog_portfolio_lite_image_three]', array(
-            'default' => get_template_directory_uri() . apply_filters( 'cyberchimps_portfolio_lite_img3', '/cyberchimps/lib/images/portfolio.jpg' ),
             'type' => 'option',
             'sanitize_callback' => 'cyberchimps_sanitize_upload'
         ) );
@@ -1100,14 +1092,12 @@ function cyberchimps_customize( $wp_customize ) {
         $wp_customize->add_control( 'cyberchimps_blog_portfolio_link_url_three', array(
             'label' => __( 'Third Porfolio URL', 'cyberchimps_core' ),
             'section' => 'cyberchimps_blogportfolio_section',
-            'default' => apply_filters( 'cyberchimps_portfolio_lite_url3', esc_url_raw( 'http://cyberchimps.com' ) ),
             'settings' => 'cyberchimps_options[cyberchimps_blog_portfolio_link_url_three]',
             'type' => 'text'
         ) );
 
         //Portfolio image 4
         $wp_customize->add_setting( 'cyberchimps_options[cyberchimps_blog_portfolio_lite_image_four]', array(
-            'default' => get_template_directory_uri() . apply_filters( 'cyberchimps_portfolio_lite_img1', '/cyberchimps/lib/images/portfolio.jpg' ),
             'type' => 'option',
             'sanitize_callback' => 'cyberchimps_sanitize_upload'
         ) );
@@ -1151,7 +1141,6 @@ function cyberchimps_customize( $wp_customize ) {
         $wp_customize->add_control( 'cyberchimps_blog_portfolio_link_url_four', array(
             'label' => __( 'Forth Porfolio URL', 'cyberchimps_core' ),
             'section' => 'cyberchimps_blogportfolio_section',
-            'default' => apply_filters( 'cyberchimps_portfolio_lite_url4', 'http://cyberchimps.com' ),
             'settings' => 'cyberchimps_options[cyberchimps_blog_portfolio_link_url_four]',
             'type' => 'text'
         ) );
@@ -1170,7 +1159,6 @@ function cyberchimps_customize( $wp_customize ) {
 
 //Boxes image 1
         $wp_customize->add_setting( 'cyberchimps_options[cyberchimps_blog_boxes_lite_image_one]', array(
-            'default' => get_template_directory_uri() . apply_filters( 'cyberchimps_boxes_lite_img1', '/elements/lib/images/boxes/slidericon.png' ),
             'type' => 'option',
             'sanitize_callback' => 'cyberchimps_sanitize_upload'
         ) );
@@ -1202,15 +1190,13 @@ function cyberchimps_customize( $wp_customize ) {
         $wp_customize->add_control( 'cyberchimps_blog_boxes_lite_image_one_text', array(
             'label' => __( 'First Box Text', 'cyberchimps_core' ),
             'section' => 'cyberchimps_blogboxes_section',
-            'default' => 'Alto ventos est coeptis utque fecit. Phoebe sine circumfuso arce. Tanto aliis. Matutinis cornua origo formaeque animal mundo. Chaos: fabricator. Natura mundo caesa addidit.
-        Cuncta habendum meis omni ille formaeque emicuit septemque et. Lege fecit aethere porrexerat gentes horrifer formas.',
+            'default' => 'Showcase your informative posts with style. Display featured Images and author name using boxes element.',
             'settings' => 'cyberchimps_options[cyberchimps_blog_boxes_lite_image_one_text]',
             'type' => 'textarea'
         ) );
 
 //Boxes image 2
         $wp_customize->add_setting( 'cyberchimps_options[cyberchimps_blog_boxes_lite_image_two]', array(
-            'default' => get_template_directory_uri() . apply_filters( 'cyberchimps_boxes_lite_img2', '/elements/lib/images/boxes/blueprint.png' ),
             'type' => 'option',
             'sanitize_callback' => 'cyberchimps_sanitize_upload'
         ) );
@@ -1242,15 +1228,13 @@ function cyberchimps_customize( $wp_customize ) {
         $wp_customize->add_control( 'cyberchimps_blog_boxes_lite_image_two_text', array(
             'label' => __( 'Second Box Text', 'cyberchimps_core' ),
             'section' => 'cyberchimps_blogboxes_section',
-            'default' => 'Alto ventos est coeptis utque fecit. Phoebe sine circumfuso arce. Tanto aliis. Matutinis cornua origo formaeque animal mundo. Chaos: fabricator. Natura mundo caesa addidit.
-        Cuncta habendum meis omni ille formaeque emicuit septemque et. Lege fecit aethere porrexerat gentes horrifer formas.',
+            'default' => 'Showcase your informative posts with style. Display featured Images and author name using boxes element.',
             'settings' => 'cyberchimps_options[cyberchimps_blog_boxes_lite_image_two_text]',
             'type' => 'textarea'
         ) );
 
 //Boxes image 3
         $wp_customize->add_setting( 'cyberchimps_options[cyberchimps_blog_boxes_lite_image_three]', array(
-            'default' => get_template_directory_uri() . apply_filters( 'cyberchimps_boxes_lite_img3', '/elements/lib/images/boxes/docs.png' ),
             'type' => 'option',
             'sanitize_callback' => 'cyberchimps_sanitize_upload'
         ) );
@@ -1282,8 +1266,7 @@ function cyberchimps_customize( $wp_customize ) {
         $wp_customize->add_control( 'cyberchimps_blog_boxes_lite_image_three_text', array(
             'label' => __( 'Third Box Text', 'cyberchimps_core' ),
             'section' => 'cyberchimps_blogboxes_section',
-            'default' => 'Alto ventos est coeptis utque fecit. Phoebe sine circumfuso arce. Tanto aliis. Matutinis cornua origo formaeque animal mundo. Chaos: fabricator. Natura mundo caesa addidit.
-        Cuncta habendum meis omni ille formaeque emicuit septemque et. Lege fecit aethere porrexerat gentes horrifer formas.',
+            'default' => 'Showcase your informative posts with style. Display featured Images and author name using boxes element.Showcase your informative posts with style. Display featured Images and author name using boxes element.',
             'settings' => 'cyberchimps_options[cyberchimps_blog_boxes_lite_image_three_text]',
             'type' => 'textarea'
         ) );
@@ -1973,50 +1956,6 @@ function cyberchimps_customize( $wp_customize ) {
         'settings' => 'cyberchimps_background',
         'choices' => apply_filters( 'cyberchimps_background_image', '' ),
     ) ) );
-}
-
-// Add upgrade button to the free theme customizer.
-function cc_add_upgrade_button() {
-
-// Get the upgrade link.
-    $upgrade_link = apply_filters( 'cyberchimps_upgrade_link', esc_url_raw( 'http://cyberchimps.com' ) );
-    ?>
-    <script type="text/javascript">
-        jQuery( document ).ready( function( $ ) {
-            jQuery( '#customize-info .accordion-section-title' ).append( '<a target="_blank" class="button btn-upgrade" href="<?php echo $upgrade_link; ?>"><?php _e( 'Upgrade To Pro', 'cyberchimps_core' ); ?></a>' );
-            jQuery( '#customize-info .btn-upgrade' ).click( function( event ) {
-                event.stopPropagation();
-            } );
-        } );
-    </script>
-    <style>
-        .wp-core-ui .btn-upgrade {
-            color: #fff;
-            background: none repeat scroll 0 0 #5BC0DE;
-            border-color: #CCCCCC;
-            box-shadow: 0 1px 0 #5BC0DE inset, 0 1px 0 rgba(0, 0, 0, 0.08);
-            float: right;
-            //margin-top: -23px;
-            margin-top: 15px;
-			font-size: 14px;
-			height: 30px;
-			margin-bottom: 15px;
-        }
-        .wp-core-ui .btn-upgrade:hover {
-            color: #fff;
-            background: none repeat scroll 0 0 #39B3D7;
-            box-shadow: 0 1px 0 #39B3D7 inset, 0 1px 0 rgba(0, 0, 0, 0.08);
-        }
-        .wp-core-ui #customize-info .theme-name{
-                    word-break: break-all;
-                    padding-right: 120px;
-        }
-        .wp-full-overlay-sidebar-content #customize-info {background-color: #fff;}
-    </style>
-    <?php
-}
-if( cyberchimps_theme_check() == 'free' ) {
-	add_action('customize_controls_print_footer_scripts', 'cc_add_upgrade_button');
 }
 
 /**
