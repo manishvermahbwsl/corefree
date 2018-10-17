@@ -1092,8 +1092,6 @@ function cyberchimps_add_core_fields( $fields_list ) {
 		'name'     => __( 'Drag & Drop Blog Elements', 'cyberchimps_core' ),
 		'callback' => 'cyberchimps_drag_drop_field',
 		'std'      => apply_filters( 'cyberchimps_elements_draganddrop_defaults', array(
-			'slider_lite'    => __( 'Slider Lite', 'cyberchimps_core' ),
-			'boxes_lite'     => __( 'Boxes', 'cyberchimps_core' ),
 			'blog_post_page' => __( 'Post Page', 'cyberchimps_core' )
 		) ),
 		'type'     => 'section_order',
@@ -1272,7 +1270,6 @@ $fields_list[] = array(
 			'desc'    => __( 'Enter URL or upload file', 'cyberchimps_core' ),
 			'id'      => 'cyberchimps_blog_boxes_lite_image_one',
 			'type'    => 'upload',
-			'std'     => $directory_uri . apply_filters( 'cyberchimps_boxes_lite_img1', '/elements/lib/images/boxes/slidericon.png' ),
 			'section' => 'cyberchimps_blog_boxes_lite_section',
 			'heading' => 'cyberchimps_blog_heading'
 		);
@@ -1292,8 +1289,7 @@ $fields_list[] = array(
 			'name'    => __( 'First Box Text', 'cyberchimps_core' ),
 			'id'      => 'cyberchimps_blog_boxes_lite_image_one_text',
 			'type'    => 'textarea',
-			'std'     => 'Alto ventos est coeptis utque fecit. Phoebe sine circumfuso arce. Tanto aliis. Matutinis cornua origo formaeque animal mundo. Chaos: fabricator. Natura mundo caesa addidit.
-        Cuncta habendum meis omni ille formaeque emicuit septemque et. Lege fecit aethere porrexerat gentes horrifer formas.',
+			'std'     => 'Showcase your informative posts with style. Display featured Images and author name using boxes element.',
 			'section' => 'cyberchimps_blog_boxes_lite_section',
 			'heading' => 'cyberchimps_blog_heading'
 		);
@@ -1307,7 +1303,6 @@ $fields_list[] = array(
 			'desc'    => __( 'Enter URL or upload file', 'cyberchimps_core' ),
 			'id'      => 'cyberchimps_blog_boxes_lite_image_two',
 			'type'    => 'upload',
-			'std'     => $directory_uri . apply_filters( 'cyberchimps_boxes_lite_img2', '/elements/lib/images/boxes/blueprint.png' ),
 			'section' => 'cyberchimps_blog_boxes_lite_section',
 			'heading' => 'cyberchimps_blog_heading'
 		);
@@ -1327,8 +1322,7 @@ $fields_list[] = array(
 			'name'    => __( 'Second Box Text', 'cyberchimps_core' ),
 			'id'      => 'cyberchimps_blog_boxes_lite_image_two_text',
 			'type'    => 'textarea',
-			'std'     => 'Alto ventos est coeptis utque fecit. Phoebe sine circumfuso arce. Tanto aliis. Matutinis cornua origo formaeque animal mundo. Chaos: fabricator. Natura mundo caesa addidit.
-        Cuncta habendum meis omni ille formaeque emicuit septemque et. Lege fecit aethere porrexerat gentes horrifer formas.',
+			'std'     => 'Showcase your informative posts with style. Display featured Images and author name using boxes element.',
 			'section' => 'cyberchimps_blog_boxes_lite_section',
 			'heading' => 'cyberchimps_blog_heading'
 		);
@@ -1342,7 +1336,6 @@ $fields_list[] = array(
 			'desc'    => __( 'Enter URL or upload file', 'cyberchimps_core' ),
 			'id'      => 'cyberchimps_blog_boxes_lite_image_three',
 			'type'    => 'upload',
-			'std'     => $directory_uri . apply_filters( 'cyberchimps_boxes_lite_img3', '/elements/lib/images/boxes/docs.png' ),
 			'section' => 'cyberchimps_blog_boxes_lite_section',
 			'heading' => 'cyberchimps_blog_heading'
 		);
@@ -1362,8 +1355,7 @@ $fields_list[] = array(
 			'name'    => __( 'Third Box Text', 'cyberchimps_core' ),
 			'id'      => 'cyberchimps_blog_boxes_lite_image_three_text',
 			'type'    => 'textarea',
-			'std'     => 'Alto ventos est coeptis utque fecit. Phoebe sine circumfuso arce. Tanto aliis. Matutinis cornua origo formaeque animal mundo. Chaos: fabricator. Natura mundo caesa addidit.
-        Cuncta habendum meis omni ille formaeque emicuit septemque et. Lege fecit aethere porrexerat gentes horrifer formas.',
+			'std'     => 'Showcase your informative posts with style. Display featured Images and author name using boxes element.',
 			'section' => 'cyberchimps_blog_boxes_lite_section',
 			'heading' => 'cyberchimps_blog_heading'
 		);
@@ -1394,7 +1386,6 @@ $fields_list[] = array(
 			'desc'    => __( 'Enter URL or upload file', 'cyberchimps_core' ),
 			'id'      => 'cyberchimps_blog_portfolio_lite_image_one',
 			'type'    => 'upload',
-			'std'     => $directory_uri . apply_filters( 'cyberchimps_portfolio_lite_img1', '/cyberchimps/lib/images/portfolio.jpg' ),
 			'section' => 'cyberchimps_blog_portfolio_lite_section',
 			'heading' => 'cyberchimps_blog_heading'
 		);
@@ -1423,7 +1414,6 @@ $fields_list[] = array(
 			'name'    => __( 'Link URL', 'cyberchimps_core' ),
 			'id'      => 'cyberchimps_blog_portfolio_link_url_one',
 			'class'   => 'cyberchimps_blog_portfolio_link_toggle_one_toggle',
-			'std'     => apply_filters( 'cyberchimps_portfolio_lite_url1', 'http://cyberchimps.com' ),
 			'type'    => 'text',
 			'section' => 'cyberchimps_blog_portfolio_lite_section',
 			'heading' => 'cyberchimps_blog_heading'
@@ -1438,7 +1428,6 @@ $fields_list[] = array(
 			'desc'    => __( 'Enter URL or upload file', 'cyberchimps_core' ),
 			'id'      => 'cyberchimps_blog_portfolio_lite_image_two',
 			'type'    => 'upload',
-			'std'     => $directory_uri . apply_filters( 'cyberchimps_portfolio_lite_img2', '/cyberchimps/lib/images/portfolio.jpg' ),
 			'section' => 'cyberchimps_blog_portfolio_lite_section',
 			'heading' => 'cyberchimps_blog_heading'
 		);
@@ -1467,7 +1456,6 @@ $fields_list[] = array(
 			'name'    => __( 'Link URL', 'cyberchimps_core' ),
 			'id'      => 'cyberchimps_blog_portfolio_link_url_two',
 			'class'   => 'cyberchimps_blog_portfolio_link_toggle_two_toggle',
-			'std'     => apply_filters( 'cyberchimps_portfolio_lite_url2', 'http://cyberchimps.com' ),
 			'type'    => 'text',
 			'section' => 'cyberchimps_blog_portfolio_lite_section',
 			'heading' => 'cyberchimps_blog_heading'
@@ -1482,7 +1470,6 @@ $fields_list[] = array(
 			'desc'    => __( 'Enter URL or upload file', 'cyberchimps_core' ),
 			'id'      => 'cyberchimps_blog_portfolio_lite_image_three',
 			'type'    => 'upload',
-			'std'     => $directory_uri . apply_filters( 'cyberchimps_portfolio_lite_img3', '/cyberchimps/lib/images/portfolio.jpg' ),
 			'section' => 'cyberchimps_blog_portfolio_lite_section',
 			'heading' => 'cyberchimps_blog_heading'
 		);
@@ -1511,7 +1498,6 @@ $fields_list[] = array(
 			'name'    => __( 'Link URL', 'cyberchimps_core' ),
 			'id'      => 'cyberchimps_blog_portfolio_link_url_three',
 			'class'   => 'cyberchimps_blog_portfolio_link_toggle_three_toggle',
-			'std'     => apply_filters( 'cyberchimps_portfolio_lite_url3', 'http://cyberchimps.com' ),
 			'type'    => 'text',
 			'section' => 'cyberchimps_blog_portfolio_lite_section',
 			'heading' => 'cyberchimps_blog_heading'
@@ -1526,7 +1512,6 @@ $fields_list[] = array(
 			'desc'    => __( 'Enter URL or upload file', 'cyberchimps_core' ),
 			'id'      => 'cyberchimps_blog_portfolio_lite_image_four',
 			'type'    => 'upload',
-			'std'     => $directory_uri . apply_filters( 'cyberchimps_portfolio_lite_img4', '/cyberchimps/lib/images/portfolio.jpg' ),
 			'section' => 'cyberchimps_blog_portfolio_lite_section',
 			'heading' => 'cyberchimps_blog_heading'
 		);
@@ -1555,7 +1540,6 @@ $fields_list[] = array(
 			'name'    => __( 'Link URL', 'cyberchimps_core' ),
 			'id'      => 'cyberchimps_blog_portfolio_link_url_four',
 			'class'   => 'cyberchimps_blog_portfolio_link_toggle_four_toggle',
-			'std'     => apply_filters( 'cyberchimps_portfolio_lite_url4', 'http://cyberchimps.com' ),
 			'type'    => 'text',
 			'section' => 'cyberchimps_blog_portfolio_lite_section',
 			'heading' => 'cyberchimps_blog_heading'
@@ -1602,7 +1586,6 @@ $fields_list[] = array(
 			'desc'    => __( 'Enter URL or upload file', 'cyberchimps_core' ),
 			'id'      => 'image_one_slide',
 			'type'    => 'upload',
-			'std'     => $directory_uri . apply_filters( 'cyberchimps_slider_lite_img1', '/images/branding/slide1.jpg' ),
 			'section' => 'cyberchimps_blog_slider_lite_section',
 			'heading' => 'cyberchimps_blog_heading'
 		);
@@ -1610,7 +1593,6 @@ $fields_list[] = array(
 		$fields_list[] = array(
 			'name'    => __( 'Slide 1 URL', 'cyberchimps_core' ),
 			'id'      => 'image_one_slide_url',
-			'std'     => apply_filters( 'cyberchimps_slider_lite_url1', 'http://cyberchimps.com' ),
 			'type'    => 'text',
 			'section' => 'cyberchimps_blog_slider_lite_section',
 			'heading' => 'cyberchimps_blog_heading'
@@ -1621,7 +1603,6 @@ $fields_list[] = array(
 			'desc'    => __( 'Enter URL or upload file', 'cyberchimps_core' ),
 			'id'      => 'image_two_slide',
 			'type'    => 'upload',
-			'std'     => $directory_uri . apply_filters( 'cyberchimps_slider_lite_img2', '/elements/lib/images/slider/slide1.jpg' ),
 			'section' => 'cyberchimps_blog_slider_lite_section',
 			'heading' => 'cyberchimps_blog_heading'
 		);
@@ -1629,7 +1610,6 @@ $fields_list[] = array(
 		$fields_list[] = array(
 			'name'    => __( 'Slide 2 URL', 'cyberchimps_core' ),
 			'id'      => 'image_two_slide_url',
-			'std'     => apply_filters( 'cyberchimps_slider_lite_url2', 'http://cyberchimps.com' ),
 			'type'    => 'text',
 			'section' => 'cyberchimps_blog_slider_lite_section',
 			'heading' => 'cyberchimps_blog_heading'
@@ -1640,7 +1620,6 @@ $fields_list[] = array(
 			'desc'    => __( 'Enter URL or upload file', 'cyberchimps_core' ),
 			'id'      => 'image_three_slide',
 			'type'    => 'upload',
-			'std'     => $directory_uri . apply_filters( 'cyberchimps_slider_lite_img3', '/elements/lib/images/slider/slide1.jpg' ),
 			'section' => 'cyberchimps_blog_slider_lite_section',
 			'heading' => 'cyberchimps_blog_heading'
 		);
@@ -1648,7 +1627,6 @@ $fields_list[] = array(
 		$fields_list[] = array(
 			'name'    => __( 'Slide 3 URL', 'cyberchimps_core' ),
 			'id'      => 'image_three_slide_url',
-			'std'     => apply_filters( 'cyberchimps_slider_lite_url3', 'http://cyberchimps.com' ),
 			'type'    => 'text',
 			'section' => 'cyberchimps_blog_slider_lite_section',
 			'heading' => 'cyberchimps_blog_heading'
