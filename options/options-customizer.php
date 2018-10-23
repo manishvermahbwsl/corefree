@@ -1176,7 +1176,6 @@ function cyberchimps_customize( $wp_customize ) {
         ) );
         $wp_customize->add_control( 'cyberchimps_blog_boxes_link_url_one', array(
             'label' => __( 'First Link URL', 'cyberchimps_core' ),
-            'default' => apply_filters( 'cyberchimps_boxes_lite_url1', esc_url_raw( 'http://wordpress.org' ) ),
             'section' => 'cyberchimps_blogboxes_section',
             'settings' => 'cyberchimps_options[cyberchimps_blog_boxes_link_url_one]',
             'type' => 'text'
@@ -1190,7 +1189,6 @@ function cyberchimps_customize( $wp_customize ) {
         $wp_customize->add_control( 'cyberchimps_blog_boxes_lite_image_one_text', array(
             'label' => __( 'First Box Text', 'cyberchimps_core' ),
             'section' => 'cyberchimps_blogboxes_section',
-            'default' => 'Showcase your informative posts with style. Display featured Images and author name using boxes element.',
             'settings' => 'cyberchimps_options[cyberchimps_blog_boxes_lite_image_one_text]',
             'type' => 'textarea'
         ) );
@@ -1214,7 +1212,6 @@ function cyberchimps_customize( $wp_customize ) {
         ) );
         $wp_customize->add_control( 'cyberchimps_blog_boxes_link_url_two', array(
             'label' => __( 'Second Link URL', 'cyberchimps_core' ),
-            'default' => apply_filters( 'cyberchimps_boxes_lite_url2', esc_url_raw( 'http://wordpress.org' ) ),
             'section' => 'cyberchimps_blogboxes_section',
             'settings' => 'cyberchimps_options[cyberchimps_blog_boxes_link_url_two]',
             'type' => 'text'
@@ -1228,7 +1225,6 @@ function cyberchimps_customize( $wp_customize ) {
         $wp_customize->add_control( 'cyberchimps_blog_boxes_lite_image_two_text', array(
             'label' => __( 'Second Box Text', 'cyberchimps_core' ),
             'section' => 'cyberchimps_blogboxes_section',
-            'default' => 'Showcase your informative posts with style. Display featured Images and author name using boxes element.',
             'settings' => 'cyberchimps_options[cyberchimps_blog_boxes_lite_image_two_text]',
             'type' => 'textarea'
         ) );
@@ -1253,7 +1249,6 @@ function cyberchimps_customize( $wp_customize ) {
         $wp_customize->add_control( 'cyberchimps_blog_boxes_link_url_three', array(
             'label' => __( 'Third Link URL', 'cyberchimps_core' ),
             'section' => 'cyberchimps_blogboxes_section',
-            'default' => apply_filters( 'cyberchimps_boxes_lite_url3', esc_url_raw( 'http://wordpress.org' ) ),
             'settings' => 'cyberchimps_options[cyberchimps_blog_boxes_link_url_three]',
             'type' => 'text'
         ) );
@@ -1266,7 +1261,6 @@ function cyberchimps_customize( $wp_customize ) {
         $wp_customize->add_control( 'cyberchimps_blog_boxes_lite_image_three_text', array(
             'label' => __( 'Third Box Text', 'cyberchimps_core' ),
             'section' => 'cyberchimps_blogboxes_section',
-            'default' => 'Showcase your informative posts with style. Display featured Images and author name using boxes element.Showcase your informative posts with style. Display featured Images and author name using boxes element.',
             'settings' => 'cyberchimps_options[cyberchimps_blog_boxes_lite_image_three_text]',
             'type' => 'textarea'
         ) );
