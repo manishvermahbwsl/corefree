@@ -55,9 +55,6 @@ if ( !function_exists( 'cyberchimps_core_setup_theme' ) ):
 		// Load new meta box options
 		require_once( $directory . '/cyberchimps/options/meta-box-class/meta-box.php' );
 
-		// Load theme upsell.
-		require_once( $directory . '/cyberchimps/options/theme-upsell.php' );
-
 		// Core Translations can be filed in the /inc/languages/ directory
 		load_theme_textdomain( 'cyberchimps_core', $directory . '/cyberchimps/lib/languages' );
 

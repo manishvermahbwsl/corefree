@@ -649,6 +649,27 @@ function cyberchimps_customize( $wp_customize ) {
         'settings' => 'cyberchimps_options[instagram_url]'
     ) ) );
 
+    // Add contact section
+
+    $wp_customize->add_section( 'cyberchimps_contact_section', array(
+        'priority' => 16,
+        'capability' => 'edit_theme_options',
+        'theme_supports' => '',
+        'title' => __( 'Contact Elements', 'cyberchimps_core' ),
+        'panel' => 'header_id',
+    ) );
+
+    $wp_customize->add_setting( 'cyberchimps_options[contact_details]', array(
+        'type' => 'option',
+        'sanitize_callback' => 'cyberchimps_sanitize_textarea'
+    ) );
+    $wp_customize->add_control( 'contact_details', array(
+        'label' => __( 'Contact Number', 'cyberchimps_core' ),
+        'section' => 'cyberchimps_contact_section',
+        'settings' => 'cyberchimps_options[contact_details]',
+        'type' => 'textarea'
+    ) );
+
     /* --------------------------------------------------------------
       // BLOG SECTION
       -------------------------------------------------------------- */
@@ -1300,6 +1321,18 @@ function cyberchimps_customize( $wp_customize ) {
             'choices' => $sidebar_choices,
         ) ) );
     }
+
+    //Disable Post Authot bio
+    $wp_customize->add_setting( 'cyberchimps_options[single_post_author_bio]', array(
+        'type' => 'option',
+        'sanitize_callback' => 'cyberchimps_sanitize_checkbox'
+    ) );
+    $wp_customize->add_control( 'single_post_author_bio', array(
+        'label' => __( 'Post Author Bio', 'cyberchimps_core' ),
+        'section' => 'cyberchimps_template_section',
+        'settings' => 'cyberchimps_options[single_post_author_bio]',
+        'type' => 'checkbox'
+    ) );
 
 //Disable Post Title
     $wp_customize->add_setting( 'cyberchimps_options[single_post_title]', array(
