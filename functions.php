@@ -1090,7 +1090,7 @@ function cyberchimps_options_help_text() {
 							</a>
 						</div>
 						<div class="span3">
-							<a href="' . apply_filters( 'cyberchimps_support_forum', 'http://cyberchimps.com' ) . '" title="CyberChimps Support">
+							<a href="' . apply_filters( 'cyberchimps_support_forum', 'https://cyberchimps.com' ) . '" target="_blank" title="CyberChimps Support">
 								<img src="' . $support_img . '" alt="CyberChimps Help" />
 								<div class="cc_help_caption"><p>' . __( 'Support', 'cyberchimps_core' ) . '</p></div>
 							</a>
@@ -1112,8 +1112,8 @@ function cyberchimps_options_help_text() {
 						<div class="clear"></div>';
 		$text .= sprintf(
 			'<p>' . __( 'For even more amazing new features, upgrade to %1$s which includes a slider with customizable features, an image carousel, widgetized boxes, a callout section, expanded typography (including Google Fonts), additional color skins, and many more powerful new features. Visit %2$s to learn more!', 'cyberchimps_core' ) . '</p>',
-			'<a href="' . $upgrade_link . ' target="_blank" title="' . $pro_title . '">' . $pro_title . '</a>',
-			'<a href="cyberchimps.com" title="CyberChimps">CyberChimps.com</a>'
+			'<a href="' . $upgrade_link . '" target="_blank" title="' . $pro_title . '">' . $pro_title . '</a>',
+			'<a href="https://cyberchimps.com" title="CyberChimps">CyberChimps.com</a>'
 		);
 	}
 	//text for pro themes
