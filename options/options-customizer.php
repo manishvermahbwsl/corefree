@@ -14,10 +14,6 @@
  * @license  http://www.opensource.org/licenses/gpl-license.php GPL v3.0 (or later)
  * @link     http://www.cyberchimps.com/
  */
-function cyberchimps_admin_add_customizer_page() {
-    // add the Customize link to the admin menu
-    add_theme_page( __( 'Customize', 'cyberchimps_core' ), __( 'Customize', 'cyberchimps_core' ), 'edit_theme_options', 'customize.php' );
-}
 
 add_action( 'customize_register', 'cyberchimps_customize' );
 function cyberchimps_customize( $wp_customize ) {
