@@ -1355,30 +1355,6 @@ function cyberchimps_addon_sections( $sections_list ) {
 
 add_filter( 'cyberchimps_section_list', 'cyberchimps_addon_sections', 20, 1 );
 
-// Addon Fields
-function cyberchimps_addon_fields( $fields_list ) {
-	$fields_list[] = array(
-		'name'     => __( 'SlideDeck Lite', 'cyberchimps_core' ),
-		'id'       => 'slidedeck_lite',
-		'type'     => 'info',
-		'callback' => 'cyberchimps_slidedeck_lite_callback',
-		'section'  => 'cyberchimps_slidedeck_lite_options',
-		'heading'  => 'cyberchimps_addons_heading'
-	);
-	$fields_list[] = array(
-		'name'     => __( 'WPForms Lite', 'cyberchimps_core' ),
-		'id'       => 'wpforms_lite',
-		'type'     => 'info',
-		'callback' => 'cyberchimps_wpforms_lite_callback',
-		'section'  => 'cyberchimps_wpforms_lite_options',
-		'heading'  => 'cyberchimps_addons_heading'
-	);
-
-	return $fields_list;
-}
-
-add_filter( 'cyberchimps_field_list', 'cyberchimps_addon_fields', 20, 1 );
-
 // The SlideDeck text
 function cyberchimps_slidedeck_lite_callback( $value ) {
 	$output   = '';
