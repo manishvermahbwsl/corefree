@@ -21,23 +21,8 @@ function cyberchimps_edit_themes_role_check() {
 	if( current_user_can( 'edit_theme_options' ) ) {
 		// If the user can edit theme options, let the fun begin!
 		add_action( 'admin_init', 'cyberchimps_admin_init' );
-		add_action( 'admin_menu', 'cyberchimps_admin_add_page' );
 		add_action( 'wp_before_admin_bar_render', 'cyberchimps_admin_bar' );
 	}
-}
-
-// create the admin menu for the theme options page
-function cyberchimps_admin_add_page() {
-	$cyberchimps_page = add_theme_page(
-		__( 'Theme Options Page', 'cyberchimps_core' ),
-		__( 'Theme Options', 'cyberchimps_core' ),
-		'edit_theme_options',
-		'cyberchimps-theme-options',
-		'cyberchimps_options_page'
-	);
-
-	add_action( "admin_print_styles-$cyberchimps_page", 'cyberchimps_load_styles' );
-	add_action( "admin_print_scripts-$cyberchimps_page", 'cyberchimps_load_scripts' );
 }
 
 function cyberchimps_load_styles() {
