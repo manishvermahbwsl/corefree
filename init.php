@@ -87,8 +87,6 @@ if ( !function_exists( 'cyberchimps_core_setup_theme' ) ):
 		} //if not then set up defaults for this theme
 		elseif ( get_option( 'cyberchimps_options' ) && isset( $_GET['activated'] ) ) {
 			$options                         = get_option( 'cyberchimps_options' );
-			$options['header_section_order'] = $option_defaults['header_section_order'];
-			$options['theme_backgrounds']    = $option_defaults['theme_backgrounds'];
 			update_option( 'cyberchimps_options', $options );
 		}
 	}
