@@ -38,9 +38,6 @@ if ( !function_exists( 'cyberchimps_core_setup_theme' ) ):
 		// Load core options file
 		require_once( $directory . '/cyberchimps/options/options-init.php' );
 
-		// Load default core settings
-		require_once( $directory . '/cyberchimps/options/options-core.php' );
-
 		// Load core hooks file
 		require_once( $directory . '/cyberchimps/inc/cc-custom-background.php' );
 
