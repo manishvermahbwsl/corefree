@@ -25,46 +25,6 @@ function cyberchimps_edit_themes_role_check() {
 	}
 }
 
-function cyberchimps_load_styles() {
-
-	// Set template directory uri
-	$directory_uri = get_template_directory_uri();
-
-	wp_enqueue_style( 'bootstrap', $directory_uri . '/cyberchimps/lib/bootstrap/css/bootstrap.css' );
-	wp_enqueue_style( 'bootstrap-responsive', $directory_uri . '/cyberchimps/lib/bootstrap/css/bootstrap-responsive.css', 'bootstrap' );
-	wp_enqueue_style( 'cyberchimps-responsive', $directory_uri . '/cyberchimps/lib/bootstrap/css/cyberchimps-responsive.css', array( 'bootstrap', 'bootstrap-responsive' ) );
-	wp_enqueue_style( 'plugin_option_styles', $directory_uri . '/cyberchimps/options/lib/css/options-style.css', array( 'bootstrap', 'bootstrap-responsive' ) );
-
-	wp_enqueue_style( 'color-picker', $directory_uri . '/cyberchimps/options/lib/css/colorpicker.css' );
-	wp_enqueue_style( 'thickbox' );
-	wp_enqueue_style( 'cyberchimps-skytabs', $directory_uri . '/cyberchimps/options/lib/css/sky-tabs.css');
-}
-
-function cyberchimps_load_scripts() {
-
-	// Set template directory uri
-	$directory_uri = get_template_directory_uri();
-
-	wp_enqueue_media();
-	wp_enqueue_script( 'theme-option-media-uploader-3.5', $directory_uri . '/cyberchimps/options/lib/js/media-uploader-new.min.js', array( 'jquery' ) );
-
-	// Enqueued scripts
-	wp_enqueue_script( 'jquery-ui-core' );
-	wp_enqueue_script( 'jquery-ui-sortable' );
-
-	// Adding JS to support drag and drop in theme options
-	wp_enqueue_script( 'jquery-touch-punch-min', $directory_uri . '/cyberchimps/lib/js/touch-punch.min.js', array( 'jquery' ) );
-	wp_enqueue_script( 'jquery-touch-sense', $directory_uri . '/cyberchimps/lib/js/touch-sensitive.min.js', array( 'jquery' ) );
-
-	wp_enqueue_script( 'thickbox' );
-	wp_enqueue_script( 'color-picker', $directory_uri . '/cyberchimps/options/lib/js/colorpicker.min.js', array( 'jquery' ), '', true );
-	wp_enqueue_script( 'media-uploader', $directory_uri . '/cyberchimps/options/lib/js/options-medialibrary-uploader.min.js', array( 'jquery' ), '', true );
-	wp_enqueue_script( 'options-custom', $directory_uri . '/cyberchimps/options/lib/js/options-custom.min.js', array( 'jquery' ), '', true );
-	wp_enqueue_script( 'bootstrap-js', $directory_uri . '/cyberchimps/lib/bootstrap/js/bootstrap.min.js', array( 'jquery' ), '', true );
-	wp_enqueue_script( 'google-fonts', $directory_uri . '/cyberchimps/options/lib/js/font_inline_plugin.min.js', array( 'jquery' ), '', true );
-	wp_enqueue_script('cyberchimps-skytabs', $directory_uri . '/cyberchimps/options/lib/js/sky-tabs-ie8.js');
-}
-
 // Load options customizer file
 add_action( 'init', 'cyberchimps_load_customizer' );
 function cyberchimps_load_customizer() {
