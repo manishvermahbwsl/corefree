@@ -21,7 +21,6 @@ function cyberchimps_edit_themes_role_check() {
 	if( current_user_can( 'edit_theme_options' ) ) {
 		// If the user can edit theme options, let the fun begin!
 		add_action( 'admin_init', 'cyberchimps_admin_init' );
-		add_action( 'wp_before_admin_bar_render', 'cyberchimps_admin_bar' );
 	}
 }
 
@@ -44,11 +43,9 @@ function cyberchimps_admin_init() {
 	// add all core settings
 	// Create sections
 	$sections_list = cyberchimps_get_sections();
-	cyberchimps_create_sections( $sections_list );
 
 	// Create fields
 	$fields_list = cyberchimps_get_fields();
-	cyberchimps_create_fields( $fields_list );
 }
 
 // create and display theme options page
@@ -445,71 +442,6 @@ Template changes for WooCommerceiner">
 <?php
 }
 
-/**
- * forked version of core function do_settings_sections()
- * modified core code call cyberchimps_do_settings_fields() and apply markup for section title and description
- * returns mixed data
- */
-function cyberchimps_do_settings_sections( $page ) {
-	global $wp_settings_sections, $wp_settings_fields;
-
-	if( !isset( $wp_settings_sections ) || !isset( $wp_settings_sections[$page] ) ) {
-		return;
-	}
-
-	foreach( (array)$wp_settings_sections[$page] as $section ) {
-		$jquery_click_section_hook = '';
-		$jquery_click_section_hook = preg_replace( '/[^a-zA-Z0-9._\-]/', '', strtolower( $section['id'] ) );
-
-		echo '<div class="section-group" id="' . esc_attr( $jquery_click_section_hook ) . '">';
-		if( $section['title'] ) {
-			echo "<h3><span class='glyphicon glyphicon-chevron-down'></span> {$section['title']}</h3>\n";
-		}
-
-		// wrapper div of all field-container divs
-		echo '<div class="field-container-wrapper">';
-
-		//Hook before section options
-		do_action( $jquery_click_section_hook . '_before' );
-
-		call_user_func( $section['callback'], $section );
-
-		if( isset( $wp_settings_fields ) && isset( $wp_settings_fields[$page] ) && isset( $wp_settings_fields[$page][$section['id']] ) ) {
-			cyberchimps_do_settings_fields( $page, $section['id'] );
-		}
-
-		//Hook after section options
-		do_action( $jquery_click_section_hook . '_after' );
-
-		echo '</div>'; // .field-container ends
-		echo '<div class="clear"></div></div>';
-	}
-}
-
-/**
- * forked version of core function do_settings_fields()
- * modified core code to remove table cell markup and apply custom markup
- * returns mixed data
- */
-function cyberchimps_do_settings_fields( $page, $section ) {
-	global $wp_settings_fields;
-
-	if( !isset( $wp_settings_fields ) || !isset( $wp_settings_fields[$page] ) || !isset( $wp_settings_fields[$page][$section] ) ) {
-		return;
-	}
-
-	foreach( (array)$wp_settings_fields[$page][$section] as $field ) {
-		call_user_func( $field['callback'], $field['args'] );
-	}
-}
-
-function cyberchimps_get_headings() {
-	$headings_list = array();
-
-	// pull in both default sections and users custom sections
-	return apply_filters( 'cyberchimps_heading_list', $headings_list );
-}
-
 function cyberchimps_get_sections() {
 	$sections_list = array();
 
@@ -522,179 +454,6 @@ function cyberchimps_get_fields() {
 
 	// pull in both default fields and users custom fields
 	return apply_filters( 'cyberchimps_field_list', $fields_list );
-}
-
-function cyberchimps_create_sections( $sections ) {
-	if( empty( $sections ) ) {
-		return false;
-	}
-
-	// add in error checking and proper validation, escaping, and translation calls
-	foreach( $sections as $section ) {
-		if( cyberchimps_section_exists( $section['heading'], $section['id'] ) ) {
-			continue;
-		}
-		else {
-			add_settings_section(
-				$section['id'],
-				$section['label'],
-				'cyberchimps_sections_callback',
-				$section['heading']
-			);
-		}
-	}
-}
-
-function cyberchimps_drag_drop_field( $value ) {
-
-	// Set directory uri
-	$directory_uri = get_template_directory_uri();
-
-	$option_name = 'cyberchimps_options';
-	$settings    = get_option( $option_name );
-
-	$val    = '';
-	$output = '';
-
-	// If the option is already saved, ovveride $val
-	if( ( $value['type'] != 'heading' ) && ( $value['type'] != 'info' ) ) {
-		if( isset( $settings[( $value['id'] )] ) ) {
-
-			// Assign empty array if the array returns null
-			if( $settings[( $value['id'] )] != "" ) {
-				$val = $settings[( $value['id'] )];
-			}
-			else {
-				$val = null;
-			}
-			// Striping slashes of non-array options
-			if( !is_array( $val ) ) {
-				$val = stripslashes( $val );
-			}
-		}
-	}
-	// Set default value to $val
-	if( empty( $val ) ) {
-		if( isset( $value['std'] ) ) {
-			if( is_array( $value['std'] ) ) {
-				$val = array_keys( $value['std'] );
-			}
-			else {
-				$val = array_keys( explode( $value['std'] ) );
-			}
-		}
-	}
-
-	$output .= "<div class='section_order' id=" . esc_attr( $value['id'] ) . ">";
-	$output .= "<div class='left_list span5'>";
-	$output .= "<div class='inactive'>Inactive Elements</div>";
-	$output .= "<div class='list_items'>";
-	if( is_array( $val ) ) {
-		foreach( $value['options'] as $key => $option ) {
-			if( in_array( $key, $val ) ) {
-				continue;
-			}
-			$output .= "<div class='list_item'>";
-			$output .= '<span class="glyphicon glyphicon-remove action"></span>';
-			$output .= "<span data-key='{$key}'>{$option}</span>";
-			$output .= "<span id='{$key}_img'></span>";
-			$output .= "</div>";
-		}
-	}
-	$output .= "</div>";
-	$output .= "</div>";
-	$output .= '<div class="options-arrow span1 hidden-phone"><span class="glyphicon glyphicon-arrow-right"></span></div>';
-	$output .= "<div class='right_list span5'>";
-	$output .= "<div class='active'>Active Elements</div>";
-	$output .= "<div class='drag'>Drag & Drop Elements</div>";
-	$output .= "<div class='list_items'>";
-	if( is_array( $val ) ) {
-		foreach( $val as $key ) {
-			if( !array_key_exists( $key, $value['options'] ) ) {
-				continue;
-			}
-			$output .= "<div class='list_item'>";
-			$output .= '<span class="glyphicon glyphicon-remove action"></span>';
-			$output .= "<span data-key='{$key}'>{$value['options'][$key]}</span>";
-			$output .= "<span id='{$key}_img'></span>";
-			$output .= "</div>";
-		}
-	}
-	$output .= "</div>";
-	$output .= "<input class='blog-section-order-tracker' type='hidden'  name='cyberchimps_options[blog_section_order_tracker]' />";
-	$output .= "</div>";
-	$output .= '<div id="values" data-key="' . $option_name . '"></div>';
-	$output .= '<div class="clear"></div>';
-	$output .= "</div>";
-
-	echo $output;
-}
-
-function cyberchimps_sections_callback( $section_passed ) {
-	$sections = cyberchimps_get_sections();
-
-	if( empty( $sections ) && empty( $section_passed ) ) {
-		return false;
-	}
-
-	foreach( $sections as $section ) {
-		if( $section_passed['id'] == $section['id'] ) {
-			echo '<p>';
-			if( isset( $section['description'] ) ) {
-				echo $section['description'];
-			}
-			echo '</p>';
-		}
-	}
-}
-
-/**
- * custom function that checks if the section has been run through add_settings_section() function
- * returns bool value true if section exists and false if it does not
- */
-function cyberchimps_section_exists( $heading, $section ) {
-	global $wp_settings_sections;
-
-	if( isset( $wp_settings_sections[$heading][$section] ) ) {
-		return true;
-	}
-
-	return false;
-}
-
-function cyberchimps_create_fields( $fields ) {
-	if( empty( $fields ) ) {
-		return false;
-	}
-
-	// loop through and create each field
-	foreach( $fields as $field_args ) {
-		$field_defaults = array(
-			'id'       => false,
-			'name'     => __( 'Default Field', 'cyberchimps_core' ),
-			'callback' => 'cyberchimps_fields_callback',
-			'section'  => 'cyberchimps_default_section',
-			'heading'  => 'cyberchimps_default_heading',
-		);
-		$field_args     = wp_parse_args( $field_args, $field_defaults );
-
-		if( empty( $field_args['id'] ) ) {
-			continue;
-		}
-		elseif( !cyberchimps_section_exists( $field_args['heading'], $field_args['section'] ) ) {
-			continue;
-		}
-		else {
-			add_settings_field(
-				$field_args['id'],
-				$field_args['name'],
-				$field_args['callback'],
-				$field_args['heading'],
-				$field_args['section'],
-				$field_args
-			);
-		}
-	}
 }
 
 function cyberchimps_fields_callback( $value ) {
@@ -1294,20 +1053,6 @@ function cyberchimps_get_default_values() {
 	}
 
 	return $output;
-}
-
-/**
- * Add Theme Options menu item to Admin Bar.
- */
-function cyberchimps_admin_bar() {
-	global $wp_admin_bar;
-
-	$wp_admin_bar->add_menu( array(
-		                         'parent' => 'appearance',
-		                         'id'     => 'cyberchimps_options_page',
-		                         'title'  => __( 'Theme Options', 'cyberchimps_core' ),
-		                         'href'   => admin_url( 'themes.php?page=cyberchimps-theme-options' )
-	                         ) );
 }
 
 /** Sticky Header **/
