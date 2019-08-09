@@ -95,7 +95,7 @@ function cyberchimps_customize( $wp_customize ) {
 
             <span class="customize-control-title"><?php echo esc_html( $this->label ); ?></span>
             <em>
-                <small><?php _e( 'make sure you have removed the image above before selecting one of these', 'cyberchimps_core' ); ?></small>
+                <small><?php esc_html_e( 'make sure you have removed the image above before selecting one of these', 'cyberchimps_core' ); ?></small>
             </em>
             <?php
 			foreach( $this->choices as $value => $label ) :

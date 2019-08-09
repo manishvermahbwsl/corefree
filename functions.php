@@ -720,7 +720,7 @@ function cyberchimps_default_site_title() {
 			printf( __( 'Tag Archives: %s', 'cyberchimps_core' ) , single_tag_title( '', false ) );
 		}
 		elseif( is_author() ) {
-			_e( 'Author Archives', 'cyberchimps_core' );
+            esc_html_e( 'Author Archives', 'cyberchimps_core' );
 		}
 		elseif( is_day() ) {
 			printf( __( 'Daily Archives: %s', 'cyberchimps_core' ), get_the_date() );
@@ -732,10 +732,10 @@ function cyberchimps_default_site_title() {
 			printf( __( 'Yearly Archives: %s', 'cyberchimps_core' ), get_the_date( 'Y' ) );
 		}
 		elseif( is_plugin_active( 'woocommerce/woocommerce.php' ) && is_woocommerce() && is_shop() ) {
-			_e( 'Shop', 'cyberchimps_core' );
+            esc_html_e( 'Shop', 'cyberchimps_core' );
 		}
 		else {
-			_e( 'Archives', 'cyberchimps_core' );
+            esc_html_e( 'Archives', 'cyberchimps_core' );
 		}
 	}
 
