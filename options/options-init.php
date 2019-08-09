@@ -18,7 +18,7 @@
 // Load options customizer file
 add_action( 'init', 'cyberchimps_load_customizer' );
 function cyberchimps_load_customizer() {
-	require_once dirname( __FILE__ ) . '/options-customizer.php';
+	require_once get_parent_theme_file_path( '/cyberchimps/options/options-customizer.php' );
 }
 
 function cyberchimps_get_fields() {
@@ -44,46 +44,44 @@ function cyberchimps_get_fields() {
 function cyberchimps_get_default_values() {
 	$output = array();
 	$config = cyberchimps_get_fields();
-	foreach( (array)$config as $option ) {
-		if( !isset( $option['id'] ) ) {
+	foreach ( (array) $config as $option ) {
+		if ( ! isset( $option['id'] ) ) {
 			continue;
 		}
-		if( !isset( $option['std'] ) ) {
+		if ( ! isset( $option['std'] ) ) {
 			continue;
 		}
-		if( !isset( $option['type'] ) ) {
+		if ( ! isset( $option['type'] ) ) {
 			continue;
 		}
-		if( has_filter( 'cyberchimps_sanitize_' . $option['type'] ) ) {
-			$output[$option['id']] = apply_filters( 'cyberchimps_sanitize_' . $option['type'], $option['std'], $option );
+		if ( has_filter( 'cyberchimps_sanitize_' . $option['type'] ) ) {
+			$output[ $option['id'] ] = apply_filters( 'cyberchimps_sanitize_' . $option['type'], $option['std'], $option );
 		}
 	}
 
 	return $output;
 }
 
-/** Sticky Header **/
+/** Sticky Header */
 add_action( 'wp_footer', 'cyberchimps_fixed_menu_onscroll' );
-function cyberchimps_fixed_menu_onscroll()
-{
-    
-	if( cyberchimps_get_option( 'sticky_header', 'checked' ) ) {
-           
-	?>
+function cyberchimps_fixed_menu_onscroll() {
+	if ( cyberchimps_get_option( 'sticky_header', 'checked' ) ) {
+
+		?>
 		<script type="text/javascript">
 		jQuery(document).ready(function($){
 			$(window).scroll(function()  {
 			if ($(this).scrollTop() > 0) {
 			$('#header_section').addClass("sticky-header");
-                       
+					   
 			}
 			else{
 			$('#header_section').removeClass("sticky-header");
-                       
+					   
 			}
 			});
 		});
 		</script>
-	<?php
+		<?php
 	}
 }
