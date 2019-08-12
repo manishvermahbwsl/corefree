@@ -415,7 +415,7 @@ if( !class_exists( 'AT_Meta_Box' ) ) :
 
 					echo '
         <span class="re-control at-re-toggle"><img src="' . $plugin_path . '/images/edit.png" alt="Edit" title="Edit"/></span> 
-        <span class="re-control"><img src="' . $plugin_path . '/images/remove.png" alt="' . __( 'Remove', 'cyberchimps_core' ) . '" title="' . __( 'Remove', 'cyberchimps_core' ) . '" id="remove-' . $field['id'] . '"></span>
+        <span class="re-control"><img src="' . $plugin_path . '/images/remove.png" alt="' . esc_html( 'Remove', 'cyberchimps_core' ) . '" title="' . esc_html( 'Remove', 'cyberchimps_core' ) . '" id="remove-' . $field['id'] . '"></span>
         <span class="re-control-clear"></span></div>';
 					$c = $c + 1;
 				}
@@ -428,7 +428,7 @@ if( !class_exists( 'AT_Meta_Box' ) ) :
 			else {
 				echo 'http://i.imgur.com/w5Tuc.png';
 			}
-			echo '" alt="' . __( 'Add', 'cyberchimps_core' ) . '" title="' . __( 'Add', 'cyberchimps_core' ) . '" id="add-' . $field['id'] . '"><br/></div>';
+			echo '" alt="' . esc_html( 'Add', 'cyberchimps_core' ) . '" title="' . esc_html( 'Add', 'cyberchimps_core' ) . '" id="add-' . $field['id'] . '"><br/></div>';
 
 			//create all fields once more for js function and catch with object buffer
 			ob_start();
@@ -457,7 +457,7 @@ if( !class_exists( 'AT_Meta_Box' ) ) :
 			if( $field['inline'] ) {
 				echo '</tr>';
 			}
-			echo '</table><img src="' . $plugin_path . '/images/remove.png" alt="' . __( 'Remove', 'cyberchimps_core' ) . '" title="' . __( 'Remove', 'cyberchimps_core' ) . '" id="remove-' . $field['id'] . '"></div>';
+			echo '</table><img src="' . $plugin_path . '/images/remove.png" alt="' . esc_html( 'Remove', 'cyberchimps_core' ) . '" title="' . esc_html( 'Remove', 'cyberchimps_core' ) . '" id="remove-' . $field['id'] . '"></div>';
 			$counter = 'countadd_' . $field['id'];
 			$js_code = ob_get_clean();
 			$js_code = str_replace( "\n", "", $js_code );
@@ -2086,8 +2086,8 @@ class CyberChimps_Meta_Box extends AT_Meta_Box {
 			echo "<img class='image-preview' src='{$meta}' /><br/>";
 		}
 
-		echo "<input type='button' class='upload-image-button' value='" . __( 'Upload', 'cyberchimps_core' ) . "' />";
-		echo "<div class='upload-desc-field'>" . __( 'or enter URL', 'cyberchimps_core' ) . "</div>";
+		echo "<input type='button' class='upload-image-button' value='" . esc_html( 'Upload', 'cyberchimps_core' ) . "' />";
+		echo "<div class='upload-desc-field'>" . esc_html( 'or enter URL', 'cyberchimps_core' ) . "</div>";
 		echo "<input class='upload-image-field' type='text' size='50' name='{$field['id']}' value='{$meta}'/>";
 
 		$this->show_field_end( $field, $meta );
