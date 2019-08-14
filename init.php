@@ -24,7 +24,8 @@ if ( ! function_exists( 'cyberchimps_core_setup_theme' ) ) :
 		$directory = get_template_directory();
 
 		// Load core functions file
-		require_once get_parent_theme_file_path( '/cyberchimps/functions.php' );
+        require_once get_parent_theme_file_path( '/cyberchimps/class-cyberchimps-helper.php' );
+        require_once get_parent_theme_file_path( '/cyberchimps/functions.php' );
 
 		// Load core hooks file
 		require_once get_parent_theme_file_path( '/cyberchimps/inc/hooks.php' );
@@ -195,11 +196,8 @@ add_action( 'widgets_init', 'cyberchimps_widgets_init' );
 
 function cyberchimps_load_hooks() {
 
-	require_once get_parent_theme_file_path( '/cyberchimps/hooks/wp-head-hooks.php' );
-	require_once get_parent_theme_file_path( '/cyberchimps/hooks/header-hooks.php' );
-	require_once get_parent_theme_file_path( '/cyberchimps/hooks/blog-hooks.php' );
-	require_once get_parent_theme_file_path( '/cyberchimps/hooks/page-hooks.php' );
-	require_once get_parent_theme_file_path( '/cyberchimps/hooks/footer-hooks.php' );
+       require_once get_parent_theme_file_path('/cyberchimps/hooks/class-cyberchimps-hooks.php' );
+
 }
 
 add_action( 'after_setup_theme', 'cyberchimps_load_hooks' );
