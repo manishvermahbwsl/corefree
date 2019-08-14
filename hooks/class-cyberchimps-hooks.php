@@ -64,10 +64,10 @@ if ( ! class_exists( 'Cyberchimps_Hooks' ) ) {
 				$defaults[] = $key;
 			}
 
-			$blog_section_order = cyberchimps_get_option( 'blog_section_order', $defaults );
+			$blog_section_order = Cyberchimps_Helper::cyberchimps_get_option( 'blog_section_order', $defaults );
 			// select default in case options are empty.
 			$blog_section_order = ( '' === $blog_section_order ) ? array( 'blog_post_page' ) : $blog_section_order;
-			$slider_size        = cyberchimps_get_option( 'blog_slider_size', 'full' );
+			$slider_size        = Cyberchimps_Helper::cyberchimps_get_option( 'blog_slider_size', 'full' );
 			if ( is_array( $blog_section_order ) ) {
 
 				// Check if both of slider and blog post were active.
@@ -112,11 +112,11 @@ if ( ! class_exists( 'Cyberchimps_Hooks' ) ) {
 		public static function cyberchimps_post() {
 
 			?>
-			<div id="container" <?php cyberchimps_filter_container_class(); ?>>
+			<div id="container" <?php Cyberchimps_Helper::cyberchimps_filter_container_class(); ?>>
 
 				<?php do_action( 'cyberchimps_before_content_container' ); ?>
 
-				<div id="content" <?php cyberchimps_filter_content_class(); ?>>
+				<div id="content" <?php Cyberchimps_Helper::cyberchimps_filter_content_class(); ?>>
 
 					<?php do_action( 'cyberchimps_before_content' ); ?>
 
@@ -155,9 +155,9 @@ if ( ! class_exists( 'Cyberchimps_Hooks' ) ) {
 		public static function cyberchimps_blog_title() {
 			if ( is_home() ) {
 				// Add blog title if toggle is on.
-				$title_toggle = cyberchimps_get_option( 'blog_title', false );
+				$title_toggle = Cyberchimps_Helper::cyberchimps_get_option( 'blog_title', false );
 				if ( $title_toggle ) {
-					$title_text = cyberchimps_get_option( 'blog_title_text', __( 'Our Blog', 'cyberchimps_core' ) );
+					$title_text = Cyberchimps_Helper::cyberchimps_get_option( 'blog_title_text', __( 'Our Blog', 'cyberchimps_core' ) );
 					echo apply_filters(
 						'cyberchimps_blog_title_html',
 						'
@@ -184,7 +184,7 @@ if ( ! class_exists( 'Cyberchimps_Hooks' ) ) {
 						<footer class="site-footer row-fluid">
 							<div class="span6">
 								<div id="credit">
-									<?php if ( cyberchimps_get_option( 'footer_cyberchimps_link', 1 ) === '1' ) : ?>
+									<?php if ( Cyberchimps_Helper::cyberchimps_get_option( 'footer_cyberchimps_link', 1 ) === '1' ) : ?>
 										<a href="http://cyberchimps.com/" target="_blank" title="CyberChimps Themes">
 										<?php if ( 'free' === cyberchimps_theme_check() ) { ?>
 											<h4 class="cc-credit-text">CyberChimps WordPress Themes</h4></a>
@@ -203,7 +203,7 @@ if ( ! class_exists( 'Cyberchimps_Hooks' ) ) {
 							</div>
 							<!-- Adds the afterfooter copyright area -->
 							<div class="span6">
-								<?php $copyright = ( cyberchimps_get_option( 'footer_copyright_text' ) ) ? cyberchimps_get_option( 'footer_copyright_text' ) : 'CyberChimps &#169;' . date( 'Y' ); ?>
+								<?php $copyright = ( Cyberchimps_Helper::cyberchimps_get_option( 'footer_copyright_text' ) ) ? Cyberchimps_Helper::cyberchimps_get_option( 'footer_copyright_text' ) : 'CyberChimps &#169;' . date( 'Y' ); ?>
 								<div id="copyright">
 									<?php echo wp_kses_post( $copyright ); ?>
 								</div>
@@ -257,7 +257,7 @@ if ( ! class_exists( 'Cyberchimps_Hooks' ) ) {
 				$defaults[] = $key;
 			}
 			// call the database results and if they don't exist then call the defaults from above.
-			$header_section = cyberchimps_get_option( 'header_section_order', $defaults );
+			$header_section = Cyberchimps_Helper::cyberchimps_get_option( 'header_section_order', $defaults );
 			$header_section = ( '' === $header_section ) ? $defaults : $header_section;
 
 			if ( is_array( $header_section ) ) {
@@ -407,9 +407,9 @@ if ( ! class_exists( 'Cyberchimps_Hooks' ) ) {
 		 */
 		public static function cyberchimps_header_logo() {
 
-			$url = ( cyberchimps_get_option( 'custom_logo_url' ) === '1' ) ? cyberchimps_get_option( 'custom_logo_url_link' ) : esc_url( home_url() );
-			if ( cyberchimps_get_option( 'custom_logo' ) === '1' ) {
-				$logo = cyberchimps_get_option( 'custom_logo_uploader' );
+			$url = ( Cyberchimps_Helper::cyberchimps_get_option( 'custom_logo_url' ) === '1' ) ? Cyberchimps_Helper::cyberchimps_get_option( 'custom_logo_url_link' ) : esc_url( home_url() );
+			if ( Cyberchimps_Helper::cyberchimps_get_option( 'custom_logo' ) === '1' ) {
+				$logo = Cyberchimps_Helper::cyberchimps_get_option( 'custom_logo_uploader' );
 				?>
 				<div id="logo">
 					<a href="<?php echo $url; ?>" title="<?php echo get_bloginfo( 'name' ); ?>"><img src="<?php echo stripslashes( $logo ); ?>" alt="<?php echo get_bloginfo( 'name' ); ?>"></a>
@@ -447,37 +447,37 @@ if ( ! class_exists( 'Cyberchimps_Hooks' ) ) {
 		public static function cyberchimps_header_social_icons() {
 
 			// get the design of the icons to apply the right class.
-			$design = cyberchimps_get_option( 'theme_backgrounds', 'default' );
+			$design = Cyberchimps_Helper::cyberchimps_get_option( 'theme_backgrounds', 'default' );
 
 			// create array of social icons to loop through to check if they are set and add title key to.
 			// social networks with names different to key.
 
-			$social['twitterbird']['set']   = cyberchimps_get_option( 'social_twitter', 'checked' );
+			$social['twitterbird']['set']   = Cyberchimps_Helper::cyberchimps_get_option( 'social_twitter', 'checked' );
 			$social['twitterbird']['title'] = 'twitter';
-			$social['twitterbird']['url']   = cyberchimps_get_option( 'twitter_url' );
-			$social['facebook']['set']      = cyberchimps_get_option( 'social_facebook', 'checked' );
-			$social['facebook']['url']      = cyberchimps_get_option( 'facebook_url' );
-			$social['googleplus']['set']    = cyberchimps_get_option( 'social_google', 'checked' );
-			$social['googleplus']['url']    = cyberchimps_get_option( 'google_url' );
-			$social['flickr']['set']        = cyberchimps_get_option( 'social_flickr' );
-			$social['flickr']['url']        = cyberchimps_get_option( 'flickr_url' );
-			$social['pinterest']['set']     = cyberchimps_get_option( 'social_pinterest' );
-			$social['pinterest']['url']     = cyberchimps_get_option( 'pinterest_url' );
-			$social['linkedin']['set']      = cyberchimps_get_option( 'social_linkedin' );
-			$social['linkedin']['url']      = cyberchimps_get_option( 'linkedin_url' );
-			$social['youtube']['set']       = cyberchimps_get_option( 'social_youtube' );
-			$social['youtube']['url']       = cyberchimps_get_option( 'youtube_url' );
-			$social['map']['set']           = cyberchimps_get_option( 'social_googlemaps' );
+			$social['twitterbird']['url']   = Cyberchimps_Helper::cyberchimps_get_option( 'twitter_url' );
+			$social['facebook']['set']      = Cyberchimps_Helper::cyberchimps_get_option( 'social_facebook', 'checked' );
+			$social['facebook']['url']      = Cyberchimps_Helper::cyberchimps_get_option( 'facebook_url' );
+			$social['googleplus']['set']    = Cyberchimps_Helper::cyberchimps_get_option( 'social_google', 'checked' );
+			$social['googleplus']['url']    = Cyberchimps_Helper::cyberchimps_get_option( 'google_url' );
+			$social['flickr']['set']        = Cyberchimps_Helper::cyberchimps_get_option( 'social_flickr' );
+			$social['flickr']['url']        = Cyberchimps_Helper::cyberchimps_get_option( 'flickr_url' );
+			$social['pinterest']['set']     = Cyberchimps_Helper::cyberchimps_get_option( 'social_pinterest' );
+			$social['pinterest']['url']     = Cyberchimps_Helper::cyberchimps_get_option( 'pinterest_url' );
+			$social['linkedin']['set']      = Cyberchimps_Helper::cyberchimps_get_option( 'social_linkedin' );
+			$social['linkedin']['url']      = Cyberchimps_Helper::cyberchimps_get_option( 'linkedin_url' );
+			$social['youtube']['set']       = Cyberchimps_Helper::cyberchimps_get_option( 'social_youtube' );
+			$social['youtube']['url']       = Cyberchimps_Helper::cyberchimps_get_option( 'youtube_url' );
+			$social['map']['set']           = Cyberchimps_Helper::cyberchimps_get_option( 'social_googlemaps' );
 			$social['map']['title']         = 'google maps';
-			$social['map']['url']           = cyberchimps_get_option( 'googlemaps_url' );
-			$social['email']['set']         = cyberchimps_get_option( 'social_email' );
-			$social['email']['url']         = 'mailto:' . cyberchimps_get_option( 'email_url' );
-			$social['rss']['set']           = cyberchimps_get_option( 'social_rss' );
-			$social['rss']['url']           = cyberchimps_get_option( 'rss_url' );
-			$social['instagram']['set']     = cyberchimps_get_option( 'social_instagram' );
-			$social['instagram']['url']     = cyberchimps_get_option( 'instagram_url' );
-			$social['snapchat']['set']      = cyberchimps_get_option( 'social_snapchat' );
-			$social['snapchat']['url']      = cyberchimps_get_option( 'snapchat_url' );
+			$social['map']['url']           = Cyberchimps_Helper::cyberchimps_get_option( 'googlemaps_url' );
+			$social['email']['set']         = Cyberchimps_Helper::cyberchimps_get_option( 'social_email' );
+			$social['email']['url']         = 'mailto:' . Cyberchimps_Helper::cyberchimps_get_option( 'email_url' );
+			$social['rss']['set']           = Cyberchimps_Helper::cyberchimps_get_option( 'social_rss' );
+			$social['rss']['url']           = Cyberchimps_Helper::cyberchimps_get_option( 'rss_url' );
+			$social['instagram']['set']     = Cyberchimps_Helper::cyberchimps_get_option( 'social_instagram' );
+			$social['instagram']['url']     = Cyberchimps_Helper::cyberchimps_get_option( 'instagram_url' );
+			$social['snapchat']['set']      = Cyberchimps_Helper::cyberchimps_get_option( 'social_snapchat' );
+			$social['snapchat']['url']      = Cyberchimps_Helper::cyberchimps_get_option( 'snapchat_url' );
 
 			$output = '';
 
@@ -519,7 +519,7 @@ if ( ! class_exists( 'Cyberchimps_Hooks' ) ) {
 			?>
 			<header id="cc-header" class="row-fluid">
 				<div class="span7">
-					<?php echo stripslashes( cyberchimps_get_option( 'custom_header_element' ) ); ?>
+					<?php echo stripslashes( Cyberchimps_Helper::cyberchimps_get_option( 'custom_header_element' ) ); ?>
 				</div>
 			</header>
 			<?php
@@ -569,9 +569,9 @@ if ( ! class_exists( 'Cyberchimps_Hooks' ) ) {
 		public static function cyberchimps_banner_content() {
 
 			// Getting banner options.
-			$banner  = cyberchimps_get_option( 'header_banner_image' );
+			$banner  = Cyberchimps_Helper::cyberchimps_get_option( 'header_banner_image' );
 			$default = get_template_directory_uri() . apply_filters( 'cyberchimps_banner_img', '/cyberchimps/lib/images/banner.jpg' );
-			$url     = cyberchimps_get_option( 'header_banner_url' );
+			$url     = Cyberchimps_Helper::cyberchimps_get_option( 'header_banner_url' );
 			?>
 			<header id="cc-header" class="row-fluid">
 				<div id="banner">
@@ -592,7 +592,7 @@ if ( ! class_exists( 'Cyberchimps_Hooks' ) ) {
 		 * @since  2.0.0
 		 */
 		public static function cyberchimps_contact_info() {
-			$contact = apply_filters( 'cyberchimps_header_contact', cyberchimps_get_option( 'contact_details' ) );
+			$contact = apply_filters( 'cyberchimps_header_contact', Cyberchimps_Helper::cyberchimps_get_option( 'contact_details' ) );
 			?>
 
 			<div class="contact_details">
@@ -697,11 +697,11 @@ if ( ! class_exists( 'Cyberchimps_Hooks' ) ) {
 		 */
 		public static function cyberchimps_page() {
 			?>
-			<div id="container" <?php cyberchimps_filter_container_class(); ?>>
+			<div id="container" <?php Cyberchimps_Helper::cyberchimps_filter_container_class(); ?>>
 
 				<?php do_action( 'cyberchimps_before_content_container' ); ?>
 
-				<div id="content" <?php cyberchimps_filter_content_class(); ?>>
+				<div id="content" <?php Cyberchimps_Helper::cyberchimps_filter_content_class(); ?>>
 
 					<?php do_action( 'cyberchimps_before_content' ); ?>
 
@@ -795,8 +795,8 @@ if ( ! class_exists( 'Cyberchimps_Hooks' ) ) {
 					<?php
 				}
 
-				$width = intval( cyberchimps_get_option( 'max_width' ) ) . 'px';
-				if ( ! cyberchimps_get_option( 'responsive_design', 'checked' ) ) {
+				$width = intval( Cyberchimps_Helper::cyberchimps_get_option( 'max_width' ) ) . 'px';
+				if ( ! Cyberchimps_Helper::cyberchimps_get_option( 'responsive_design', 'checked' ) ) {
 					?>
 				@media screen and (max-width: <?php echo $width; ?>) {
 					.container-full-width {
@@ -821,8 +821,8 @@ if ( ! class_exists( 'Cyberchimps_Hooks' ) ) {
 		public static function cyberchimps_headings_styles() {
 
 			// Set header font family.
-			$headings_styles      = cyberchimps_get_option( 'font_family_headings' );
-			$google_font_headings = cyberchimps_get_option( 'google_font_headings' );
+			$headings_styles      = Cyberchimps_Helper::cyberchimps_get_option( 'font_family_headings' );
+			$google_font_headings = Cyberchimps_Helper::cyberchimps_get_option( 'google_font_headings' );
 
 			// older versions will have saved the font family as a string so we need to check for that first.
 			if ( is_array( $headings_styles ) ) {
@@ -862,8 +862,8 @@ if ( ! class_exists( 'Cyberchimps_Hooks' ) ) {
 		public static function cyberchimps_body_styles() {
 			$body_styles = array();
 
-			if ( cyberchimps_get_option( 'typography_options' ) ) {
-				$typography_options = cyberchimps_get_option( 'typography_options' );
+			if ( Cyberchimps_Helper::cyberchimps_get_option( 'typography_options' ) ) {
+				$typography_options = Cyberchimps_Helper::cyberchimps_get_option( 'typography_options' );
 				// changes terminology for typography to css elements.
 				foreach ( $typography_options as $option => $value ) {
 					if ( 'size' === $option ) {
@@ -882,7 +882,7 @@ if ( ! class_exists( 'Cyberchimps_Hooks' ) ) {
 			}
 
 			// Set font-family if google font is on.
-			$google_font = cyberchimps_get_option( 'google_font_field' );
+			$google_font = Cyberchimps_Helper::cyberchimps_get_option( 'google_font_field' );
 
 			if ( 'Google Fonts' === $body_styles['font-family'] && '' !== $google_font ) {
 				$body_styles['font-family'] = $google_font;
@@ -893,8 +893,8 @@ if ( ! class_exists( 'Cyberchimps_Hooks' ) ) {
 				wp_register_style( 'google-font', $protocol . '://fonts.googleapis.com/css?family=' . $google_font );
 				wp_enqueue_style( 'google-font' );
 			}
-			if ( cyberchimps_get_option( 'text_colorpicker' ) ) {
-				$body_styles['color'] = cyberchimps_get_option( 'text_colorpicker' );
+			if ( Cyberchimps_Helper::cyberchimps_get_option( 'text_colorpicker' ) ) {
+				$body_styles['color'] = Cyberchimps_Helper::cyberchimps_get_option( 'text_colorpicker' );
 			}
 			return $body_styles;
 		}
@@ -906,11 +906,11 @@ if ( ! class_exists( 'Cyberchimps_Hooks' ) ) {
 		 */
 		public static function cyberchimps_link_styles() {
 			$link_styles = array();
-			if ( cyberchimps_get_option( 'link_colorpicker' ) ) {
-				$link_styles['a'] = cyberchimps_get_option( 'link_colorpicker' );
+			if ( Cyberchimps_Helper::cyberchimps_get_option( 'link_colorpicker' ) ) {
+				$link_styles['a'] = Cyberchimps_Helper::cyberchimps_get_option( 'link_colorpicker' );
 			}
-			if ( cyberchimps_get_option( 'link_hover_colorpicker' ) ) {
-				$link_styles['a:hover'] = cyberchimps_get_option( 'link_hover_colorpicker' );
+			if ( Cyberchimps_Helper::cyberchimps_get_option( 'link_hover_colorpicker' ) ) {
+				$link_styles['a:hover'] = Cyberchimps_Helper::cyberchimps_get_option( 'link_hover_colorpicker' );
 			}
 
 			return $link_styles;
@@ -923,9 +923,9 @@ if ( ! class_exists( 'Cyberchimps_Hooks' ) ) {
 		 */
 		public static function cyberchimps_layout_styles() {
 			$container_styles = array();
-			if ( cyberchimps_get_option( 'max_width' ) ) {
-				$width = intval( cyberchimps_get_option( 'max_width' ) );
-				$key   = ( cyberchimps_get_option( 'responsive_design', 'checked' ) ) ? 'max-width' : 'width';
+			if ( Cyberchimps_Helper::cyberchimps_get_option( 'max_width' ) ) {
+				$width = intval( Cyberchimps_Helper::cyberchimps_get_option( 'max_width' ) );
+				$key   = ( Cyberchimps_Helper::cyberchimps_get_option( 'responsive_design', 'checked' ) ) ? 'max-width' : 'width';
 				if ( $width < 400 || empty( $width ) ) {
 					$container_styles[ $key ] = 1020;
 				} else {
@@ -943,8 +943,8 @@ if ( ! class_exists( 'Cyberchimps_Hooks' ) ) {
 		 * @since  2.0.0
 		 */
 		public static function cyberchimps_favicon() {
-			if ( cyberchimps_get_option( 'custom_favicon' ) ) :
-				$favicon = cyberchimps_get_option( 'favicon_uploader' );
+			if ( Cyberchimps_Helper::cyberchimps_get_option( 'custom_favicon' ) ) :
+				$favicon = Cyberchimps_Helper::cyberchimps_get_option( 'favicon_uploader' );
 				if ( '' !== $favicon ) :
 					?>
 					<link rel="shortcut icon" href="<?php echo stripslashes( $favicon ); ?>" type="image/x-icon"/>
@@ -959,8 +959,8 @@ if ( ! class_exists( 'Cyberchimps_Hooks' ) ) {
 		 * @since  2.0.0
 		 */
 		public static function cyberchimps_apple() {
-			if ( cyberchimps_get_option( 'custom_apple' ) ) :
-				$apple = cyberchimps_get_option( 'apple_touch_uploader' );
+			if ( Cyberchimps_Helper::cyberchimps_get_option( 'custom_apple' ) ) :
+				$apple = Cyberchimps_Helper::cyberchimps_get_option( 'apple_touch_uploader' );
 				if ( '' !== $apple ) :
 					?>
 					<link rel="apple-touch-icon" href="<?php echo stripslashes( $apple ); ?>"/>
@@ -974,7 +974,7 @@ if ( ! class_exists( 'Cyberchimps_Hooks' ) ) {
 		 * @since  2.0.0
 		 */
 		public static function cyberchimps_skin_styles() {
-			$skin = cyberchimps_get_option( 'cyberchimps_skin_color' );
+			$skin = Cyberchimps_Helper::cyberchimps_get_option( 'cyberchimps_skin_color' );
 			if ( 'default' !== $skin ) {
 				wp_enqueue_style( 'skin-style', get_template_directory_uri() . '/inc/css/skins/' . $skin . '.css', array( 'style' ), '1.0' );
 			}
@@ -986,7 +986,7 @@ if ( ! class_exists( 'Cyberchimps_Hooks' ) ) {
 		 * @since  2.0.0
 		 */
 		public static function cyberchimps_header_scripts() {
-			$header_scripts = cyberchimps_get_option( 'header_scripts' );
+			$header_scripts = Cyberchimps_Helper::cyberchimps_get_option( 'header_scripts' );
 			echo $header_scripts;
 		}
 

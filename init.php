@@ -24,7 +24,8 @@ if ( ! function_exists( 'cyberchimps_core_setup_theme' ) ) :
 		$directory = get_template_directory();
 
 		// Load core functions file
-		require_once get_parent_theme_file_path( '/cyberchimps/functions.php' );
+        require_once get_parent_theme_file_path( '/cyberchimps/class-cyberchimps-helper.php' );
+        require_once get_parent_theme_file_path( '/cyberchimps/functions.php' );
 
 		// Load core hooks file
 		require_once get_parent_theme_file_path( '/cyberchimps/inc/hooks.php' );

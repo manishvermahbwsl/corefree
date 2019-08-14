@@ -65,7 +65,7 @@ function cyberchimps_get_default_values() {
 /** Sticky Header */
 add_action( 'wp_footer', 'cyberchimps_fixed_menu_onscroll' );
 function cyberchimps_fixed_menu_onscroll() {
-	if ( cyberchimps_get_option( 'sticky_header', 'checked' ) ) {
+	if ( Cyberchimps_Helper::cyberchimps_get_option( 'sticky_header', 'checked' ) ) {
 
 		?>
 		<script type="text/javascript">
