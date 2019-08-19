@@ -28,8 +28,8 @@ if ( ! class_exists( 'Cyberchimps_Helper' ) ) {
 		}
 
 		/**
-         * Get Cyberchimnps options.
-         *
+		 * Get Cyberchimnps options.
+		 *
 		 * @param $name Name of the options
 		 * @param bool                     $default
 		 * @return bool
@@ -487,6 +487,34 @@ if ( ! class_exists( 'Cyberchimps_Helper' ) ) {
 			$classes[] = 'row-fluid';
 
 			return $classes;
+		}
+
+		// Sets fallback menu for 1 level. Could use preg_split to have children displayed too
+		public static function cyberchimps_fallback_menu() {
+			$walker  = new cyberchimps_fallback_walker();
+			$args    = array(
+				'depth'       => 0,
+				'show_date'   => '',
+				'date_format' => '',
+				'child_of'    => 0,
+				'exclude'     => '',
+				'include'     => '',
+				'title_li'    => '',
+				'echo'        => 0,
+				'authors'     => '',
+				'sort_column' => 'menu_order, post_title',
+				'link_before' => '',
+				'link_after'  => '',
+				'walker'      => $walker,
+				'post_type'   => 'page',
+				'post_status' => 'publish',
+			);
+			$pages   = wp_list_pages( $args );
+			$prepend = '<ul id="menu-menu" class="nav">';
+			$pages   = apply_filters( 'cyberchimps_fallback_menu_filter', $pages, $args );
+			$append  = '</ul>';
+			$output  = $prepend . $pages . $append;
+			echo $output;
 		}
 
 	}
