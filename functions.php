@@ -30,47 +30,6 @@ remove_action( 'woocommerce_sidebar', 'woocommerce_get_sidebar', 10 );
 // Enables woocommerce support for the theme.
 add_theme_support( 'woocommerce' );
 
-function cyberchimps_get_layout( $layout_type ) {
-	$wide_sidebar = Cyberchimps_Helper::cyberchimps_get_option( 'wide_sidebar', 0 );
-	$layout_type  = ( $layout_type ) ? $layout_type : 'right_sidebar';
-	$content_span = ( $wide_sidebar == 1 ) ? 'cyberchimps_class_span8' : 'cyberchimps_class_span9';
-	$sidebar_span = ( $wide_sidebar == 1 ) ? 'cyberchimps_class_span4' : 'cyberchimps_class_span3';
-
-	switch ( $layout_type ) {
-		case 'full_width':
-			add_filter( 'cyberchimps_content_class', 'cyberchimps_class_span12' );
-			break;
-		case 'right_sidebar':
-			add_action( 'cyberchimps_after_content_container', 'cyberchimps_add_sidebar_right' );
-			add_filter( 'cyberchimps_content_class', $content_span );
-			add_filter( 'cyberchimps_content_class', 'cyberchimps_content_sbr_class' );
-			add_filter( 'cyberchimps_sidebar_right_class', $sidebar_span );
-			break;
-		case 'left_sidebar':
-			add_action( 'cyberchimps_before_content_container', 'cyberchimps_add_sidebar_left' );
-			add_filter( 'cyberchimps_content_class', $content_span );
-			add_filter( 'cyberchimps_content_class', 'cyberchimps_content_sbl_class' );
-			add_filter( 'cyberchimps_sidebar_left_class', $sidebar_span );
-			break;
-		case 'content_middle':
-			add_action( 'cyberchimps_before_content_container', 'cyberchimps_add_sidebar_left' );
-			add_action( 'cyberchimps_after_content_container', 'cyberchimps_add_sidebar_right' );
-			add_filter( 'cyberchimps_content_class', 'cyberchimps_class_span6' );
-			add_filter( 'cyberchimps_content_class', 'cyberchimps_content_sb2_class' );
-			add_filter( 'cyberchimps_sidebar_left_class', 'cyberchimps_class_span3' );
-			add_filter( 'cyberchimps_sidebar_right_class', 'cyberchimps_class_span3' );
-			break;
-		case 'left_right_sidebar':
-			add_action( 'cyberchimps_after_content_container', 'cyberchimps_add_sidebar_left' );
-			add_action( 'cyberchimps_after_content_container', 'cyberchimps_add_sidebar_right' );
-			add_filter( 'cyberchimps_content_class', 'cyberchimps_class_span6' );
-			add_filter( 'cyberchimps_content_class', 'cyberchimps_content_sb2r_class' );
-			add_filter( 'cyberchimps_sidebar_left_class', 'cyberchimps_class_span3' );
-			add_filter( 'cyberchimps_sidebar_right_class', 'cyberchimps_class_span3' );
-			break;
-	}
-}
-
 class cyberchimps_Walker extends Walker_Nav_Menu {
 
 	function start_lvl( &$output, $depth = 0, $args = array() ) {
