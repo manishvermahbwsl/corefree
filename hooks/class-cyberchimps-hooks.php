@@ -38,8 +38,6 @@ if ( ! class_exists( 'Cyberchimps_Hooks' ) ) {
 			add_action( 'cyberchimps_page_content', __CLASS__ . '::cyberchimps_page_section_order_action' );
 			add_action( 'page_section', __CLASS__ . '::cyberchimps_page' );
 			add_action( 'wp_head', __CLASS__ . '::cyberchimps_css_styles', 50 );
-			add_action( 'wp_head', __CLASS__ . '::cyberchimps_favicon', 2 );
-			add_action( 'admin_head', __CLASS__ . '::cyberchimps_favicon', 2 );
 			add_action( 'wp_head', __CLASS__ . '::cyberchimps_apple', 2 );
 			add_action( 'wp_enqueue_scripts', __CLASS__ . '::cyberchimps_skin_styles', 35 );
 			add_action( 'wp_head', __CLASS__ . '::cyberchimps_header_scripts' );
@@ -252,7 +250,7 @@ if ( ! class_exists( 'Cyberchimps_Hooks' ) ) {
 		public static function cyberchimps_header_section_order() {
 			// get the defaults from the themes function file and turn the key into the value in a new array to mirror what happens within the theme when their are options saved in the database.
 			$defaults = array();
-			$default  = apply_filters( 'header_drag_and_drop_default', array( 'cyberchimps_header_content' => __( 'Logo + Icons', 'cyberchimps_core' ) ) );
+			$default  = apply_filters( 'cyberchimps_header_drag_and_drop_default', array( 'cyberchimps_header_content' => __( 'Logo + Icons', 'cyberchimps_core' ) ) );
 			foreach ( $default as $key => $val ) {
 				$defaults[] = $key;
 			}
@@ -936,22 +934,6 @@ if ( ! class_exists( 'Cyberchimps_Hooks' ) ) {
 			return $container_styles;
 		}
 
-
-		/**
-		 * Add favicon.
-		 *
-		 * @since  2.0.0
-		 */
-		public static function cyberchimps_favicon() {
-			if ( Cyberchimps_Helper::cyberchimps_get_option( 'custom_favicon' ) ) :
-				$favicon = Cyberchimps_Helper::cyberchimps_get_option( 'favicon_uploader' );
-				if ( '' !== $favicon ) :
-					?>
-					<link rel="shortcut icon" href="<?php echo stripslashes( $favicon ); ?>" type="image/x-icon"/>
-					<?php
-				endif;
-				endif;
-		}
 
 		/**
 		 * Add apple touch icon.

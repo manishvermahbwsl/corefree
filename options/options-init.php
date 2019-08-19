@@ -43,8 +43,8 @@ function cyberchimps_get_fields() {
  */
 function cyberchimps_get_default_values() {
 	$output = array();
-	$config = cyberchimps_get_fields();
-	foreach ( (array) $config as $option ) {
+	$cyberchimps_config = cyberchimps_get_fields();
+	foreach ( (array) $cyberchimps_config as $option ) {
 		if ( ! isset( $option['id'] ) ) {
 			continue;
 		}
@@ -73,11 +73,11 @@ function cyberchimps_fixed_menu_onscroll() {
 			$(window).scroll(function()  {
 			if ($(this).scrollTop() > 0) {
 			$('#header_section').addClass("sticky-header");
-					   
+
 			}
 			else{
 			$('#header_section').removeClass("sticky-header");
-					   
+
 			}
 			});
 		});

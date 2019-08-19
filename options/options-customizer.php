@@ -108,7 +108,7 @@ function cyberchimps_customize( $wp_customize ) {
 				?>
 				<div class="images-radio-subcontainer">
 					<label>
-						<input type="radio" value="<?php echo esc_attr( $value ); ?>" name="<?php echo esc_attr( $name ); ?>" 
+						<input type="radio" value="<?php echo esc_attr( $value ); ?>" name="<?php echo esc_attr( $name ); ?>"
 															  <?php
 																$this->link();
 																checked( $test_bg, $value );
@@ -215,7 +215,7 @@ function cyberchimps_customize( $wp_customize ) {
 				?>
 				<div class="images-skin-subcontainer">
 					<label>
-						<input type="radio" value="<?php echo esc_attr( $value ); ?>" name="<?php echo esc_attr( $name ); ?>" 
+						<input type="radio" value="<?php echo esc_attr( $value ); ?>" name="<?php echo esc_attr( $name ); ?>"
 															  <?php
 																$this->link();
 																checked( $test_skin, $value );
@@ -995,7 +995,7 @@ function cyberchimps_customize( $wp_customize ) {
 	);
 
 	$sidebar_choices = apply_filters(
-		'blog_layout_options',
+		'cyberchimps_blog_layout_options',
 		array(
 			'full_width'    => $imagepath . '1col.png',
 			'right_sidebar' => $imagepath . '2cr.png',
@@ -2601,7 +2601,7 @@ function cyberchimps_customize( $wp_customize ) {
 	$wp_customize->add_setting(
 		'cyberchimps_options[max_width]',
 		array(
-			'default'           => apply_filters( 'max_width_default', '1020' ),
+			'default'           => apply_filters( 'cyberchimps_max_width_default', '1020' ),
 			'type'              => 'option',
 			'sanitize_callback' => 'absint',
 		)
