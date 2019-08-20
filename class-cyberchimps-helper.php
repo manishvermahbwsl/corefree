@@ -491,7 +491,7 @@ if ( ! class_exists( 'Cyberchimps_Helper' ) ) {
 
 		// Sets fallback menu for 1 level. Could use preg_split to have children displayed too
 		public static function cyberchimps_fallback_menu() {
-			$walker  = new cyberchimps_fallback_walker();
+			$walker  = new Cyberchimps_fallback_walker();
 			$args    = array(
 				'depth'       => 0,
 				'show_date'   => '',

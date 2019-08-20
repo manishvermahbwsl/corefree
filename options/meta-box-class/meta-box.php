@@ -66,7 +66,7 @@ if( is_admin() ) {
 			'class'     => 'help-message',
 			'name'      => __( 'Need Help?', 'cyberchimps_core' ),
 			'help_text' => '<a href="' . $cyberchimps_pagedocs . '" target="_blank">' . sprintf( __( 'Visit the %s page options guide', 'cyberchimps_core' ), $$cyberchimps_themenamefull ) . '</a></td>'
-		)
+		),
 	);
 	/*
 	 * configure your meta box

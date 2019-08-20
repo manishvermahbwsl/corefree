@@ -882,7 +882,7 @@ if ( ! class_exists( 'Cyberchimps_Hooks' ) ) {
 			// Set font-family if google font is on.
 			$google_font = Cyberchimps_Helper::cyberchimps_get_option( 'google_font_field' );
 
-			if ( 'Google Fonts' === $body_styles['font-family'] && '' !== $google_font ) {
+			if ( isset( $body_styles['font-family'] ) && 'Google Fonts' === $body_styles['font-family'] && '' !== $google_font ) {
 				$body_styles['font-family'] = $google_font;
 
 				// Check if SSL is present, if so then use https othereise use http.
