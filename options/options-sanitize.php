@@ -14,7 +14,7 @@ add_filter( 'cyberchimps_sanitize_text_html', 'cyberchimps_sanitize_text_html' )
 
 /* Unfiltered Textarea */
 function cyberchimps_sanitize_unfiltered_textarea( $input ) {
-	$output = cyberchimps_get_option( 'html_box', '' );
+	$output = Cyberchimps_Helper::cyberchimps_get_option( 'html_box', '' );
 	if( current_user_can( 'unfiltered_html' ) ) {
 		$output = $input;
 

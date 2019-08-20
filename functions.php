@@ -15,99 +15,8 @@
  * @link     http://www.cyberchimps.com/
  */
 
-// include plugin.php to use is_plugin_active() condition
-include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
-
-if( !function_exists( 'cyberchimps_get_option' ) ) {
-
-	/**
-	 * Get Option.
-	 *
-	 * Helper function to return the theme option value.
-	 * If no value has been saved, it returns $default.
-	 * Needed because options are saved as serialized strings.
-	 */
-
-	function cyberchimps_get_option( $name, $default = false ) {
-		$options = get_option( 'cyberchimps_options' );
-
-		if( isset( $options[$name] ) ) {
-			return $options[$name];
-		}
-
-		return $default;
-	}
-}
-// Enqueue core scripts and core styles
-function cyberchimps_core_scripts() {
-	global $post;
-
-	// Define paths
-	$directory_uri  = get_template_directory_uri();
-	$js_path        = $directory_uri . '/cyberchimps/lib/js/';
-	$bootstrap_path = $directory_uri . '/cyberchimps/lib/bootstrap/';
-
-	// set up slimbox for gallery images
-	if( cyberchimps_get_option( 'gallery_lightbox', 1 ) ) {
-		wp_enqueue_script( 'gallery-lightbox', $js_path . 'gallery-lightbox.min.js', array( 'jquery' ), '1.0' );
-	}
-
-	// Load JS for slimbox
-	wp_enqueue_script( 'slimbox', $js_path . 'jquery.slimbox.min.js', array( 'jquery' ), '1.0' );
-
-	// Load library for jcarousel
-	wp_enqueue_script( 'jcarousel', $js_path . 'jquery.jcarousel.min.js', array( 'jquery' ), '1.0' );
-
-	//touch swipe gestures
-	wp_enqueue_script( 'jquery-mobile-touch', $js_path . 'jquery.mobile.custom.min.js', array( 'jquery' ) );
-	wp_enqueue_script( 'slider-call', $js_path . 'swipe-call.min.js', array( 'jquery', 'jquery-mobile-touch' ) );
-
-	// Load Bootstrap Library Items
-	wp_enqueue_style( 'bootstrap-style', $bootstrap_path . 'css/bootstrap.min.css', false, '2.0.4' );
-	wp_enqueue_style( 'bootstrap-responsive-style', $bootstrap_path . 'css/bootstrap-responsive.min.css', array( 'bootstrap-style' ), '2.0.4' );
-        wp_enqueue_style( 'font-awesome', $directory_uri. '/cyberchimps/lib/css/font-awesome.min.css' );
-	wp_enqueue_script( 'bootstrap-js', $bootstrap_path . 'js/bootstrap.min.js', array( 'jquery' ), '2.0.4', true );
-
-	//responsive design
-	if( cyberchimps_get_option( 'responsive_design', 'checked' ) ) {
-		wp_enqueue_style( 'cyberchimps_responsive', $directory_uri . '/cyberchimps/lib/bootstrap/css/cyberchimps-responsive.min.css', array( 'bootstrap-responsive-style', 'bootstrap-style' ), '1.0' );
-	}
-	else {
-		wp_dequeue_style( 'cyberchimps_responsive' );
-	}
-
-	// Load core JS
-	wp_enqueue_script( 'core-js', $js_path . 'core.min.js', array( 'jquery' ) );
-
-	// Placeholder fix for IE8/9
-	if(preg_match('/(?i)msie [8-9]/',$_SERVER['HTTP_USER_AGENT']))
-	{
-		wp_enqueue_script( 'placeholder', $js_path . 'jquery.placeholder.js', array( 'jquery' ) );
-	}
-
-	/**
-	 * With the use of @2x at the end of an image it will use that to display the retina image. Both images have to been in the same folder
-	 */
-	wp_enqueue_script( 'retina-js', $js_path . 'retina-1.1.0.min.js', '', '1.1.0', true );
-
-	// Load Core Stylesheet
-	wp_enqueue_style( 'core-style', $directory_uri . '/cyberchimps/lib/css/core.css', array( 'bootstrap-responsive-style', 'bootstrap-style' ), '1.0' );
-
-	// Load Theme Stylesheet
-	wp_enqueue_style( 'style', get_stylesheet_uri(), array( 'core-style' ), '1.0' );
-
-	// add javascript for comments
-	if( is_singular() ) {
-		wp_enqueue_script( 'comment-reply' );
-	}
-
-	if( cyberchimps_get_option( 'responsive_videos' ) == '1' ) {
-		wp_enqueue_script( 'video', $js_path . 'video.min.js' );
-	}
-
-}
-
-add_action( 'wp_enqueue_scripts', 'cyberchimps_core_scripts', 20 );
+// Include plugin.php to use is_plugin_active() condition.
+require_once ABSPATH . 'wp-admin/includes/plugin.php';
 
 /**
  * WooCommerce
@@ -118,213 +27,100 @@ remove_action( 'woocommerce_before_main_content', 'woocommerce_output_content_wr
 remove_action( 'woocommerce_after_main_content', 'woocommerce_output_content_wrapper_end', 10 );
 remove_action( 'woocommerce_sidebar', 'woocommerce_get_sidebar', 10 );
 
-add_action( 'woocommerce_before_main_content', 'cyberchimps_wrapper_start', 10 );
-add_action( 'woocommerce_after_main_content', 'cyberchimps_wrapper_end', 10 );
-
-if( !function_exists( 'cyberchimps_wrapper_start' ) ) {
-
-	function cyberchimps_wrapper_start() {
-		?>
-		<div id="cc_woocommerce" class="container-full-width">
-
-		<div class="container">
-
-		<div class="container-fluid">
-
-		<div id="container" <?php cyberchimps_filter_container_class(); ?>>
-
-		<?php do_action( 'cyberchimps_before_content_container' ); ?>
-
-		<div id="content" <?php cyberchimps_filter_content_class(); ?>>
-
-		<?php do_action( 'cyberchimps_before_content' );
-	}
-}
-
-if( !function_exists( 'cyberchimps_wrapper_end' ) ) {
-
-	function cyberchimps_wrapper_end() {
-		?>
-		<?php do_action( 'cyberchimps_after_content' ); ?>
-
-		</div><!-- #content -->
-
-		<?php do_action( 'cyberchimps_after_content_container' ); ?>
-
-		</div><!-- #container .row-fluid-->
-
-		</div><!-- container fluid -->
-
-		</div><!-- conatiner -->
-
-		</div><!-- container full width -->
-	<?php
-	}
-}
-
-//Enables woocommerce support for the theme.
+// Enables woocommerce support for the theme.
 add_theme_support( 'woocommerce' );
 
-function cyberchimps_create_layout() {
-	global $post;
+class cyberchimps_Walker extends Walker_Nav_Menu { //phpcs:ignore
 
-	if( is_single() ) {
-		$layout_type = cyberchimps_get_option( 'single_post_sidebar_options', 'right_sidebar' );
-
-	}
-	elseif( is_home() ) {
-		$layout_type = cyberchimps_get_option( 'sidebar_images', 'right_sidebar' );
-
-	}
-	elseif( is_page() ) {
-		$page_sidebar = get_post_meta( $post->ID, 'cyberchimps_page_sidebar' );
-		$layout_type  = ( isset( $page_sidebar[0] ) ) ? $page_sidebar[0] : 'right_sidebar';
-
-	}
-	elseif( is_plugin_active( 'woocommerce/woocommerce.php' ) && is_woocommerce() && is_shop() ) {
-		$page_sidebar = get_post_meta( wc_get_page_id( 'shop' ), 'cyberchimps_page_sidebar' );
-		$layout_type  = ( isset( $page_sidebar[0] ) ) ? $page_sidebar[0] : 'right_sidebar';
-
-	}
-	elseif( is_archive() ) {
-		$layout_type = cyberchimps_get_option( 'archive_sidebar_options', 'right_sidebar' );
-
-	}
-	elseif( is_search() ) {
-		$layout_type = cyberchimps_get_option( 'search_sidebar_options', 'right_sidebar' );
-
-	}
-	elseif( is_404() ) {
-		$layout_type = cyberchimps_get_option( 'error_sidebar_options', 'right_sidebar' );
-
-	}
-	else {
-		$layout_type = apply_filters( 'cyberchimps_default_layout', 'right_sidebar' );
-	}
-
-	cyberchimps_get_layout( $layout_type );
-}
-
-add_action( 'wp', 'cyberchimps_create_layout' );
-
-function cyberchimps_get_layout( $layout_type ) {
-	$wide_sidebar = cyberchimps_get_option( 'wide_sidebar', 0 );
-	$layout_type  = ( $layout_type ) ? $layout_type : 'right_sidebar';
-	$content_span = ( $wide_sidebar == 1 ) ? 'cyberchimps_class_span8' : 'cyberchimps_class_span9';
-	$sidebar_span = ( $wide_sidebar == 1 ) ? 'cyberchimps_class_span4' : 'cyberchimps_class_span3';
-
-	switch( $layout_type ) {
-		case 'full_width' :
-			add_filter( 'cyberchimps_content_class', 'cyberchimps_class_span12' );
-			break;
-		case 'right_sidebar' :
-			add_action( 'cyberchimps_after_content_container', 'cyberchimps_add_sidebar_right' );
-			add_filter( 'cyberchimps_content_class', $content_span );
-			add_filter( 'cyberchimps_content_class', 'cyberchimps_content_sbr_class' );
-			add_filter( 'cyberchimps_sidebar_right_class', $sidebar_span );
-			break;
-		case 'left_sidebar' :
-			add_action( 'cyberchimps_before_content_container', 'cyberchimps_add_sidebar_left' );
-			add_filter( 'cyberchimps_content_class', $content_span );
-			add_filter( 'cyberchimps_content_class', 'cyberchimps_content_sbl_class' );
-			add_filter( 'cyberchimps_sidebar_left_class', $sidebar_span );
-			break;
-		case 'content_middle' :
-			add_action( 'cyberchimps_before_content_container', 'cyberchimps_add_sidebar_left' );
-			add_action( 'cyberchimps_after_content_container', 'cyberchimps_add_sidebar_right' );
-			add_filter( 'cyberchimps_content_class', 'cyberchimps_class_span6' );
-			add_filter( 'cyberchimps_content_class', 'cyberchimps_content_sb2_class' );
-			add_filter( 'cyberchimps_sidebar_left_class', 'cyberchimps_class_span3' );
-			add_filter( 'cyberchimps_sidebar_right_class', 'cyberchimps_class_span3' );
-			break;
-		case 'left_right_sidebar' :
-			add_action( 'cyberchimps_after_content_container', 'cyberchimps_add_sidebar_left' );
-			add_action( 'cyberchimps_after_content_container', 'cyberchimps_add_sidebar_right' );
-			add_filter( 'cyberchimps_content_class', 'cyberchimps_class_span6' );
-			add_filter( 'cyberchimps_content_class', 'cyberchimps_content_sb2r_class' );
-			add_filter( 'cyberchimps_sidebar_left_class', 'cyberchimps_class_span3' );
-			add_filter( 'cyberchimps_sidebar_right_class', 'cyberchimps_class_span3' );
-			break;
-	}
-}
-
-class cyberchimps_Walker extends Walker_Nav_Menu {
-
-	function start_lvl( &$output, $depth = 0, $args = array() ) {
-		//In a child UL, add the 'dropdown-menu' class
-		if( $depth == 0 ) {
-			$indent = str_repeat( "\t", $depth );
+	/**
+	 * [start_lvl description]
+	 *
+	 * @param  string  $output Contains string.
+	 * @param  integer $depth  Depth.
+	 * @param  array   $args   Arguments.
+	 */
+	public function start_lvl( &$output, $depth = 0, $args = array() ) {
+		// In a child UL, add the 'dropdown-menu' class.
+		if ( $depth == 0 ) {
+			$indent  = str_repeat( "\t", $depth );
 			$output .= "\n$indent<ul class=\"dropdown-menu\">\n";
-		}
-		else {
-			$indent = str_repeat( "\t", $depth );
+		} else {
+			$indent  = str_repeat( "\t", $depth );
 			$output .= "\n$indent<ul>\n";
 		}
 	}
 
+	/**
+	 * [start_el description]
+	 *
+	 * @param  string  $output output.
+	 * @param  object  $item   Item
+	 * @param  integer $depth  Item
+	 * @param  array   $args   Item
+	 */
 	function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
 
 		$indent = ( $depth ) ? str_repeat( "\t", $depth ) : '';
 
 		$li_attributes = '';
-		$class_names   = $value = '';
+		$class_names   = '';
+		$value         = '';
 
-		$classes = empty( $item->classes ) ? array() : ( array )$item->classes;
+		$classes = empty( $item->classes ) ? array() : (array) $item->classes;
 
-		//Add class and attribute to LI element that contains a submenu UL.
-		if( $args->has_children && $depth < 1 ) {
-			$classes[] = 'dropdown';
+		// Add class and attribute to LI element that contains a submenu UL.
+		if ( $args->has_children && $depth < 1 ) {
+			$classes[]      = 'dropdown';
 			$li_attributes .= ' data-dropdown="dropdown"';
 		}
-		if( $args->has_children && $depth == 1 ) {
+		if ( $args->has_children && $depth == 1 ) {
 			$classes[] = 'grandchild';
 		}
 		$classes[] = 'menu-item-' . $item->ID;
-		//If we are on the current page, add the active class to that menu item.
+		// If we are on the current page, add the active class to that menu item.
 		$classes[] = ( $item->current ) ? 'active' : '';
 
-		//Make sure you still add all of the WordPress classes.
-		$class_names = join( ' ', apply_filters( 'nav_menu_css_class', array_filter( $classes ), $item, $args ) );
+		// Make sure you still add all of the WordPress classes.
+		$class_names = join( ' ', apply_filters( 'nav_menu_css_class', array_filter( $classes ), $item, $args ) ); // phpcs:ignore WPThemeReview.CoreFunctionality.PrefixAllGlobals.NonPrefixedHooknameFound
 		$class_names = ' class="' . esc_attr( $class_names ) . '"';
 
-		$id = apply_filters( 'nav_menu_item_id', 'menu-item-' . $item->ID, $item, $args );
+		$id = apply_filters( 'nav_menu_item_id', 'menu-item-' . $item->ID, $item, $args ); // phpcs:ignore WPThemeReview.CoreFunctionality.PrefixAllGlobals.NonPrefixedHooknameFound
 		$id = strlen( $id ) ? ' id="' . esc_attr( $id ) . '"' : '';
 
 		$output .= $indent . '<li' . $id . $value . $class_names . $li_attributes . '>';
-		//Add attributes to link element.
-		$attributes = !empty( $item->attr_title ) ? ' title="' . esc_attr( $item->attr_title ) . '"' : '';
-		$attributes .= !empty( $item->target ) ? ' target="' . esc_attr( $item->target ) . '"' : '';
-		$attributes .= !empty( $item->xfn ) ? ' rel="' . esc_attr( $item->xfn ) . '"' : '';
-		$attributes .= !empty( $item->url ) ? ' href="' . esc_attr( $item->url ) . '"' : '';
+		// Add attributes to link element.
+		$attributes  = ! empty( $item->attr_title ) ? ' title="' . esc_attr( $item->attr_title ) . '"' : '';
+		$attributes .= ! empty( $item->target ) ? ' target="' . esc_attr( $item->target ) . '"' : '';
+		$attributes .= ! empty( $item->xfn ) ? ' rel="' . esc_attr( $item->xfn ) . '"' : '';
+		$attributes .= ! empty( $item->url ) ? ' href="' . esc_attr( $item->url ) . '"' : '';
 		$attributes .= ( $args->has_children && $depth < 1 ) ? ' class="dropdown-toggle"' : '';
 
-		$item_output = $args->before;
+		$item_output  = $args->before;
 		$item_output .= '<a' . $attributes . '>';
-		$item_output .= $args->link_before . apply_filters( 'the_title', $item->title, $item->ID ) . $args->link_after;
+		$item_output .= $args->link_before . apply_filters( 'the_title', $item->title, $item->ID ) . $args->link_after; // phpcs:ignore WPThemeReview.CoreFunctionality.PrefixAllGlobals.NonPrefixedHooknameFound
 		$item_output .= ( $args->has_children && $depth < 1 ) ? ' <b class="caret"></b> ' : '';
 		$item_output .= ( $args->has_children && $depth == 1 ) ? apply_filters( 'cyberchimps_menu_grandchild_caret', '' ) : '';
 		$item_output .= '</a>';
 		$item_output .= $args->after;
 
-		$output .= apply_filters( 'walker_nav_menu_start_el', $item_output, $item, $depth, $args );
+		$output .= apply_filters( 'walker_nav_menu_start_el', $item_output, $item, $depth, $args ); // phpcs:ignore WPThemeReview.CoreFunctionality.PrefixAllGlobals.NonPrefixedHooknameFound
 	}
 
-	//Overwrite display_element function to add has_children attribute. Not needed in >= WordPress 3.4
+	// Overwrite display_element function to add has_children attribute. Not needed in >= WordPress 3.4
 	function display_element( $element, &$children_elements, $max_depth, $depth = 0, $args, &$output ) {
 
-		if( !$element ) {
+		if ( ! $element ) {
 			return;
 		}
 
 		$id_field = $this->db_fields['id'];
 
-		//display this element
-		if( is_array( $args[0] ) ) {
-			$args[0]['has_children'] = !empty( $children_elements[$element->$id_field] );
-		}
-		else {
-			if( is_object( $args[0] ) ) {
-				$args[0]->has_children = !empty( $children_elements[$element->$id_field] );
+		// Display this element.
+		if ( is_array( $args[0] ) ) {
+			$args[0]['has_children'] = ! empty( $children_elements[ $element->$id_field ] );
+		} else {
+			if ( is_object( $args[0] ) ) {
+				$args[0]->has_children = ! empty( $children_elements[ $element->$id_field ] );
 			}
 		}
 		$cb_args = array_merge( array( &$output, $element, $depth ), $args );
@@ -332,29 +128,29 @@ class cyberchimps_Walker extends Walker_Nav_Menu {
 
 		$id = $element->$id_field;
 
-		// descend only when the depth is right and there are childrens for this element
-		if( ( $max_depth == 0 || $max_depth > $depth + 1 ) && isset( $children_elements[$id] ) ) {
+		// Descend only when the depth is right and there are childrens for this element.
+		if ( ( $max_depth == 0 || $max_depth > $depth + 1 ) && isset( $children_elements[ $id ] ) ) {
 
-			foreach( $children_elements[$id] as $child ) {
+			foreach ( $children_elements[ $id ] as $child ) {
 
-				if( !isset( $newlevel ) ) {
+				if ( ! isset( $newlevel ) ) {
 					$newlevel = true;
-					//start the child delimiter
+					// Start the child delimiter.
 					$cb_args = array_merge( array( &$output, $depth ), $args );
 					call_user_func_array( array( &$this, 'start_lvl' ), $cb_args );
 				}
 				$this->display_element( $child, $children_elements, $max_depth, $depth + 1, $args, $output );
 			}
-			unset( $children_elements[$id] );
+			unset( $children_elements[ $id ] );
 		}
 
-		if( isset( $newlevel ) && $newlevel ) {
-			//end the child delimiter
+		if ( isset( $newlevel ) && $newlevel ) {
+			// End the child delimiter.
 			$cb_args = array_merge( array( &$output, $depth ), $args );
 			call_user_func_array( array( &$this, 'end_lvl' ), $cb_args );
 		}
 
-		//end this element
+		// End this element.
 		$cb_args = array_merge( array( &$output, $element, $depth ), $args );
 		call_user_func_array( array( &$this, 'end_el' ), $cb_args );
 	}
@@ -362,21 +158,19 @@ class cyberchimps_Walker extends Walker_Nav_Menu {
 
 class Cyberchimps_Fallback_Walker extends Walker_Page {
 	function start_lvl( &$output, $depth = 0, $args = array() ) {
-		if( $depth == 0 ) {
-			$indent = str_repeat( "\t", $depth );
+		if ( $depth == 0 ) {
+			$indent  = str_repeat( "\t", $depth );
 			$output .= "\n$indent<ul class=\"dropdown-menu\">\n";
-		}
-		else {
-			$indent = str_repeat( "\t", $depth );
+		} else {
+			$indent  = str_repeat( "\t", $depth );
 			$output .= "\n$indent<ul>\n";
 		}
 	}
 
 	function start_el( &$output, $page, $depth = 0, $args = array(), $current_page = 0 ) {
-		if( $depth ) {
+		if ( $depth ) {
 			$indent = str_repeat( "\t", $depth );
-		}
-		else {
+		} else {
 			$indent = '';
 		}
 
@@ -385,31 +179,30 @@ class Cyberchimps_Fallback_Walker extends Walker_Page {
 		$data            = '';
 		$link_class_attr = '';
 		$caret           = '';
-		if( $depth == 0 && !empty( $args['has_children'] ) ) {
-			$class_attr .= 'dropdown ';
+		if ( $depth == 0 && ! empty( $args['has_children'] ) ) {
+			$class_attr     .= 'dropdown ';
 			$data            = 'data-dropdown="dropdown"';
 			$link_class_attr = 'dropdown-toggle';
 			$caret           = '<b class="caret"></b>';
 		}
-		if( !empty( $current_page ) ) {
+		if ( ! empty( $current_page ) ) {
 			$_current_page = get_page( $current_page );
-			if( ( isset( $_current_page->ancestors ) && in_array( $page->ID, (array)$_current_page->ancestors ) ) || ( $page->ID == $current_page ) || ( $_current_page && $page->ID == $_current_page->post_parent ) ) {
+			if ( ( isset( $_current_page->ancestors ) && in_array( $page->ID, (array) $_current_page->ancestors ) ) || ( $page->ID == $current_page ) || ( $_current_page && $page->ID == $_current_page->post_parent ) ) {
 				$class_attr .= 'current-menu-item current_page_item active';
 			}
-		}
-		elseif( ( is_single() || is_archive() ) && ( $page->ID == get_option( 'page_for_posts' ) ) ) {
+		} elseif ( ( is_single() || is_archive() ) && ( $page->ID == get_option( 'page_for_posts' ) ) ) {
 			$class_attr = '';
 		}
-		if( $class_attr != '' ) {
+		if ( $class_attr != '' ) {
 			$class_attr = ' class="' . $class_attr . '"';
 		}
-		$output .= $indent . '<li' . $class_attr . $data . '><a href="' . get_page_link( $page->ID ) . '"' . $link_class_attr . '>' . apply_filters( 'the_title', $page->post_title, $page->ID ) . $caret . '</a>';
+		$output .= $indent . '<li' . $class_attr . $data . '><a href="' . get_page_link( $page->ID ) . '"' . $link_class_attr . '>' . apply_filters( 'the_title', $page->post_title, $page->ID ) . $caret . '</a>'; // phpcs:ignore WPThemeReview.CoreFunctionality.PrefixAllGlobals.NonPrefixedHooknameFound
 	}
 }
 
 // Sets fallback menu for 1 level. Could use preg_split to have children displayed too
 function cyberchimps_fallback_menu() {
-	$walker  = new cyberchimps_fallback_walker();
+	$walker  = new Cyberchimps_fallback_walker();
 	$args    = array(
 		'depth'       => 0,
 		'show_date'   => '',
@@ -425,7 +218,7 @@ function cyberchimps_fallback_menu() {
 		'link_after'  => '',
 		'walker'      => $walker,
 		'post_type'   => 'page',
-		'post_status' => 'publish'
+		'post_status' => 'publish',
 	);
 	$pages   = wp_list_pages( $args );
 	$prepend = '<ul id="menu-menu" class="nav">';
@@ -435,20 +228,18 @@ function cyberchimps_fallback_menu() {
 	echo $output;
 }
 
-//Prints HTML with meta information for the current post date/time.
-if( !function_exists( 'cyberchimps_posted_on' ) ) {
+// Prints HTML with meta information for the current post date/time.
+if ( ! function_exists( 'cyberchimps_posted_on' ) ) {
 
 	function cyberchimps_posted_on() {
 
 		// Get value of post byline date toggle option from theme option for different pages
-		if( is_single() ) {
-			$show_date = ( cyberchimps_get_option( 'single_post_byline_date', 1 ) ) ? cyberchimps_get_option( 'single_post_byline_date', 1 ) : false;
-		}
-		elseif( is_archive() ) {
-			$show_date = ( cyberchimps_get_option( 'archive_post_byline_date', 1 ) ) ? cyberchimps_get_option( 'archive_post_byline_date', 1 ) : false;
-		}
-		else {
-			$show_date = ( cyberchimps_get_option( 'post_byline_date', 1 ) ) ? cyberchimps_get_option( 'post_byline_date', 1 ) : false;
+		if ( is_single() ) {
+			$show_date = ( Cyberchimps_Helper::cyberchimps_get_option( 'single_post_byline_date', 1 ) ) ? Cyberchimps_Helper::cyberchimps_get_option( 'single_post_byline_date', 1 ) : false;
+		} elseif ( is_archive() ) {
+			$show_date = ( Cyberchimps_Helper::cyberchimps_get_option( 'archive_post_byline_date', 1 ) ) ? Cyberchimps_Helper::cyberchimps_get_option( 'archive_post_byline_date', 1 ) : false;
+		} else {
+			$show_date = ( Cyberchimps_Helper::cyberchimps_get_option( 'post_byline_date', 1 ) ) ? Cyberchimps_Helper::cyberchimps_get_option( 'post_byline_date', 1 ) : false;
 		}
 
 		// Get all data related to date.
@@ -460,32 +251,30 @@ if( !function_exists( 'cyberchimps_posted_on' ) ) {
 
 		// Set the HTML for date link.
 		$posted_on = sprintf(
-						__( 'Posted on %s', 'cyberchimps_core' ),
-						'<a href="' . $date_url . '" title="' . $date_title . '" rel="bookmark">
+			__( 'Posted on %s', 'cyberchimps_core' ),
+			'<a href="' . $date_url . '" title="' . $date_title . '" rel="bookmark">
 							<time class="entry-date updated" datetime="' . $date_time . '">' . $date . '</time>
 						</a>'
-					);
+		);
 
 		// If post byline date toggle is on then print HTML for date link.
-		if( $show_date ) {
+		if ( $show_date ) {
 			echo apply_filters( 'cyberchimps_posted_on', $posted_on );
 		}
 	}
 }
 
 // Prints HTML for author link of the post.
-if( !function_exists( 'cyberchimps_posted_by' ) ) {
+if ( ! function_exists( 'cyberchimps_posted_by' ) ) {
 	function cyberchimps_posted_by() {
 
 		// Get value of post byline author toggle option from theme option for different pages.
-		if( is_single() ) {
-			$show_author = ( cyberchimps_get_option( 'single_post_byline_author', 1 ) ) ? cyberchimps_get_option( 'single_post_byline_author', 1 ) : false;
-		}
-		elseif( is_archive() ) {
-			$show_author = ( cyberchimps_get_option( 'archive_post_byline_author', 1 ) ) ? cyberchimps_get_option( 'archive_post_byline_author', 1 ) : false;
-		}
-		else {
-			$show_author = ( cyberchimps_get_option( 'post_byline_author', 1 ) ) ? cyberchimps_get_option( 'post_byline_author', 1 ) : false;
+		if ( is_single() ) {
+			$show_author = ( Cyberchimps_Helper::cyberchimps_get_option( 'single_post_byline_author', 1 ) ) ? Cyberchimps_Helper::cyberchimps_get_option( 'single_post_byline_author', 1 ) : false;
+		} elseif ( is_archive() ) {
+			$show_author = ( Cyberchimps_Helper::cyberchimps_get_option( 'archive_post_byline_author', 1 ) ) ? Cyberchimps_Helper::cyberchimps_get_option( 'archive_post_byline_author', 1 ) : false;
+		} else {
+			$show_author = ( Cyberchimps_Helper::cyberchimps_get_option( 'post_byline_author', 1 ) ) ? Cyberchimps_Helper::cyberchimps_get_option( 'post_byline_author', 1 ) : false;
 		}
 
 		// Get url of all author archive( the page will contain all posts by the author).
@@ -496,96 +285,94 @@ if( !function_exists( 'cyberchimps_posted_by' ) ) {
 
 		// Set the HTML for author link.
 		$posted_by = sprintf(
-						'<span class="byline"> ' . __( 'by %s', 'cyberchimps_core' ),
-							'<span class="author vcard">
+			'<span class="byline"> ' . __( 'by %s', 'cyberchimps_core' ),
+			'<span class="author vcard">
 								<a class="url fn n" href="' . $auther_posts_url . '" title="' . $auther_link_title . '" rel="author">' . esc_html( get_the_author() ) . '</a>
 							</span>
 						</span>'
-					);
+		);
 
 		// If post byline author toggle is on then print HTML for author link.
-		if( $show_author ) {
+		if ( $show_author ) {
 			echo apply_filters( 'cyberchimps_posted_by', $posted_by );
 		}
 	}
 }
 
-if( !function_exists( 'cyberchimps_posted_in' ) ) {
-//add meta entry category to single post, archive and blog list if set in options
+if ( ! function_exists( 'cyberchimps_posted_in' ) ) {
+	// add meta entry category to single post, archive and blog list if set in options
 	function cyberchimps_posted_in() {
 		global $post;
 
-		if( is_single() ) {
-			$show = ( cyberchimps_get_option( 'single_post_byline_categories', 1 ) ) ? cyberchimps_get_option( 'single_post_byline_categories', 1 ) : false;
+		if ( is_single() ) {
+			$show = ( Cyberchimps_Helper::cyberchimps_get_option( 'single_post_byline_categories', 1 ) ) ? Cyberchimps_Helper::cyberchimps_get_option( 'single_post_byline_categories', 1 ) : false;
+		} elseif ( is_archive() ) {
+			$show = ( Cyberchimps_Helper::cyberchimps_get_option( 'archive_post_byline_categories', 1 ) ) ? Cyberchimps_Helper::cyberchimps_get_option( 'archive_post_byline_categories', 1 ) : false;
+		} else {
+			$show = ( Cyberchimps_Helper::cyberchimps_get_option( 'post_byline_categories', 1 ) ) ? Cyberchimps_Helper::cyberchimps_get_option( 'post_byline_categories', 1 ) : false;
 		}
-		elseif( is_archive() ) {
-			$show = ( cyberchimps_get_option( 'archive_post_byline_categories', 1 ) ) ? cyberchimps_get_option( 'archive_post_byline_categories', 1 ) : false;
-		}
-		else {
-			$show = ( cyberchimps_get_option( 'post_byline_categories', 1 ) ) ? cyberchimps_get_option( 'post_byline_categories', 1 ) : false;
-		}
-		if( $show ):
+		if ( $show ) :
 			$categories_list = get_the_category_list( ', ' );
-			if( $categories_list ) :
+			if ( $categories_list ) :
 				$cats = sprintf( __( 'Posted in %s', 'cyberchimps_core' ), $categories_list );
 				?>
 				<span class="cat-links">
 				<?php echo apply_filters( 'cyberchimps_post_categories', $cats ); ?>
 			</span>
 				<span class="sep"> <?php echo apply_filters( 'cyberchimps_entry_meta_sep', '|' ); ?> </span>
-			<?php endif;
+				<?php
+			endif;
 		endif;
 	}
 }
 
-if( !function_exists( 'cyberchimps_post_tags' ) ) {
-//add meta entry tags to single post, archive and blog list if set in options
+if ( ! function_exists( 'cyberchimps_post_tags' ) ) {
+	// add meta entry tags to single post, archive and blog list if set in options
 	function cyberchimps_post_tags() {
 		global $post;
 
-		if( is_single() ) {
-			$show = ( cyberchimps_get_option( 'single_post_byline_tags', 1 ) ) ? cyberchimps_get_option( 'single_post_byline_tags', 1 ) : false;
+		if ( is_single() ) {
+			$show = ( Cyberchimps_Helper::cyberchimps_get_option( 'single_post_byline_tags', 1 ) ) ? Cyberchimps_Helper::cyberchimps_get_option( 'single_post_byline_tags', 1 ) : false;
+		} elseif ( is_archive() ) {
+			$show = ( Cyberchimps_Helper::cyberchimps_get_option( 'archive_post_byline_tags', 1 ) ) ? Cyberchimps_Helper::cyberchimps_get_option( 'archive_post_byline_tags', 1 ) : false;
+		} else {
+			$show = ( Cyberchimps_Helper::cyberchimps_get_option( 'post_byline_tags', 1 ) ) ? Cyberchimps_Helper::cyberchimps_get_option( 'post_byline_tags', 1 ) : false;
 		}
-		elseif( is_archive() ) {
-			$show = ( cyberchimps_get_option( 'archive_post_byline_tags', 1 ) ) ? cyberchimps_get_option( 'archive_post_byline_tags', 1 ) : false;
-		}
-		else {
-			$show = ( cyberchimps_get_option( 'post_byline_tags', 1 ) ) ? cyberchimps_get_option( 'post_byline_tags', 1 ) : false;
-		}
-		if( $show ):
+		if ( $show ) :
 			$tags_list = get_the_tag_list( '', ', ' );
-			if( $tags_list ) :
+			if ( $tags_list ) :
 				$tags = sprintf( __( 'Tags: %s', 'cyberchimps_core' ), $tags_list );
 				?>
 				<span class="taglinks">
 				<?php echo apply_filters( 'cyberchimps_post_tags', $tags ); ?>
 			</span>
 				<span class="sep"> <?php echo apply_filters( 'cyberchimps_entry_meta_sep', '|' ); ?> </span>
-			<?php endif; // End if $tags_list
+				<?php
+			endif; // End if $tags_list
 		endif;
 	}
 }
 
-if( !function_exists( 'cyberchimps_post_comments' ) ) {
-//add meta entry comments to single post, archive and blog list if set in options
+if ( ! function_exists( 'cyberchimps_post_comments' ) ) {
+	// add meta entry comments to single post, archive and blog list if set in options
 	function cyberchimps_post_comments() {
 		global $post;
 
-		if( is_single() ) {
-			$show = ( cyberchimps_get_option( 'single_post_byline_comments', 1 ) ) ? cyberchimps_get_option( 'single_post_byline_comments', 1 ) : false;
-		}
-		elseif( is_archive() ) {
-			$show = ( cyberchimps_get_option( 'archive_post_byline_comments', 1 ) ) ? cyberchimps_get_option( 'archive_post_byline_comments', 1 ) : false;
-		}
-		else {
-			$show = ( cyberchimps_get_option( 'post_byline_comments', 1 ) ) ? cyberchimps_get_option( 'post_byline_comments', 1 ) : false;
+		if ( is_single() ) {
+			$show = ( Cyberchimps_Helper::cyberchimps_get_option( 'single_post_byline_comments', 1 ) ) ? Cyberchimps_Helper::cyberchimps_get_option( 'single_post_byline_comments', 1 ) : false;
+		} elseif ( is_archive() ) {
+			$show = ( Cyberchimps_Helper::cyberchimps_get_option( 'archive_post_byline_comments', 1 ) ) ? Cyberchimps_Helper::cyberchimps_get_option( 'archive_post_byline_comments', 1 ) : false;
+		} else {
+			$show = ( Cyberchimps_Helper::cyberchimps_get_option( 'post_byline_comments', 1 ) ) ? Cyberchimps_Helper::cyberchimps_get_option( 'post_byline_comments', 1 ) : false;
 		}
 		$leave_comment = ( is_single() || is_page() ) ? '' : __( 'Leave a comment', 'cyberchimps_core' );
-		if( $show ):
-			if( !post_password_required() && ( comments_open() || '0' != get_comments_number() ) ) : ?>
+		if ( $show ) :
+			if ( ! post_password_required() && ( comments_open() || '0' != get_comments_number() ) ) :
+				?>
 				<span class="comments-link"><?php comments_popup_link( $leave_comment, __( '1 Comment', 'cyberchimps_core' ), '% ' . __( 'Comments', 'cyberchimps_core' ) ); ?></span>
 				<span class="sep"> <?php echo ( $leave_comment != '' ) ? apply_filters( 'cyberchimps_entry_meta_sep', '|' ) : ''; ?> </span>
-			<?php endif;
+				<?php
+			endif;
 		endif;
 	}
 }
@@ -602,23 +389,23 @@ function cyberchimps_comment_form_filter( $defaults ) {
 function cyberchimps_featured_image() {
 	global $post;
 
-	if( is_single() ) {
-		$show = ( cyberchimps_get_option( 'single_post_featured_images', 1 ) ) ? cyberchimps_get_option( 'single_post_featured_images', 1 ) : false;
+	if ( is_single() ) {
+		$show = ( Cyberchimps_Helper::cyberchimps_get_option( 'single_post_featured_images', 1 ) ) ? Cyberchimps_Helper::cyberchimps_get_option( 'single_post_featured_images', 1 ) : false;
+	} elseif ( is_archive() ) {
+		$show = ( Cyberchimps_Helper::cyberchimps_get_option( 'archive_featured_images', 1 ) ) ? Cyberchimps_Helper::cyberchimps_get_option( 'archive_featured_images', 1 ) : false;
+	} else {
+		$show = ( Cyberchimps_Helper::cyberchimps_get_option( 'post_featured_images', 1 ) ) ? Cyberchimps_Helper::cyberchimps_get_option( 'post_featured_images', 1 ) : false;
 	}
-	elseif( is_archive() ) {
-		$show = ( cyberchimps_get_option( 'archive_featured_images', 1 ) ) ? cyberchimps_get_option( 'archive_featured_images', 1 ) : false;
-	}
-	else {
-		$show = ( cyberchimps_get_option( 'post_featured_images', 1 ) ) ? cyberchimps_get_option( 'post_featured_images', 1 ) : false;
-	}
-	if( $show ):
-		if( has_post_thumbnail() ): ?>
+	if ( $show ) :
+		if ( has_post_thumbnail() ) :
+			?>
 			<div class="featured-image">
 				<a href="<?php the_permalink(); ?>" title="<?php printf( esc_attr__( 'Permalink to %s', 'cyberchimps_core' ), the_title_attribute( 'echo=0' ) ); ?>" rel="bookmark">
 					<?php the_post_thumbnail( apply_filters( 'cyberchimps_post_thumbnail_size', 'thumbnail' ) ); ?>
 				</a>
 			</div>
-		<?php    endif;
+			<?php
+		   endif;
 	endif;
 }
 
@@ -626,50 +413,50 @@ function cyberchimps_post_format_icon() {
 	global $post;
 
 	$format = get_post_format( $post->ID );
-	if( $format == '' ) {
+	if ( $format == '' ) {
 		$format = 'default';
 	}
 
-	if( is_single() ) {
-		$show = ( cyberchimps_get_option( 'single_post_format_icons', 1 ) ) ? cyberchimps_get_option( 'single_post_format_icons', 1 ) : false;
+	if ( is_single() ) {
+		$show = ( Cyberchimps_Helper::cyberchimps_get_option( 'single_post_format_icons', 1 ) ) ? Cyberchimps_Helper::cyberchimps_get_option( 'single_post_format_icons', 1 ) : false;
+	} elseif ( is_archive() ) {
+		$show = ( Cyberchimps_Helper::cyberchimps_get_option( 'archive_format_icons', 1 ) ) ? Cyberchimps_Helper::cyberchimps_get_option( 'archive_format_icons', 1 ) : false;
+	} else {
+		$show = ( Cyberchimps_Helper::cyberchimps_get_option( 'post_format_icons', 1 ) ) ? Cyberchimps_Helper::cyberchimps_get_option( 'post_format_icons', 1 ) : false;
 	}
-	elseif( is_archive() ) {
-		$show = ( cyberchimps_get_option( 'archive_format_icons', 1 ) ) ? cyberchimps_get_option( 'archive_format_icons', 1 ) : false;
-	}
-	else {
-		$show = ( cyberchimps_get_option( 'post_format_icons', 1 ) ) ? cyberchimps_get_option( 'post_format_icons', 1 ) : false;
-	}
-	if( !is_page() && $show ):
+	if ( ! is_page() && $show ) :
 
 		// array of post formats and the matching font icons
 		$icons = array(
-			'aside' => '<span class="glyphicon glyphicon-list-alt"></span>',
-			'audio' => '<span class="glyphicon glyphicon-volume-up"></span>',
-			'chat' =>  '<span class="glyphicon glyphicon-comment"></span>',
+			'aside'   => '<span class="glyphicon glyphicon-list-alt"></span>',
+			'audio'   => '<span class="glyphicon glyphicon-volume-up"></span>',
+			'chat'    => '<span class="glyphicon glyphicon-comment"></span>',
 			'default' => '<span class="glyphicon glyphicon-file"></span>',
 			'gallery' => '<span class="glyphicon glyphicon-film"></span>',
-			'image' => '<span class="glyphicon glyphicon-picture"></span>',
-			'link' => '<span class="glyphicon glyphicon-link"></span>',
-			'quote' => '<span class="glyphicon glyphicon-share"></span>',
-			'status' => '<span class="glyphicon glyphicon-th"></span>',
-			'video' => '<span class="glyphicon glyphicon-facetime-video"></span>'
+			'image'   => '<span class="glyphicon glyphicon-picture"></span>',
+			'link'    => '<span class="glyphicon glyphicon-link"></span>',
+			'quote'   => '<span class="glyphicon glyphicon-share"></span>',
+			'status'  => '<span class="glyphicon glyphicon-th"></span>',
+			'video'   => '<span class="glyphicon glyphicon-facetime-video"></span>',
 		);
 		?>
 
 		<div class="postformats"><!--begin format icon-->
-			<?php echo $icons[$format]; ?>
+			<?php echo $icons[ $format ]; ?>
 		</div><!--end format-icon-->
-	<?php
+		<?php
 	endif;
 }
 
 // Returns true if a blog has more than 1 category
 function cyberchimps_categorized_blog() {
-	if( false === ( $cyberchimps_categorized_transient = get_transient( 'cyberchimps_categorized_transient' ) ) ) {
+	if ( false === ( $cyberchimps_categorized_transient = get_transient( 'cyberchimps_categorized_transient' ) ) ) {
 		// Create an array of all the categories that are attached to posts
-		$cyberchimps_categorized_transient = get_categories( array(
-			                                                     'hide_empty' => 1,
-		                                                     ) );
+		$cyberchimps_categorized_transient = get_categories(
+			array(
+				'hide_empty' => 1,
+			)
+		);
 
 		// Count the number of categories that are attached to the posts
 		$cyberchimps_categorized_transient = count( $cyberchimps_categorized_transient );
@@ -677,11 +464,10 @@ function cyberchimps_categorized_blog() {
 		set_transient( 'cyberchimps_categorized_transient', $cyberchimps_categorized_transient );
 	}
 
-	if( '1' != $cyberchimps_categorized_transient ) {
+	if ( '1' != $cyberchimps_categorized_transient ) {
 		// This blog has more than 1 category so cyberchimps_categorized_blog should return true
 		return true;
-	}
-	else {
+	} else {
 		// This blog has only 1 category so cyberchimps_categorized_blog should return false
 		return false;
 	}
@@ -701,62 +487,55 @@ function cyberchimps_default_site_title() {
 	global $page, $paged;
 
 	// Add the blog name.
-	if( !is_feed() ) {
+	if ( ! is_feed() ) {
 		bloginfo( 'name' );
 	}
 
-	//Title for page/post
-	if( is_page() || is_single() ) {
+	// Title for page/post
+	if ( is_page() || is_single() ) {
 		echo ' | ' . get_the_title();
 	}
 
-	//Title for archives
-	if( is_archive() ) {
+	// Title for archives
+	if ( is_archive() ) {
 		echo ' | ';
-		if( is_category() ) {
-			printf( __( 'Category Archives: %s', 'cyberchimps_core' ), single_cat_title( '', false ) );
-		}
-		elseif( is_tag() ) {
-			printf( __( 'Tag Archives: %s', 'cyberchimps_core' ) , single_tag_title( '', false ) );
-		}
-		elseif( is_author() ) {
-			_e( 'Author Archives', 'cyberchimps_core' );
-		}
-		elseif( is_day() ) {
-			printf( __( 'Daily Archives: %s', 'cyberchimps_core' ), get_the_date() );
-		}
-		elseif( is_month() ) {
-			printf( __( 'Monthly Archives: %s', 'cyberchimps_core' ), get_the_date( 'F Y' ) );
-		}
-		elseif( is_year() ) {
-			printf( __( 'Yearly Archives: %s', 'cyberchimps_core' ), get_the_date( 'Y' ) );
-		}
-		elseif( is_plugin_active( 'woocommerce/woocommerce.php' ) && is_woocommerce() && is_shop() ) {
-			_e( 'Shop', 'cyberchimps_core' );
-		}
-		else {
-			_e( 'Archives', 'cyberchimps_core' );
+		if ( is_category() ) {
+			printf( esc_html( 'Category Archives: %s', 'cyberchimps_core' ), single_cat_title( '', false ) );
+		} elseif ( is_tag() ) {
+			printf( esc_html( 'Tag Archives: %s', 'cyberchimps_core' ), single_tag_title( '', false ) );
+		} elseif ( is_author() ) {
+			esc_html_e( 'Author Archives', 'cyberchimps_core' );
+		} elseif ( is_day() ) {
+			printf( esc_html( 'Daily Archives: %s', 'cyberchimps_core' ), get_the_date() );
+		} elseif ( is_month() ) {
+			printf( esc_html( 'Monthly Archives: %s', 'cyberchimps_core' ), get_the_date( 'F Y' ) );
+		} elseif ( is_year() ) {
+			printf( esc_html( 'Yearly Archives: %s', 'cyberchimps_core' ), get_the_date( 'Y' ) );
+		} elseif ( is_plugin_active( 'woocommerce/woocommerce.php' ) && is_woocommerce() && is_shop() ) {
+			esc_html_e( 'Shop', 'cyberchimps_core' );
+		} else {
+			esc_html_e( 'Archives', 'cyberchimps_core' );
 		}
 	}
 
-	//Title for search
-	if( is_search() ) {
+	// Title for search
+	if ( is_search() ) {
 		echo ' | ' . sprintf( __( 'Search for &quot; %s &quot;', 'cyberchimps_core' ), get_search_query() );
 	}
 
-	//Title for 404
-	if( is_404() ) {
+	// Title for 404
+	if ( is_404() ) {
 		echo ' | ' . __( 'Not Found', 'cyberchimps_core' ) . ' ';
 	}
 
 	// Add the blog description for the home/front page.
 	$site_description = get_bloginfo( 'description', 'display' );
-	if( $site_description && ( is_home() || is_front_page() ) ) {
+	if ( $site_description && ( is_home() || is_front_page() ) ) {
 		echo ' | ' . $site_description;
 	}
 
 	// Add a page number if necessary:
-	if( $paged >= 2 || $page >= 2 ) {
+	if ( $paged >= 2 || $page >= 2 ) {
 		echo ' | ' . sprintf( __( 'Page %s', 'cyberchimps_core' ), max( $paged, $page ) );
 	}
 }
@@ -765,7 +544,7 @@ add_filter( 'wp_title', 'cyberchimps_default_site_title' );
 
 // Remove default site title if seo plugin is active
 function cyberchimps_seo_compatibility_check() {
-	if( cyberchimps_detect_seo_plugins() ) {
+	if ( cyberchimps_detect_seo_plugins() ) {
 		remove_filter( 'wp_title', 'cyberchimps_default_site_title', 10, 3 );
 	}
 }
@@ -783,7 +562,7 @@ add_action( 'after_setup_theme', 'cyberchimps_add_thumbnail_size', 5 );
 function cyberchimps_detect_seo_plugins() {
 
 	return cyberchimps_detect_plugin(
-	// Use this filter to adjust plugin tests.
+		// Use this filter to adjust plugin tests.
 		apply_filters(
 			'cyberchimps_detect_seo_plugins',
 			/** Add to this array to add new plugin checks. */
@@ -801,7 +580,7 @@ function cyberchimps_detect_seo_plugins() {
 				'functions' => array(),
 
 				// Constants to detect.
-				'constants' => array( 'WPSEO_VERSION', ),
+				'constants' => array( 'WPSEO_VERSION' ),
 			)
 		)
 	);
@@ -810,7 +589,7 @@ function cyberchimps_detect_seo_plugins() {
 // Detect event plugins
 function cyberchimps_detect_event_plugins() {
 	return cyberchimps_detect_plugin(
-	// Use this filter to adjust plugin tests.
+		// Use this filter to adjust plugin tests.
 		apply_filters(
 			'cyberchimps_detect_event_plugins',
 			/** Add to this array to add new plugin checks. */
@@ -833,27 +612,27 @@ function cyberchimps_detect_event_plugins() {
 function cyberchimps_detect_plugin( $plugins ) {
 
 	/** Check for classes */
-	if( isset( $plugins['classes'] ) ) {
-		foreach( $plugins['classes'] as $name ) {
-			if( class_exists( $name ) ) {
+	if ( isset( $plugins['classes'] ) ) {
+		foreach ( $plugins['classes'] as $name ) {
+			if ( class_exists( $name ) ) {
 				return true;
 			}
 		}
 	}
 
 	/** Check for functions */
-	if( isset( $plugins['functions'] ) ) {
-		foreach( $plugins['functions'] as $name ) {
-			if( function_exists( $name ) ) {
+	if ( isset( $plugins['functions'] ) ) {
+		foreach ( $plugins['functions'] as $name ) {
+			if ( function_exists( $name ) ) {
 				return true;
 			}
 		}
 	}
 
 	/** Check for constants */
-	if( isset( $plugins['constants'] ) ) {
-		foreach( $plugins['constants'] as $name ) {
-			if( defined( $name ) ) {
+	if ( isset( $plugins['constants'] ) ) {
+		foreach ( $plugins['constants'] as $name ) {
+			if ( defined( $name ) ) {
 				return true;
 			}
 		}
@@ -897,14 +676,14 @@ function cyberchimps_magazine_featured_post_excerpt_more( $more ) {
 
 // Set length of the magazine featured post excerpt
 function cyberchimps_magazine_featured_post_length( $length ) {
-	$new_length = cyberchimps_get_option( 'blog_magazine_excerpt_length', 70 );
+	$new_length = Cyberchimps_Helper::cyberchimps_get_option( 'blog_magazine_excerpt_length', 70 );
 
 	return $new_length;
 }
 
 // For magazine wide post
 function cyberchimps_magazine_post_wide( $length ) {
-	$new_length = cyberchimps_get_option( 'blog_magazine_wide_excerpt_length', 130 );
+	$new_length = Cyberchimps_Helper::cyberchimps_get_option( 'blog_magazine_wide_excerpt_length', 130 );
 
 	return $new_length;
 }
@@ -912,12 +691,11 @@ function cyberchimps_magazine_post_wide( $length ) {
 // more text for search results excerpt
 function cyberchimps_search_excerpt_more( $more ) {
 	global $post;
-	if( cyberchimps_get_option( 'search_post_read_more' ) != '' ) {
-		$more = '<p><a href="' . get_permalink( $post->ID ) . '">' . cyberchimps_get_option( 'search_post_read_more' ) . '</a></p>';
+	if ( Cyberchimps_Helper::cyberchimps_get_option( 'search_post_read_more' ) != '' ) {
+		$more = '<p><a href="' . get_permalink( $post->ID ) . '">' . Cyberchimps_Helper::cyberchimps_get_option( 'search_post_read_more' ) . '</a></p>';
 
 		return $more;
-	}
-	else {
+	} else {
 		$more = '<p><a class="excerpt-more search-excerpt" href="' . get_permalink( $post->ID ) . '">' . __( 'Read More...', 'cyberchimps_core' ) . '</a></p>';
 
 		return $more;
@@ -927,25 +705,24 @@ function cyberchimps_search_excerpt_more( $more ) {
 // excerpt length for search results
 function cyberchimps_search_excerpt_length( $length ) {
 	global $post;
-	if( cyberchimps_get_option( 'search_post_excerpt_length' ) != '' ) {
-		$length = cyberchimps_get_option( 'search_post_excerpt_length' );
+	if ( Cyberchimps_Helper::cyberchimps_get_option( 'search_post_excerpt_length' ) != '' ) {
+		$length = Cyberchimps_Helper::cyberchimps_get_option( 'search_post_excerpt_length' );
 
 		return $length;
-	}
-	else {
+	} else {
 		$length = 55;
 
 		return $length;
 	}
 }
 
-//For archive posts
+// For archive posts
 function cyberchimps_archive_excerpt_more( $more ) {
 	global $post;
 	return '<p><a class="excerpt-more archive-excerpt" href="' . get_permalink( $post->ID ) . '">' . cyberchimps_blog_read_more_text() . '</a></p>';
 }
 
-if( cyberchimps_get_option( 'archive_post_excerpts', 0 ) != 0 ) {
+if ( Cyberchimps_Helper::cyberchimps_get_option( 'archive_post_excerpts', 0 ) != 0 ) {
 	add_filter( 'excerpt_more', 'cyberchimps_blog_excerpt_more', 999 );
 }
 
@@ -953,63 +730,60 @@ if( cyberchimps_get_option( 'archive_post_excerpts', 0 ) != 0 ) {
 function cyberchimps_blog_read_more_text() {
 
 	// Get the value of blog read more text option.
-	$read_more = esc_html(cyberchimps_get_option( 'blog_read_more_text' ));
+	$read_more = esc_html( Cyberchimps_Helper::cyberchimps_get_option( 'blog_read_more_text' ) );
 
 	// Check whether any not null value supplied and set the value accordingly.
-	if( '' != $read_more ) {
+	if ( '' != $read_more ) {
 		return $read_more;
-	}
-	else {
+	} else {
 		return __( 'Read More...', 'cyberchimps_core' );
 	}
 
 }
 
-//For blog posts
+// For blog posts
 function cyberchimps_blog_excerpt_more( $more ) {
 	global $post;
 	return '<p><a class="excerpt-more blog-excerpt" href="' . get_permalink( $post->ID ) . '">' . cyberchimps_blog_read_more_text() . '</a></p>';
 
 }
 
-if( cyberchimps_get_option( 'post_excerpts', 0 ) != 0 ) {
+if ( Cyberchimps_Helper::cyberchimps_get_option( 'post_excerpts', 0 ) != 0 ) {
 	add_filter( 'excerpt_more', 'cyberchimps_blog_excerpt_more', 10 );
 }
 
 /**
  * Set custom post excerpt link if excerpt is supplied manually.
  */
-function manual_excerpt_read_more_link( $output ) {
+function cyberchimps_manual_excerpt_read_more_link( $output ) {
 
 	global $post;
 
 	$linktext = cyberchimps_blog_read_more_text();
 
-	if( !empty( $post->post_excerpt ) ) {
+	if ( ! empty( $post->post_excerpt ) ) {
 		return $output . '<p><a class="excerpt-more" href="' . get_permalink( $post->ID ) . '">' . $linktext . '</a></p>';
-	}
-	else {
+	} else {
 		return $output;
 	}
 }
 
-add_filter( 'the_excerpt', 'manual_excerpt_read_more_link' );
+add_filter( 'the_excerpt', 'cyberchimps_manual_excerpt_read_more_link' );
 
 function cyberchimps_blog_excerpt_length( $length ) {
 	global $post;
-	if( cyberchimps_get_option( 'blog_excerpt_length' ) != '' ) {
-		$length = cyberchimps_get_option( 'blog_excerpt_length' );
+	if ( Cyberchimps_Helper::cyberchimps_get_option( 'blog_excerpt_length' ) != '' ) {
+		$length = Cyberchimps_Helper::cyberchimps_get_option( 'blog_excerpt_length' );
 
 		return $length;
-	}
-	else {
+	} else {
 		$length = 55;
 
 		return $length;
 	}
 }
 
-if( cyberchimps_get_option( 'post_excerpts', 0 ) != 0 ) {
+if ( Cyberchimps_Helper::cyberchimps_get_option( 'post_excerpts', 0 ) != 0 ) {
 	add_filter( 'excerpt_length', 'cyberchimps_blog_excerpt_length', 999 );
 }
 
@@ -1017,11 +791,11 @@ if( cyberchimps_get_option( 'post_excerpts', 0 ) != 0 ) {
 function cyberchimps_getPostViews( $postID ) {
 	$count_key = 'post_views_count';
 	$count     = get_post_meta( $postID, $count_key, true );
-	if( $count == '' ) {
+	if ( $count == '' ) {
 		delete_post_meta( $postID, $count_key );
 		add_post_meta( $postID, $count_key, '0' );
 
-		return "0 View";
+		return '0 View';
 	}
 
 	return $count . ' Views';
@@ -1031,12 +805,11 @@ function cyberchimps_getPostViews( $postID ) {
 function cyberchimps_setPostViews( $postID ) {
 	$count_key = 'post_views_count';
 	$count     = get_post_meta( $postID, $count_key, true );
-	if( $count == '' ) {
+	if ( $count == '' ) {
 		$count = 0;
 		delete_post_meta( $postID, $count_key );
 		add_post_meta( $postID, $count_key, '0' );
-	}
-	else {
+	} else {
 		$count++;
 		update_post_meta( $postID, $count_key, $count );
 	}
@@ -1048,25 +821,24 @@ remove_action( 'wp_head', 'adjacent_posts_rel_link_wp_head', 10, 0 );
 // Set up half slide for iFeature pro slider, adds it before post/page content
 function cyberchimps_half_slider() {
 	global $post;
-	if( is_page() ) {
+	if ( is_page() ) {
 		$page_section_order = get_post_meta( $post->ID, 'cyberchimps_page_section_order', true );
-		//if page_section_order is empty sets page as default
+		// if page_section_order is empty sets page as default
 		$page_section_order = ( $page_section_order == '' ) ? array( 'page_section' ) : $page_section_order;
-		if( in_array( 'page_slider', $page_section_order, true ) ) {
+		if ( in_array( 'page_slider', $page_section_order, true ) ) {
 			$slider_size = get_post_meta( $post->ID, 'cyberchimps_slider_size', true );
-			if( $slider_size == 'half' ) {
-				do_action( 'page_slider' );
+			if ( $slider_size == 'half' ) {
+				do_action( 'cyberchimps_page_slider' );
 			}
 		}
-	}
-	else {
-		$blog_section_order = cyberchimps_get_option( 'blog_section_order' );
-		//select default in case options are empty
+	} else {
+		$blog_section_order = Cyberchimps_Helper::cyberchimps_get_option( 'blog_section_order' );
+		// select default in case options are empty
 		$blog_section_order = ( $blog_section_order == '' ) ? array( 'blog_post_page' ) : $blog_section_order;
-		if( in_array( 'page_slider', $blog_section_order, true ) ) {
-			$slider_size = cyberchimps_get_option( 'blog_slider_size' );
-			if( $slider_size == 'half' ) {
-				do_action( 'page_slider' );
+		if ( in_array( 'page_slider', $blog_section_order, true ) ) {
+			$slider_size = Cyberchimps_Helper::cyberchimps_get_option( 'blog_slider_size' );
+			if ( $slider_size == 'half' ) {
+				do_action( 'cyberchimps_page_slider' );
 			}
 		}
 	}
@@ -1082,7 +854,7 @@ function cyberchimps_options_help_text() {
 	$text            = '';
 	$instruction_img = get_template_directory_uri() . '/cyberchimps/options/lib/images/document.png';
 	$support_img     = get_template_directory_uri() . '/cyberchimps/options/lib/images/questionsupport.png';
-	$text .= '<div class="cc_help_section">
+	$text           .= '<div class="cc_help_section">
 						<div class="row-fluid"><div class="span3">
 							<a href="' . apply_filters( 'cyberchimps_documentation', 'http://cyberchimps.com' ) . '" title="CyberChimps Instructions">
 								<img src="' . $instruction_img . '" alt="CyberChimps Instructions" />
@@ -1090,16 +862,16 @@ function cyberchimps_options_help_text() {
 							</a>
 						</div>
 						<div class="span3">
-							<a href="' . apply_filters( 'cyberchimps_support_forum', 'http://cyberchimps.com' ) . '" title="CyberChimps Support">
+							<a href="' . apply_filters( 'cyberchimps_support_forum', 'https://cyberchimps.com' ) . '" target="_blank" title="CyberChimps Support">
 								<img src="' . $support_img . '" alt="CyberChimps Help" />
 								<div class="cc_help_caption"><p>' . __( 'Support', 'cyberchimps_core' ) . '</p></div>
 							</a>
 						</div>
 						</div>';
 	// Upgrade Button and text for free themes
-	if( cyberchimps_theme_check() == 'free' ) {
+	if ( cyberchimps_theme_check() == 'free' ) {
 		$upgrade_link = apply_filters( 'cyberchimps_upgrade_link', 'http://cyberchimps.com' );
-		$pro_title = apply_filters( 'cyberchimps_upgrade_pro_title', 'CyberChimps Pro' );
+		$pro_title    = apply_filters( 'cyberchimps_upgrade_pro_title', 'CyberChimps Pro' );
 
 		$text .= '<div class="row-fluid">
 						<div class="span6">
@@ -1112,11 +884,11 @@ function cyberchimps_options_help_text() {
 						<div class="clear"></div>';
 		$text .= sprintf(
 			'<p>' . __( 'For even more amazing new features, upgrade to %1$s which includes a slider with customizable features, an image carousel, widgetized boxes, a callout section, expanded typography (including Google Fonts), additional color skins, and many more powerful new features. Visit %2$s to learn more!', 'cyberchimps_core' ) . '</p>',
-			'<a href="' . $upgrade_link . ' target="_blank" title="' . $pro_title . '">' . $pro_title . '</a>',
-			'<a href="cyberchimps.com" title="CyberChimps">CyberChimps.com</a>'
+			'<a href="' . $upgrade_link . '" target="_blank" title="' . $pro_title . '">' . $pro_title . '</a>',
+			'<a href="https://cyberchimps.com" title="CyberChimps">CyberChimps.com</a>'
 		);
 	}
-	//text for pro themes
+	// text for pro themes
 	else {
 		$text .= '</div><div class="clear"></div>';
 	}
@@ -1129,16 +901,18 @@ add_filter( 'cyberchimps_help_description', 'cyberchimps_options_help_text' );
 // upgrade bar for free themes
 function cyberchimps_upgrade_bar() {
 	$current_theme_name = apply_filters( 'cyberchimps_current_theme_name', 'CyberChimps' );
-	$upgrade_link = apply_filters( 'cyberchimps_upgrade_link', 'http://cyberchimps.com' );
-	$pro_title = apply_filters( 'cyberchimps_upgrade_pro_title', 'CyberChimps Pro' );
+	$upgrade_link       = apply_filters( 'cyberchimps_upgrade_link', 'http://cyberchimps.com' );
+	$pro_title          = apply_filters( 'cyberchimps_upgrade_pro_title', 'CyberChimps Pro' );
 	?>
 	<div class="upgrade-callout">
 		<p><img src="<?php echo get_template_directory_uri(); ?>/cyberchimps/options/lib/images/chimp.png" alt="CyberChimps"/>
-			<?php printf(
-				__( 'Welcome to %1$s! Learn more now about upgrading to %2$s today.', 'cyberchimps_core' ),
+			<?php
+			printf(
+				esc_html( 'Welcome to %1$s! Learn more now about upgrading to %2$s today.', 'cyberchimps_core' ),
 				$current_theme_name,
 				'<a href="' . $upgrade_link . '" target="_blank" title="' . $pro_title . '">' . $pro_title . '</a> '
-			); ?>
+			);
+			?>
 		</p>
 
 	<!--	<div class="social-container">
@@ -1163,24 +937,24 @@ function cyberchimps_upgrade_bar() {
 	</div>
 <h4 class="notice notice-info is-dismissible" style="margin-top:15px;">
 <p>
-<?php
-	$utm_link="https://cyberchimps.com/free-download-50-stock-images-use-please/?utm_source=" . $current_theme_name;
- 	$utm_text="FREE - Download CyberChimps' Pack of 50 High-Resolution Stock Images Now";
-	printf('<a href="' . $utm_link . '" target="_blank" style="font-size:18px;">' . $utm_text . '</a> ');
-?>
+	<?php
+	$utm_link = 'https://cyberchimps.com/free-download-50-stock-images-use-please/?utm_source=' . $current_theme_name;
+	$utm_text = "FREE - Download CyberChimps' Pack of 50 High-Resolution Stock Images Now";
+	printf( '<a href="' . $utm_link . '" target="_blank" style="font-size:18px;">' . $utm_text . '</a> ' );
+	?>
 </p>
 </h4>
-<?php
+	<?php
 }
 
-if( cyberchimps_theme_check() == 'free' ) {
+if ( cyberchimps_theme_check() == 'free' ) {
 	add_action( 'cyberchimps_options_before_container', 'cyberchimps_upgrade_bar' );
 }
 
 // Hide preview and view on custom post types
 function cyberchimps_posttype_admin_css() {
 	global $post_type;
-	if( $post_type == 'custom_slides' || $post_type == 'boxes' || $post_type == 'featured_posts' || $post_type == 'portfolio_images' ) {
+	if ( $post_type == 'custom_slides' || $post_type == 'boxes' || $post_type == 'featured_posts' || $post_type == 'portfolio_images' ) {
 		echo '<style type="text/css">#view-post-btn,#post-preview{display: none;}</style>';
 	}
 }
@@ -1193,32 +967,34 @@ add_action( 'admin_head', 'cyberchimps_posttype_admin_css' );
 function cyberchimps_admin_link() {
 	global $wp_admin_bar;
 
-	$wp_admin_bar->add_menu( array(
-		                         'id'    => 'cyberchimps',
-		                         'title' => apply_filters( 'cyberchimps_current_theme_name', 'CyberChimps ' . __( 'Options', 'cyberchimps_core' ) ) . __( 'Options', 'cyberchimps_core' ),
-		                         'href'  => admin_url( 'themes.php?page=cyberchimps-theme-options' )
-	                         ) );
+	$wp_admin_bar->add_menu(
+		array(
+			'id'    => 'cyberchimps',
+			'title' => apply_filters( 'cyberchimps_current_theme_name', 'CyberChimps ' . __( 'Options', 'cyberchimps_core' ) ) . __( 'Options', 'cyberchimps_core' ),
+			'href'  => admin_url( 'themes.php?page=cyberchimps-theme-options' ),
+		)
+	);
 }
 
 // Include link to theme option in the admin header bar in pro theme only, as it is ruled out in free themes by WPORG.
-if( 'free' != cyberchimps_theme_check() ) {
+if ( 'free' != cyberchimps_theme_check() ) {
 	add_action( 'admin_bar_menu', 'cyberchimps_admin_link', 113 );
 }
 
 function cyberchimps_google_analytics() {
-	$code = cyberchimps_get_option( 'google_analytics', '' );
-	if( $code != '' ) {
+	$code = Cyberchimps_Helper::cyberchimps_get_option( 'google_analytics', '' );
+	if ( $code != '' ) {
 		echo '<script type="text/javascript">' . $code . '</script>';
 	}
 }
 
-if( 'pro' == cyberchimps_theme_check() ) {
+if ( 'pro' == cyberchimps_theme_check() ) {
 	add_action( 'wp_head', 'cyberchimps_google_analytics', 9999 );
 }
 
 // Add an array to an existing array in a certain position, used by options
 function cyberchimps_heading_filter( $orig, $new ) {
-	foreach( $new as $key => $value ) {
+	foreach ( $new as $key => $value ) {
 		array_splice( $orig, $key, 0, $value );
 	}
 
@@ -1227,26 +1003,25 @@ function cyberchimps_heading_filter( $orig, $new ) {
 
 // the following 2 functions help retrieve the starting key number of the whole array of sections. There by allowing you to select the position of the custom section within that heading. 2 array's are passed to cyberchimps_array_section_organizer(). The initial array and the array of new sections. The array of new sections should have the format: $new_section[][10]	= array( field-data ). 10 being the position within that heading.
 
-//this function finds the initial key number where the heading name exists in the original array. If it does not yet exist then this must be a new heading and it returns the last key number of the array.
+// this function finds the initial key number where the heading name exists in the original array. If it does not yet exist then this must be a new heading and it returns the last key number of the array.
 function cyberchimps_section_start_no( $heading, $orig ) {
-	foreach( $orig as $key => $value ) {
-		if( $value['heading'] == $heading ) {
+	foreach ( $orig as $key => $value ) {
+		if ( $value['heading'] == $heading ) {
 			$first_key_value = $key;
 			break;
-		}
-		else {
+		} else {
 			end( $orig );
-			$first_key_value = key( $orig ) + 1; //this counter acts the minus 1 from the organizer so the last element doesn't get built in front of
+			$first_key_value = key( $orig ) + 1; // this counter acts the minus 1 from the organizer so the last element doesn't get built in front of
 		}
 	}
 
 	return $first_key_value;
 }
 
-//this function takes the new and old array and combines them adding the new array elements in the position indicated by their key
+// this function takes the new and old array and combines them adding the new array elements in the position indicated by their key
 function cyberchimps_array_section_organizer( $orig, $new ) {
-	foreach( $new as $value ) {
-		foreach( $value as $key => $val ) {
+	foreach ( $new as $value ) {
+		foreach ( $value as $key => $val ) {
 			$section_start_no = cyberchimps_section_start_no( $val['heading'], $orig );
 			$position         = $section_start_no + ( $key - 1 );
 			$position         = intval( $position );
@@ -1259,14 +1034,13 @@ function cyberchimps_array_section_organizer( $orig, $new ) {
 
 // the following 2 functions help retrieve the starting key number of the whole array of fields. There by allowing you to select the position of the custom field within that section. 2 array's are passed to cyberchimps_array_field_organizer(). The initial array and the array of new fields. The array of new fields should have the format: $new_field[][10]	= array( field-data ). 10 being the position within that section.
 
-//this function finds the initial key number wherethe section name exists in the original array. If it does not yet exist then this must be a new section and it returns the last key number of the array.
+// this function finds the initial key number wherethe section name exists in the original array. If it does not yet exist then this must be a new section and it returns the last key number of the array.
 function cyberchimps_field_start_no( $section, $orig ) {
-	foreach( $orig as $key => $value ) {
-		if( $value['section'] == $section ) {
+	foreach ( $orig as $key => $value ) {
+		if ( $value['section'] == $section ) {
 			$first_key_value = $key;
 			break;
-		}
-		else {
+		} else {
 			end( $orig );
 			$first_key_value = key( $orig ) + 1;
 		}
@@ -1275,10 +1049,10 @@ function cyberchimps_field_start_no( $section, $orig ) {
 	return $first_key_value;
 }
 
-//this function takes the new and old array and combines them adding the new array elements in the position indicated by their key
+// this function takes the new and old array and combines them adding the new array elements in the position indicated by their key
 function cyberchimps_array_field_organizer( $orig, $new ) {
-	foreach( $new as $value ) {
-		foreach( $value as $key => $val ) {
+	foreach ( $new as $value ) {
+		foreach ( $value as $key => $val ) {
 			$section_start_no = cyberchimps_field_start_no( $val['section'], $orig );
 			$position         = $section_start_no + ( $key - 1 );
 			$position         = intval( $position );
@@ -1291,10 +1065,10 @@ function cyberchimps_array_field_organizer( $orig, $new ) {
 
 /**** Remove sections/fields from core theme options *****/
 function cyberchimps_remove_options( $orig, $removes ) {
-	foreach( $removes as $remove ) {
-		foreach( $orig as $key => $value ) {
-			if( $value['id'] == $remove ) {
-				unset( $orig[$key] );
+	foreach ( $removes as $remove ) {
+		foreach ( $orig as $key => $value ) {
+			if ( $value['id'] == $remove ) {
+				unset( $orig[ $key ] );
 			}
 		}
 	}
@@ -1304,16 +1078,16 @@ function cyberchimps_remove_options( $orig, $removes ) {
 
 /* Container width fix for IE8 */
 function cyberchimps_ie8_responsive() {
-	echo '<style type="text/css">.ie8 .container {max-width: ' . cyberchimps_get_option( 'max_width' ) . 'px;width:auto;}</style>';
+	echo '<style type="text/css">.ie8 .container {max-width: ' . Cyberchimps_Helper::cyberchimps_get_option( 'max_width' ) . 'px;width:auto;}</style>';
 }
 
 add_action( 'wp_head', 'cyberchimps_ie8_responsive' );
 
 /* Removing the unused page option from the woocommerce shop edit page */
 function cyberchimps_woocommerce_shop_style() {
-	if( is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
+	if ( is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
 		global $pagenow;
-		if( $pagenow == 'post.php' && $_GET['post'] == wc_get_page_id( 'shop' ) ) {
+		if ( $pagenow == 'post.php' && $_GET['post'] == wc_get_page_id( 'shop' ) ) {
 			echo '<style type="text/css">.cyberchimps_page_title_toggle, .cyberchimps_page_section_order{display:none}</style>';
 		}
 	}
@@ -1342,42 +1116,18 @@ function cyberchimps_addon_sections( $sections_list ) {
 	$sections_list[] = array(
 		'id'      => 'cyberchimps_slidedeck_lite_options',
 		'label'   => __( 'SlideDeck Lite', 'cyberchimps_core' ),
-		'heading' => 'cyberchimps_addons_heading'
+		'heading' => 'cyberchimps_addons_heading',
 	);
 
 	$sections_list[] = array(
 		'id'      => 'cyberchimps_wpforms_lite_options',
 		'label'   => __( 'WPForms Lite', 'cyberchimps_core' ),
-		'heading' => 'cyberchimps_addons_heading'
+		'heading' => 'cyberchimps_addons_heading',
 	);
 	return $sections_list;
 }
 
 add_filter( 'cyberchimps_section_list', 'cyberchimps_addon_sections', 20, 1 );
-
-// Addon Fields
-function cyberchimps_addon_fields( $fields_list ) {
-	$fields_list[] = array(
-		'name'     => __( 'SlideDeck Lite', 'cyberchimps_core' ),
-		'id'       => 'slidedeck_lite',
-		'type'     => 'info',
-		'callback' => 'cyberchimps_slidedeck_lite_callback',
-		'section'  => 'cyberchimps_slidedeck_lite_options',
-		'heading'  => 'cyberchimps_addons_heading'
-	);
-	$fields_list[] = array(
-		'name'     => __( 'WPForms Lite', 'cyberchimps_core' ),
-		'id'       => 'wpforms_lite',
-		'type'     => 'info',
-		'callback' => 'cyberchimps_wpforms_lite_callback',
-		'section'  => 'cyberchimps_wpforms_lite_options',
-		'heading'  => 'cyberchimps_addons_heading'
-	);
-
-	return $fields_list;
-}
-
-add_filter( 'cyberchimps_field_list', 'cyberchimps_addon_fields', 20, 1 );
 
 // The SlideDeck text
 function cyberchimps_slidedeck_lite_callback( $value ) {
@@ -1388,15 +1138,13 @@ function cyberchimps_slidedeck_lite_callback( $value ) {
 
 	$installed_plugins = get_plugins();
 
-	if( isset( $installed_plugins[$plugin] ) ) {
-		if( is_plugin_active( $plugin ) ) {
+	if ( isset( $installed_plugins[ $plugin ] ) ) {
+		if ( is_plugin_active( $plugin ) ) {
 			$output .= $icon . '<a href="' . admin_url( 'admin.php?page=slidedeck.php' ) . '">' . __( 'SlideDeck Settings', 'cyberchimps_core' ) . '</a>';
-		}
-		else {
+		} else {
 			$output .= $icon_neg . '<a href="' . admin_url( 'plugins.php' ) . '">' . __( 'Please activate the "SlideDeck Lite" plugin', 'cyberchimps_core' ) . '</a>';
 		}
-	}
-	else {
+	} else {
 		$output .= $icon_neg . '<a href="' . cyberchimps_slidedeck_install_link() . '">' . __( 'Install the "SlideDeck Lite" plugin', 'cyberchimps_core' ) . '</a>';
 	}
 
@@ -1412,15 +1160,13 @@ function cyberchimps_wpforms_lite_callback( $value ) {
 
 	$installed_plugins = get_plugins();
 
-	if( isset( $installed_plugins[$plugin] ) ) {
-		if( is_plugin_active( $plugin ) ) {
+	if ( isset( $installed_plugins[ $plugin ] ) ) {
+		if ( is_plugin_active( $plugin ) ) {
 			$output .= $icon . '<a href="' . admin_url( 'admin.php?page=wpforms-overview' ) . '">' . __( 'WPForms Settings', 'cyberchimps_core' ) . '</a>';
-		}
-		else {
+		} else {
 			$output .= $icon_neg . '<a href="' . admin_url( 'plugins.php' ) . '">' . __( 'Please activate the "WPForms Lite" plugin', 'cyberchimps_core' ) . '</a>';
 		}
-	}
-	else {
+	} else {
 		$output .= $icon_neg . '<a href="' . cyberchimps_wpforms_install_link() . '">' . __( 'Install the "WPForms Lite" plugin', 'cyberchimps_core' ) . '</a>';
 	}
 
@@ -1449,7 +1195,7 @@ add_filter( 'body_class', 'cyberchimps_add_responsive_class' );
 function cyberchimps_add_responsive_class( $classes ) {
 
 	// Check if responisve design is on.
-	if( cyberchimps_get_option( 'responsive_design', 'checked' ) ) {
+	if ( Cyberchimps_Helper::cyberchimps_get_option( 'responsive_design', 'checked' ) ) {
 		$classes[] = 'cc-responsive';
 	}
 
@@ -1465,56 +1211,51 @@ if ( 'mp6' === get_user_option( 'admin_color' ) || version_compare( $GLOBALS['wp
 
 // FOR IE compatiblilty mode.
 add_action( 'send_headers', 'cyberchimps_add_header_xua' );
-function cyberchimps_add_header_xua()
-{
-	if (!headers_sent())
-	{
+function cyberchimps_add_header_xua() {
+	if ( ! headers_sent() ) {
 		header( 'X-UA-Compatible: IE=edge,chrome=1' );
 	}
 }
 
 // For Author Bio on Single Posts Page
-if(!function_exists('cyberchimps_posts_author_bio'))
-{
-    function cyberchimps_posts_author_bio()
-    {
-      global $post;
-      if( is_single() ) {
-			$show = ( cyberchimps_get_option( 'single_post_author_bio', 1 ) ) ? cyberchimps_get_option( 'single_post_author_bio', 1 ) : false;
-                        if($show){
-                        $user_description = get_the_author_meta( 'user_description', $post->post_author );
-                        if($user_description)
-			{
-                        ?>
+if ( ! function_exists( 'cyberchimps_posts_author_bio' ) ) {
+	function cyberchimps_posts_author_bio() {
+		global $post;
+		if ( is_single() ) {
+			$show = ( Cyberchimps_Helper::cyberchimps_get_option( 'single_post_author_bio', 1 ) ) ? Cyberchimps_Helper::cyberchimps_get_option( 'single_post_author_bio', 1 ) : false;
+			if ( $show ) {
+				$user_description = get_the_author_meta( 'user_description', $post->post_author );
+				if ( $user_description ) {
+					?>
 
-                                <div class="cyberchimps_author_bio">
-                                    <div class="author_bio_wrapper">
-                                    <div class="avatar_author">
+								<div class="cyberchimps_author_bio">
+									<div class="author_bio_wrapper">
+									<div class="avatar_author">
 
-                                       <?php echo get_avatar( get_the_author_meta( 'ID' ), 90 ); ?>
+									   <?php echo get_avatar( get_the_author_meta( 'ID' ), 90 ); ?>
 
-                                    </div>
-                                    <div class="author_bio">
-                                        <?php
-                                        // Get url of all author archive( the page will contain all posts by the author).
-                                        $auther_posts_url = esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) );
+									</div>
+									<div class="author_bio">
+										<?php
+										// Get url of all author archive( the page will contain all posts by the author).
+										$auther_posts_url = esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) );
 
-                                        // Set author title text which will appear on hover over the author link.
-                                        $auther_link_title = esc_attr( sprintf( __( 'View all posts by %s', 'cyberchimps_core' ), get_the_author() ) );
+										// Set author title text which will appear on hover over the author link.
+										$auther_link_title = esc_attr( sprintf( __( 'View all posts by %s', 'cyberchimps_core' ), get_the_author() ) );
 
-                                        echo '<div class="author vcard author_bio_name">
+										echo '<div class="author vcard author_bio_name">
 								<a class="url" href="' . $auther_posts_url . '" title="' . $auther_link_title . '" rel="author">' . esc_html( get_the_author() ) . '</a>
 							</div>';
-                                        echo $user_description;
-                                        ?>
-                                    </div>
-                                    </div>
-                                </div>
+										echo $user_description;
+										?>
+									</div>
+									</div>
+								</div>
 
 
-                                <?php
+										<?php
+				}
 			}
-                        }
 		}
-    }
+	}
 }

@@ -161,4 +161,4 @@ function ifeature_default_background_color() {
 	$color = 'f7f7f7';
 	return $color;
 }
-add_filter( 'default_background_color', 'ifeature_default_background_color' );
+add_filter( 'cyberchimps_default_background_color', 'ifeature_default_background_color' );
