@@ -956,7 +956,13 @@ if ( ! class_exists( 'Cyberchimps_Hooks' ) ) {
 		 * @since  2.0.0
 		 */
 		public static function cyberchimps_skin_styles() {
-			$skin = Cyberchimps_Helper::cyberchimps_get_option( 'cyberchimps_skin_color' );
+			$skins = Cyberchimps_Helper::cyberchimps_get_option( 'cyberchimps_skin_color' );
+			$skin = '';
+			if ( is_array( $skins ) ) {
+				$skin_key = array_keys( $skins );
+			} else {
+				$skin = $skins;
+			}
 			if ( 'default' !== $skin ) {
 				wp_enqueue_style( 'skin-style', get_template_directory_uri() . '/inc/css/skins/' . $skin . '.css', array( 'style' ), '1.0' );
 			}

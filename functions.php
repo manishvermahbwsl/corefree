@@ -15,7 +15,7 @@
  * @link     http://www.cyberchimps.com/
  */
 
-// include plugin.php to use is_plugin_active() condition
+// Include plugin.php to use is_plugin_active() condition.
 require_once ABSPATH . 'wp-admin/includes/plugin.php';
 
 /**
@@ -30,10 +30,17 @@ remove_action( 'woocommerce_sidebar', 'woocommerce_get_sidebar', 10 );
 // Enables woocommerce support for the theme.
 add_theme_support( 'woocommerce' );
 
-class cyberchimps_Walker extends Walker_Nav_Menu {
+class cyberchimps_Walker extends Walker_Nav_Menu { //phpcs:ignore
 
-	function start_lvl( &$output, $depth = 0, $args = array() ) {
-		// In a child UL, add the 'dropdown-menu' class
+	/**
+	 * [start_lvl description]
+	 *
+	 * @param  string  $output Contains string.
+	 * @param  integer $depth  Depth.
+	 * @param  array   $args   Arguments.
+	 */
+	public function start_lvl( &$output, $depth = 0, $args = array() ) {
+		// In a child UL, add the 'dropdown-menu' class.
 		if ( $depth == 0 ) {
 			$indent  = str_repeat( "\t", $depth );
 			$output .= "\n$indent<ul class=\"dropdown-menu\">\n";
@@ -43,12 +50,21 @@ class cyberchimps_Walker extends Walker_Nav_Menu {
 		}
 	}
 
+	/**
+	 * [start_el description]
+	 *
+	 * @param  string  $output output.
+	 * @param  object  $item   Item
+	 * @param  integer $depth  Item
+	 * @param  array   $args   Item
+	 */
 	function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
 
 		$indent = ( $depth ) ? str_repeat( "\t", $depth ) : '';
 
 		$li_attributes = '';
-		$class_names   = $value = '';
+		$class_names   = '';
+		$value         = '';
 
 		$classes = empty( $item->classes ) ? array() : (array) $item->classes;
 
@@ -65,10 +81,10 @@ class cyberchimps_Walker extends Walker_Nav_Menu {
 		$classes[] = ( $item->current ) ? 'active' : '';
 
 		// Make sure you still add all of the WordPress classes.
-		$class_names = join( ' ', apply_filters( 'nav_menu_css_class', array_filter( $classes ), $item, $args ) );
+		$class_names = join( ' ', apply_filters( 'nav_menu_css_class', array_filter( $classes ), $item, $args ) ); // phpcs:ignore WPThemeReview.CoreFunctionality.PrefixAllGlobals.NonPrefixedHooknameFound
 		$class_names = ' class="' . esc_attr( $class_names ) . '"';
 
-		$id = apply_filters( 'nav_menu_item_id', 'menu-item-' . $item->ID, $item, $args );
+		$id = apply_filters( 'nav_menu_item_id', 'menu-item-' . $item->ID, $item, $args ); // phpcs:ignore WPThemeReview.CoreFunctionality.PrefixAllGlobals.NonPrefixedHooknameFound
 		$id = strlen( $id ) ? ' id="' . esc_attr( $id ) . '"' : '';
 
 		$output .= $indent . '<li' . $id . $value . $class_names . $li_attributes . '>';
@@ -81,13 +97,13 @@ class cyberchimps_Walker extends Walker_Nav_Menu {
 
 		$item_output  = $args->before;
 		$item_output .= '<a' . $attributes . '>';
-		$item_output .= $args->link_before . apply_filters( 'the_title', $item->title, $item->ID ) . $args->link_after;
+		$item_output .= $args->link_before . apply_filters( 'the_title', $item->title, $item->ID ) . $args->link_after; // phpcs:ignore WPThemeReview.CoreFunctionality.PrefixAllGlobals.NonPrefixedHooknameFound
 		$item_output .= ( $args->has_children && $depth < 1 ) ? ' <b class="caret"></b> ' : '';
 		$item_output .= ( $args->has_children && $depth == 1 ) ? apply_filters( 'cyberchimps_menu_grandchild_caret', '' ) : '';
 		$item_output .= '</a>';
 		$item_output .= $args->after;
 
-		$output .= apply_filters( 'walker_nav_menu_start_el', $item_output, $item, $depth, $args );
+		$output .= apply_filters( 'walker_nav_menu_start_el', $item_output, $item, $depth, $args ); // phpcs:ignore WPThemeReview.CoreFunctionality.PrefixAllGlobals.NonPrefixedHooknameFound
 	}
 
 	// Overwrite display_element function to add has_children attribute. Not needed in >= WordPress 3.4
@@ -99,7 +115,7 @@ class cyberchimps_Walker extends Walker_Nav_Menu {
 
 		$id_field = $this->db_fields['id'];
 
-		// display this element
+		// Display this element.
 		if ( is_array( $args[0] ) ) {
 			$args[0]['has_children'] = ! empty( $children_elements[ $element->$id_field ] );
 		} else {
@@ -112,14 +128,14 @@ class cyberchimps_Walker extends Walker_Nav_Menu {
 
 		$id = $element->$id_field;
 
-		// descend only when the depth is right and there are childrens for this element
+		// Descend only when the depth is right and there are childrens for this element.
 		if ( ( $max_depth == 0 || $max_depth > $depth + 1 ) && isset( $children_elements[ $id ] ) ) {
 
 			foreach ( $children_elements[ $id ] as $child ) {
 
 				if ( ! isset( $newlevel ) ) {
 					$newlevel = true;
-					// start the child delimiter
+					// Start the child delimiter.
 					$cb_args = array_merge( array( &$output, $depth ), $args );
 					call_user_func_array( array( &$this, 'start_lvl' ), $cb_args );
 				}
@@ -129,12 +145,12 @@ class cyberchimps_Walker extends Walker_Nav_Menu {
 		}
 
 		if ( isset( $newlevel ) && $newlevel ) {
-			// end the child delimiter
+			// End the child delimiter.
 			$cb_args = array_merge( array( &$output, $depth ), $args );
 			call_user_func_array( array( &$this, 'end_lvl' ), $cb_args );
 		}
 
-		// end this element
+		// End this element.
 		$cb_args = array_merge( array( &$output, $element, $depth ), $args );
 		call_user_func_array( array( &$this, 'end_el' ), $cb_args );
 	}
@@ -180,7 +196,7 @@ class Cyberchimps_Fallback_Walker extends Walker_Page {
 		if ( $class_attr != '' ) {
 			$class_attr = ' class="' . $class_attr . '"';
 		}
-		$output .= $indent . '<li' . $class_attr . $data . '><a href="' . get_page_link( $page->ID ) . '"' . $link_class_attr . '>' . apply_filters( 'the_title', $page->post_title, $page->ID ) . $caret . '</a>';
+		$output .= $indent . '<li' . $class_attr . $data . '><a href="' . get_page_link( $page->ID ) . '"' . $link_class_attr . '>' . apply_filters( 'the_title', $page->post_title, $page->ID ) . $caret . '</a>'; // phpcs:ignore WPThemeReview.CoreFunctionality.PrefixAllGlobals.NonPrefixedHooknameFound
 	}
 }
 
