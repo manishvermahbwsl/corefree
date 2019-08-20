@@ -414,28 +414,6 @@ function cyberchimps_customize( $wp_customize ) {
 		)
 	);
 
-	// Add Custom Apple touch icon image
-	$wp_customize->add_setting(
-		'cyberchimps_options[apple_touch_uploader]',
-		array(
-			'type'              => 'option',
-			'sanitize_callback' => 'cyberchimps_sanitize_upload',
-		)
-	);
-
-	$wp_customize->add_control(
-		new WP_Customize_Image_Control(
-			$wp_customize,
-			'apple_touch_uploader',
-			array(
-				'label'    => __( 'Upload Custom Apple touch icon', 'cyberchimps_core' ),
-				'section'  => 'cyberchimps_header_section',
-				'settings' => 'cyberchimps_options[apple_touch_uploader]',
-				'type'     => 'image',
-			)
-		)
-	);
-
 	// Disable search bar
 	$wp_customize->add_setting(
 		'cyberchimps_options[searchbar]',

@@ -320,7 +320,7 @@ if( !class_exists( 'AT_Meta_Box' ) ) :
 			foreach( $this->_fields as $field ) {
 				$field['multiple'] = isset( $field['multiple'] ) ? $field['multiple'] : false;
 				$meta              = get_post_meta( $post->ID, $field['id'], !$field['multiple'] );
-				$meta              = ( $meta !== '' ) ? $meta : @$field['std'];
+				$meta              = ( $meta !== '' ) ? $meta : @$field['std']; // phpcs:ignore Generic.PHP.NoSilencedErrors.Forbidden
 
 				if( !in_array( $field['type'], array( 'image', 'repeater', 'file' ) ) ) {
 					$meta = is_array( $meta ) ? array_map( 'esc_attr', $meta ) : esc_attr( $meta );
@@ -1599,7 +1599,7 @@ if( !class_exists( 'AT_Meta_Box' ) ) :
 		 *    'desc' => // field description, string optional
 		 *    'std' => // default value, string optional
 		 *    'validate_func' => // validate function, string optional
-		 *    'format' => // date format, default yy-mm-dd. Optional. Default "'d MM, yy'"  See more formats here: http://goo.gl/Wcwxn
+		 *    'format' => // date format, default yy-mm-dd. Optional. Default "'d MM, yy'"
 		 * @param $repeater bool  is this a field inside a repeatr? true|false(default)
 		 */
 		public function addDate( $id, $args, $repeater = false ) {
@@ -1625,7 +1625,7 @@ if( !class_exists( 'AT_Meta_Box' ) ) :
 		 *    'desc' => // field description, string optional
 		 *    'std' => // default value, string optional
 		 *    'validate_func' => // validate function, string optional
-		 *    'format' => // time format, default hh:mm. Optional. See more formats here: http://goo.gl/83woX
+		 *    'format' => // time format, default hh:mm. Optional
 		 * @param $repeater bool  is this a field inside a repeatr? true|false(default)
 		 */
 		public function addTime( $id, $args, $repeater = false ) {
@@ -1748,7 +1748,7 @@ if( !class_exists( 'AT_Meta_Box' ) ) :
 		 * @param $options mixed|array options of taxonomy field
 		 *    'taxonomy' =>    // taxonomy name can be category,post_tag or any custom taxonomy default is category
 		 *    'type' =>  // how to show taxonomy? 'select' (default) or 'checkbox_list'
-		 *    'args' =>  // arguments to query taxonomy, see http://goo.gl/uAANN default ('hide_empty' => false)
+		 *    'args' =>  // arguments to query taxonomy, default ('hide_empty' => false)
 		 * @param $args mixed|array
 		 *    'name' => // field name/label string optional
 		 *    'desc' => // field description, string optional
@@ -1783,7 +1783,7 @@ if( !class_exists( 'AT_Meta_Box' ) ) :
 		 * @param $options mixed|array options of taxonomy field
 		 *    'post_type' =>    // post type name, 'post' (default) 'page' or any custom post type
 		 *    'type' =>  // how to show posts? 'select' (default) or 'checkbox_list'
-		 *    'args' =>  // arguments to query posts, see http://goo.gl/is0yK default ('posts_per_page' => -1)
+		 *    'args' =>  // arguments to query posts,  ('posts_per_page' => -1)
 		 * @param $args mixed|array
 		 *    'name' => // field name/label string optional
 		 *    'desc' => // field description, string optional

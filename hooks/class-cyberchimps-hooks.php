@@ -38,7 +38,6 @@ if ( ! class_exists( 'Cyberchimps_Hooks' ) ) {
 			add_action( 'cyberchimps_page_content', __CLASS__ . '::cyberchimps_page_section_order_action' );
 			add_action( 'page_section', __CLASS__ . '::cyberchimps_page' );
 			add_action( 'wp_head', __CLASS__ . '::cyberchimps_css_styles', 50 );
-			add_action( 'wp_head', __CLASS__ . '::cyberchimps_apple', 2 );
 			add_action( 'wp_enqueue_scripts', __CLASS__ . '::cyberchimps_skin_styles', 35 );
 			add_action( 'wp_head', __CLASS__ . '::cyberchimps_header_scripts' );
 		}
@@ -934,21 +933,6 @@ if ( ! class_exists( 'Cyberchimps_Hooks' ) ) {
 			return $container_styles;
 		}
 
-
-		/**
-		 * Add apple touch icon.
-		 *
-		 * @since  2.0.0
-		 */
-		public static function cyberchimps_apple() {
-			if ( Cyberchimps_Helper::cyberchimps_get_option( 'custom_apple' ) ) :
-				$apple = Cyberchimps_Helper::cyberchimps_get_option( 'apple_touch_uploader' );
-				if ( '' !== $apple ) :
-					?>
-					<link rel="apple-touch-icon" href="<?php echo stripslashes( $apple ); ?>"/>
-				<?php endif;
-			endif;
-		}
 
 		/**
 		 * Add styles for skin selection.
